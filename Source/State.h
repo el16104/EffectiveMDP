@@ -4,6 +4,8 @@
 
 using namespace std;
 
+class Qstate;
+
 class State{
 public:
     //vector<string> parameters;

@@ -4,6 +4,13 @@
 
 using namespace std;
 
+int max(int a, int b){
+    if (a>=b) return a;
+    else return b;
+}
+
+class State;
+
 class QState{
 public:
     pair<string,string> action;
@@ -24,12 +31,8 @@ public:
         for (int i = 0; i < num_states; i++) rewards[i] = 0;
     }
 
-    void update(State new_state, float reward){
-        num_taken++;
-        int state_num = new_state.get_state_num();
-        transitions[state_num] += 1;
-        rewards[state_num] += reward;
-    }
+    void update(State* new_state, float reward);
+
 
     pair<string, string> get_action(){
         return action;
@@ -91,12 +94,12 @@ public:
     int num_visited = 0;
 
     State(int state_num = 0, float initial_value = 0, int num_states = 0){
-        vector<QState> qstates;
-        int state_num   = state_num;
-        int num_states  = num_states;
-        float value = 0.0;
-        QState* best_qstate;
-        int num_visited = 0;
+        //vector<QState> qstates;
+        state_num   = state_num;
+        num_states  = num_states;
+        value = initial_value;
+        //QState* best_qstate;
+        //int num_visited = 0;
     }
 
     void visit(){
@@ -115,19 +118,19 @@ public:
         return value;
     }
 
-    QState* get_best_qstate(self){
-        return *best_qstate;
+    QState* get_best_qstate(){
+        return best_qstate;
     }
 
     void update_value(){
 
-        best_qstate = qstates[0];
+        best_qstate = &qstates[0];
         value = qstates[0].get_qvalue();
 
         for (auto & element : qstates) {
             if (element.get_qvalue() > value){
-                best_qstate = element;
-                value = element.get_value();
+                best_qstate = &element;
+                value = element.get_qvalue();
             }
         }
     }
@@ -143,7 +146,7 @@ public:
     }
 
 
-    QState get_qstate(action){
+    QState get_qstate(pair<string, string> action){
 
         for (auto & element : qstates){
             if (element.get_action() == action)
@@ -151,31 +154,40 @@ public:
         }
     }
 
-    int* get_max_transitions(){
-        int* trans = new int[num_states];
+   map<int,int> get_max_transitions(){
+        map<int,int> trans;
+        
         for (int i=0; i < num_states; i++){
             for (auto & element : qstates){
-                if element.has_transition(i){
-                    if i in transitions
-                        trans[i] = max(trans[i], element.get_transition(i))
+                if (element.has_transition(i)){
+                    if (trans.find(i) != trans.end())
+                        trans.insert(pair<int,int>(i, max(trans.at(i), element.get_transition(i))));
                     else
-                        trans[i] = element.get_transition(i)
+                        trans.insert(pair<int,int>(i, element.get_transition(i)));
                 }
             }
         }
+        return trans;
     }
 
     vector<pair<string,string>> get_legal_actions(){
 
         vector<pair<string,string>> actions;
         for (auto & element : qstates){
-            actions.push_back(element.get_action())
+            actions.push_back(element.get_action());
         }
         return actions;
     }
 
 
 };
+
+void QState::update(State* new_state, float reward){
+        num_taken++;
+        int state_num = new_state->get_state_num();
+        transitions[state_num] += 1;
+        rewards[state_num] += reward;
+    }
 
 class MDPModel{
     public:
@@ -186,4 +198,4 @@ class MDPModel{
         State current_state;
         float update_error  = 0.01;
         int max_updates   = 100;
-}
+};
