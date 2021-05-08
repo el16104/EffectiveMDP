@@ -97,6 +97,7 @@ public:
     float value = 0.0;
     QState* best_qstate;
     int num_visited = 0;
+    vector<pair<string,float>> parameters;
 
     State(int state_num = 0, float initial_value = 0, int num_states = 0){
         //vector<QState> qstates;
@@ -139,6 +140,24 @@ public:
             }
         }
     }
+
+    vector<pair<string,float>> get_parameters(){
+        return parameters;
+    }
+
+    void add_new_parameter(string name, float values){
+        parameters.push_back(make_pair(name, values));
+    }
+
+    float *get_parameter(string param){
+        for (auto& x:parameters){
+            if (x.first == param)
+                return &x.second;
+        }
+        return nullptr;
+    }
+
+
 
     void add_qstate(QState q){
         qstates.push_back(q);
@@ -241,10 +260,60 @@ class MDPModel{
         }
 
             
+    };
+
+    void _assert_modeled_params(json conf){
+        if (conf["actions"].contains("add_VMs") || conf["actions"].contains("remove_VMs")){
+            if (!conf["parameters"].contains("numbers_of_VMs"))
+                throw std::invalid_argument( "NUMBER OF VMS MISSING" );
+        }
+    };
+
+    json _get_params(json par){
+        json new_pars;
+        for (auto& element : parameters.items()){
+            new_pars[element.key()] = {};
+            if (element.value().contains("values")){
+                vector<pair<int,int>> values;
+                for (auto& x:element.value()["values"]){
+                    values.push_back(make_pair(x, x));
+                }
+                new_pars[element.key()]["values"] = values;
+            }
+
+            else if (element.value().contains("limits")){
+                vector<pair<int,int>> values;
+                vector<int> aux;
+                for (auto& x:element.value()["limits"]) aux.push_back(x);
+                for (int i = 1; i< aux.size(); i++ )
+                    values.push_back(make_pair(aux[i-1] , aux[i]));
+                new_pars[element.key()]["values"] = values;
+            }
+        }
+        return new_pars;
     }
 
-    void _assert_modeled_params(json conf);
-    json _get_params(json par);
+    void set_state(json measurements){
+        current_state = _get_state(measurements);
+    }
+
+    void _update_states(string name, json new_parameter){
+        int state_num = 0;
+        vector<State> new_states;
+        vector<int> aux;
+        for (auto& x:new_parameter["values"]){
+            for (auto& s:states){
+                State new_state = State(s.get_parameters(), state_num);
+                new_state.add_new_parameter(name, x);
+                new_states.push_back(new_state);
+                state_num++;
+            }
+        }
+        states = new_states;
+    }
+
+
+    State _get_state(json measurements);
     void _update_states(string name, json new_parameter);
     void _set_maxima_minima(json parameters, json acts);
     void _add_qstates(json acts, json initq);
