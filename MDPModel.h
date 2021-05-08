@@ -1,6 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <nlohmann/json.hpp>
+#include <stdexcept>
+
+// for convenience
+using json = nlohmann::json;
 
 using namespace std;
 
@@ -13,14 +18,14 @@ class State;
 
 class QState{
 public:
-    pair<string,string> action;
+    pair<string,int> action;
     int num_taken;
     float qvalue;
     int* transitions;
     float* rewards;
     int num_states;
 
-    QState(pair<string, string> action, int num_states, float qvalue = 0.0){
+    QState(pair<string, int> action, int num_states, float qvalue = 0.0){
         action = action;
         num_taken = 0;
         qvalue = qvalue;
@@ -34,7 +39,7 @@ public:
     void update(State* new_state, float reward);
 
 
-    pair<string, string> get_action(){
+    pair<string, int> get_action(){
         return action;
     }
 
@@ -146,7 +151,7 @@ public:
     }
 
 
-    QState get_qstate(pair<string, string> action){
+    QState get_qstate(pair<string, int> action){
 
         for (auto & element : qstates){
             if (element.get_action() == action)
@@ -170,9 +175,9 @@ public:
         return trans;
     }
 
-    vector<pair<string,string>> get_legal_actions(){
+    vector<pair<string, int>> get_legal_actions(){
 
-        vector<pair<string,string>> actions;
+        vector<pair<string, int>> actions;
         for (auto & element : qstates){
             actions.push_back(element.get_action());
         }
@@ -192,10 +197,58 @@ void QState::update(State* new_state, float reward){
 class MDPModel{
     public:
         float discount;
-        State* states;
-        pair<string, float>* index_params;
-        //self.index_states  = list(self.states);
+        vector<State> states;
+        vector<pair<string, float> > index_params;
+        vector<State> index_states = states;
         State current_state;
+        json parameters;
         float update_error  = 0.01;
         int max_updates   = 100;
+        string update_algorithm;
+        vector<json> reverse_transitions;
+        vector<float> priorities;
+
+    MDPModel(json conf){
+        string required_fields[4] = {"parameters", "actions", "discount", "initial_qvalues"};
+        for (int i=0; i<4; i++){
+            if (!conf.contains(required_fields[i])){
+                throw std::invalid_argument( "SOMETHING IS MISSING FROM CONF" );
+            }
+        }
+        
+        discount = conf["discount"];
+
+        _assert_modeled_params(conf);
+        parameters = _get_params(conf["parameters"]);
+
+        for (auto& element : parameters.items()) {
+            index_params.push_back( make_pair(element.key(), element.value()["values"]));
+            _update_states(element.key(), element.value());
+        }
+
+        int num_states = states.size();
+        for (auto & element : states)
+            element.set_num_states(num_states);
+
+        _set_maxima_minima(parameters, conf["actions"]);
+        _add_qstates(conf["actions"], conf["initial_qvalues"]);
+
+        update_algorithm  = "single_update";
+
+        for (int i=0; i < num_states; i++){
+            reverse_transitions.push_back({});
+            priorities.push_back(0.0);
+        }
+
+            
+    }
+
+    void _assert_modeled_params(json conf);
+    json _get_params(json par);
+    void _update_states(string name, json new_parameter);
+    void _set_maxima_minima(json parameters, json acts);
+    void _add_qstates(json acts, json initq);
+
+
+
 };
