@@ -226,6 +226,8 @@ class MDPModel{
         string update_algorithm;
         vector<json> reverse_transitions;
         vector<float> priorities;
+        int max_VMs;
+        int min_VMs;
 
     MDPModel(json conf){
         string required_fields[4] = {"parameters", "actions", "discount", "initial_qvalues"};
@@ -303,7 +305,8 @@ class MDPModel{
         vector<int> aux;
         for (auto& x:new_parameter["values"]){
             for (auto& s:states){
-                State new_state = State(s.get_parameters(), state_num);
+                //State new_state = State(s.get_parameters(), state_num);
+                State new_state = State(state_num);
                 new_state.add_new_parameter(name, x);
                 new_states.push_back(new_state);
                 state_num++;
@@ -315,8 +318,48 @@ class MDPModel{
 
     State _get_state(json measurements);
     void _update_states(string name, json new_parameter);
-    void _set_maxima_minima(json parameters, json acts);
-    void _add_qstates(json acts, json initq);
+
+    void _set_maxima_minima(json parameters, json acts){
+        if (acts.contains("add_VMs") || acts.contains("remove_VMs")){
+            vector<int> vms;
+            for (auto& x:parameters["number_of_VMs"]["values"]){
+                vms.push_back(x);
+            }
+            max_VMs = *max_element(vms.begin(), vms.end());
+            min_VMs = *min_element(vms.begin(), vms.end());
+
+        }
+    }
+
+    void _add_qstates(json acts, float initq){
+        int num_states = states.size();
+        for (auto& action:acts.items()){
+            for (auto& val:action.value()){
+                pair<string,int> act = make_pair(action.key(), val);
+                for (auto& s:states){
+                        if (_is_permissible(s, act))
+                        s.add_qstate(QState(act, num_states, initq));
+                }
+            }
+        }
+
+        for (auto& s:states)
+            s.update_value();
+    }
+
+    bool _is_permissible(State s, pair<string,int> a){
+        string action_type = a.first;
+        int action_value = a.second;
+        if (action_type == "add_VMs"){
+            param_values = state.get_parameter(NUMBER_OF_VMS)
+            return max(param_values) + action_value <= self.max_VMs
+        }
+        else if (action_type == "remove_VMs"){
+            param_values = state.get_parameter(NUMBER_OF_VMS)
+            return min(param_values) - action_value >= self.min_VMs
+        }
+        return true;
+    }
 
 
 
