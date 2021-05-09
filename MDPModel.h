@@ -25,7 +25,7 @@ public:
     float* rewards;
     int num_states;
 
-    QState(pair<string, int> action, int num_states, float qvalue = 0.0){
+    QState(pair<string, int> action = pair<string,int>("a",0), int num_states = -1, float qvalue = 0.0){
         action = action;
         num_taken = 0;
         qvalue = qvalue;
@@ -95,17 +95,15 @@ public:
     int state_num;
     int num_states;
     float value = 0.0;
-    QState* best_qstate;
+    QState best_qstate;
     int num_visited = 0;
     vector<pair<string,float>> parameters;
 
-    State(int state_num = 0, float initial_value = 0, int num_states = 0){
-        //vector<QState> qstates;
+    State(vector<pair<string,float>> parameters = {}, int state_num = 0, float initial_value = 0, int num_states = 0){
         state_num   = state_num;
         num_states  = num_states;
         value = initial_value;
-        //QState* best_qstate;
-        //int num_visited = 0;
+        parameters = parameters;
     }
 
     void visit(){
@@ -124,18 +122,26 @@ public:
         return value;
     }
 
-    QState* get_best_qstate(){
+    QState get_best_qstate(){
         return best_qstate;
+    }
+
+    pair<string,int> get_optimal_action(){
+        return best_qstate.get_action();
+    }
+
+    int best_action_num_taken(){
+        return best_qstate.get_num_taken();
     }
 
     void update_value(){
 
-        best_qstate = &qstates[0];
+        best_qstate = qstates[0];
         value = qstates[0].get_qvalue();
 
         for (auto & element : qstates) {
             if (element.get_qvalue() > value){
-                best_qstate = &element;
+                best_qstate = element;
                 value = element.get_qvalue();
             }
         }
@@ -161,8 +167,9 @@ public:
 
     void add_qstate(QState q){
         qstates.push_back(q);
-        if (best_qstate == NULL)
-            best_qstate = &q;
+        if (best_qstate.num_states == -1){
+            best_qstate = q;
+        }
     }
 
     vector<QState> get_qstates(){
@@ -254,7 +261,7 @@ class MDPModel{
         _set_maxima_minima(parameters, conf["actions"]);
         _add_qstates(conf["actions"], conf["initial_qvalues"]);
 
-        update_algorithm  = "single_update";
+        update_algorithm  = "value_iteration";
 
         for (int i=0; i < num_states; i++){
             reverse_transitions.push_back({});
@@ -305,8 +312,8 @@ class MDPModel{
         vector<int> aux;
         for (auto& x:new_parameter["values"]){
             for (auto& s:states){
-                //State new_state = State(s.get_parameters(), state_num);
-                State new_state = State(state_num);
+                State new_state = State(s.get_parameters(), state_num);
+                //State new_state = State(state_num);
                 new_state.add_new_parameter(name, x);
                 new_states.push_back(new_state);
                 state_num++;
@@ -315,9 +322,20 @@ class MDPModel{
         states = new_states;
     }
 
-
-    State _get_state(json measurements);
-    void _update_states(string name, json new_parameter);
+    State _get_state(json measurements){
+        for (auto& s:states){
+            bool matches = true;
+            for (auto& par:s.get_parameters()){
+                float min_v = par.second;
+                float max_v = par.second;
+                if (measurements[par.first] < min_v || measurements[par.second] > max_v){
+                    matches = false;
+                    break;
+                }
+            }
+            if (matches) return s;
+        }
+    }
 
     void _set_maxima_minima(json parameters, json acts){
         if (acts.contains("add_VMs") || acts.contains("remove_VMs")){
@@ -351,16 +369,87 @@ class MDPModel{
         string action_type = a.first;
         int action_value = a.second;
         if (action_type == "add_VMs"){
-            param_values = state.get_parameter(NUMBER_OF_VMS)
-            return max(param_values) + action_value <= self.max_VMs
+            //float* param_values = s.get_parameter("number_of_VMs");
+            //return max(param_values) + action_value <= max_VMs
         }
         else if (action_type == "remove_VMs"){
-            param_values = state.get_parameter(NUMBER_OF_VMS)
-            return min(param_values) - action_value >= self.min_VMs
+            //param_values = state.get_parameter(NUMBER_OF_VMS)
+            //return min(param_values) - action_value >= self.min_VMs
         }
         return true;
     }
 
+    pair<string,int> suggest_action(){
+        return current_state.get_optimal_action();
+    }
 
+    vector<pair<string, int>> get_legal_actions(){
+        return current_state.get_legal_actions();
+    }
+    
+    void update(pair<string,int> action, json measurements,float reward){
+        current_state.visit();
+        QState qstate = current_state.get_qstate(action);
+        if (qstate.num_states == -1) return;
+        State* new_state = &_get_state(measurements);
+        qstate.update(new_state, reward);
+        value_iteration();
+        current_state = *new_state;
+    }
 
+    void _q_update(QState qstate){
+        float new_qvalue = 0;
+        float r;
+        float t;
+        for (int i=0; i < states.size(); i++){
+            t = qstate.get_transition(i);
+            r = qstate.get_reward(i);
+            new_qvalue += t * (r + discount * states[i].get_value());
+        }
+        qstate.set_qvalue(new_qvalue);
+    }
+
+    void _v_update(State state){
+        for (auto& qs:state.get_qstates())
+            _q_update(qs);
+        state.update_value();
+    }
+
+    void value_iteration(float error = -1){
+       if (error < 0)
+            error = update_error;
+        bool repeat = true;
+        float old_value;
+        float new_value;
+        while(repeat){
+            repeat = false;
+            for (auto& s:states){
+                old_value = s.get_value();
+                _v_update(s);
+                new_value = s.get_value();
+                if (abs(old_value - new_value) > error)
+                    repeat = true;
+            }
+        }
+    }
+
+    vector<string> get_parameters(){
+        vector<string> v;
+        for (auto& x:index_params)
+            v.push_back(x.first);
+        return v;
+    }
+    
+    float get_percent_not_taken(){
+        float total = 0;
+        float not_taken = 0;
+        for (auto& s:states){
+            for (auto& qs:s.get_qstates()){
+                total++;
+                if (qs.get_num_taken() == 0)
+                    not_taken++;
+            }
+        }
+    }
+        
 };
