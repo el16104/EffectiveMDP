@@ -3,6 +3,7 @@
 #include <map>
 #include <nlohmann/json.hpp>
 #include <stdexcept>
+#include <string>
 
 // for convenience
 using json = nlohmann::json;
@@ -12,6 +13,16 @@ using namespace std;
 int max(int a, int b){
     if (a>=b) return a;
     else return b;
+}
+
+string printableParameters(vector<pair<string,float>> params){
+    string s = "[";
+    for (auto& element:params){
+        s = s + "(";
+        s = s + element.first + "," + to_string(element.second) + ") ";
+    }
+    s = s + "]";
+    return s;
 }
 
 class State;
@@ -87,7 +98,15 @@ public:
     float* get_rewards(){
         return rewards;
     }
+
+    friend ostream &operator<<( ostream &output, const QState& q);
+
 };
+
+ostream &operator<<( ostream &output, const QState& q){ 
+         output << "Action: "<< q.action.first<<"\tQ-value: "<< q.qvalue << "\tTaken: "<< q.num_taken << endl;
+         return output;            
+}
 
 class State{
 public: 
@@ -210,8 +229,21 @@ public:
         return actions;
     }
 
+    friend ostream &operator<<(ostream &output, State& s);
+
+    void print_detailed(){
+        cout << state_num << ": " << printableParameters(parameters) << ", visited: "<< num_visited << endl;
+        for (auto& qs:this->get_qstates())
+            cout << qs << endl;
+    }
+
 
 };
+
+ostream &operator<<(ostream &output, State& s){
+        output << s.state_num << ": " << printableParameters(s.parameters) <<endl;
+        return output;
+}
 
 void QState::update(State* new_state, float reward){
         num_taken++;
