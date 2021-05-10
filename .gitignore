@@ -1,2 +1,7 @@
 try.cpp
 tryhard
+Configuration.py
+Constants.py
+.gitignore
+Exceptions.py
+MDPModel.py

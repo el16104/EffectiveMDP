@@ -15,7 +15,7 @@ int max(int a, int b){
     else return b;
 }
 
-string printableParameters(vector<pair<string,float>> params){
+string printableParameters(vector<pair<string,double>> params){
     string s = "[";
     for (auto& element:params){
         s = s + "(";
@@ -31,30 +31,30 @@ class QState{
 public:
     pair<string,int> action;
     int num_taken;
-    float qvalue;
-    int* transitions;
-    float* rewards;
+    double qvalue;
+    vector<int> transitions;
+    vector<double> rewards;
     int num_states;
 
-    QState(pair<string, int> action = pair<string,int>("a",0), int num_states = -1, float qvalue = 0.0){
+    QState(pair<string, int> action = pair<string,int>("a",0), int num_states = -1, double qvalue = 0.0){
         action = action;
         num_taken = 0;
         qvalue = qvalue;
         num_states = num_states;
-        transitions = new int[num_states];
-        rewards = new float[num_states];
+        transitions = vector<int>(num_states, 0);
+        rewards = vector<double>(num_states, 0);
         for (int i = 0; i < num_states; i++) transitions[i] = 0;
         for (int i = 0; i < num_states; i++) rewards[i] = 0;
     }
 
-    void update(State* new_state, float reward);
+    void update(State new_state, double reward);
 
 
     pair<string, int> get_action(){
         return action;
     }
 
-    float get_qvalue(){
+    double get_qvalue(){
         return qvalue;
     }
 
@@ -63,7 +63,7 @@ public:
     }
 
 
-    float get_transition(int state_num){
+    double get_transition(int state_num){
         if (num_taken == 0)
             return (1 /num_states);
         else
@@ -75,14 +75,14 @@ public:
     }
 
 
-    float get_reward(int state_num){
+    double get_reward(int state_num){
         if (transitions[state_num] == 0)
             return 0.0;
         else
             return (rewards[state_num] / transitions[state_num]);
     }
 
-    void set_qvalue(float qvalue){
+    void set_qvalue(double qvalue){
         qvalue = qvalue;
     }
 
@@ -91,11 +91,11 @@ public:
     }
 
 
-    int* get_transitions(){
+    vector<int> get_transitions(){
         return transitions;
     }
 
-    float* get_rewards(){
+    vector<double> get_rewards(){
         return rewards;
     }
 
@@ -113,12 +113,12 @@ public:
     vector<QState> qstates;
     int state_num;
     int num_states;
-    float value = 0.0;
+    double value = 0.0;
     QState best_qstate;
     int num_visited = 0;
-    vector<pair<string,float>> parameters;
+    vector<pair<string,double>> parameters;
 
-    State(vector<pair<string,float>> parameters = {}, int state_num = 0, float initial_value = 0, int num_states = 0){
+    State(vector<pair<string,double>> parameters = {}, int state_num = 0, double initial_value = 0, int num_states = 0){
         state_num   = state_num;
         num_states  = num_states;
         value = initial_value;
@@ -137,7 +137,7 @@ public:
         num_states = num_states;
     }
 
-    float get_value(){
+    double get_value(){
         return value;
     }
 
@@ -166,15 +166,15 @@ public:
         }
     }
 
-    vector<pair<string,float>> get_parameters(){
+    vector<pair<string,double>> get_parameters(){
         return parameters;
     }
 
-    void add_new_parameter(string name, float values){
+    void add_new_parameter(string name, double values){
         parameters.push_back(make_pair(name, values));
     }
 
-    float *get_parameter(string param){
+    double *get_parameter(string param){
         for (auto& x:parameters){
             if (x.first == param)
                 return &x.second;
@@ -245,32 +245,32 @@ ostream &operator<<(ostream &output, State& s){
         return output;
 }
 
-void QState::update(State* new_state, float reward){
+void QState::update(State new_state, double reward){
         num_taken++;
-        int state_num = new_state->get_state_num();
+        int state_num = new_state.get_state_num();
         transitions[state_num] += 1;
         rewards[state_num] += reward;
     }
 
 class MDPModel{
     public:
-        float discount;
+        double discount;
         vector<State> states;
-        vector<pair<string, float> > index_params;
+        vector<pair<string,double>> index_params;
         vector<State> index_states = states;
         State current_state;
         json parameters;
-        float update_error  = 0.01;
-        int max_updates   = 100;
+        double update_error = 0.01;
+        int max_updates = 100;
         string update_algorithm;
         vector<json> reverse_transitions;
-        vector<float> priorities;
+        vector<double> priorities;
         int max_VMs;
         int min_VMs;
 
     MDPModel(json conf){
-        string required_fields[4] = {"parameters", "actions", "discount", "initial_qvalues"};
-        for (int i=0; i<4; i++){
+        string required_fields[5] = {"parameters", "actions", "discount", "initial_qvalues"};
+        for (int i=0; i<4 ; i++){
             if (!conf.contains(required_fields[i])){
                 throw std::invalid_argument( "SOMETHING IS MISSING FROM CONF" );
             }
@@ -278,9 +278,9 @@ class MDPModel{
         
         discount = conf["discount"];
 
-        _assert_modeled_params(conf);
-        parameters = _get_params(conf["parameters"]);
-
+        //_assert_modeled_params(conf);
+        //parameters = _get_params(conf["parameters"]);
+    /*
         for (auto& element : parameters.items()) {
             index_params.push_back( make_pair(element.key(), element.value()["values"]));
             _update_states(element.key(), element.value());
@@ -299,7 +299,7 @@ class MDPModel{
             reverse_transitions.push_back({});
             priorities.push_back(0.0);
         }
-
+*/
             
     };
 
@@ -358,8 +358,8 @@ class MDPModel{
         for (auto& s:states){
             bool matches = true;
             for (auto& par:s.get_parameters()){
-                float min_v = par.second;
-                float max_v = par.second;
+                double min_v = par.second;
+                double max_v = par.second;
                 if (measurements[par.first] < min_v || measurements[par.second] > max_v){
                     matches = false;
                     break;
@@ -381,7 +381,7 @@ class MDPModel{
         }
     }
 
-    void _add_qstates(json acts, float initq){
+    void _add_qstates(json acts, double initq){
         int num_states = states.size();
         for (auto& action:acts.items()){
             for (auto& val:action.value()){
@@ -401,7 +401,7 @@ class MDPModel{
         string action_type = a.first;
         int action_value = a.second;
         if (action_type == "add_VMs"){
-            //float* param_values = s.get_parameter("number_of_VMs");
+            //double* param_values = s.get_parameter("number_of_VMs");
             //return max(param_values) + action_value <= max_VMs
         }
         else if (action_type == "remove_VMs"){
@@ -419,20 +419,20 @@ class MDPModel{
         return current_state.get_legal_actions();
     }
     
-    void update(pair<string,int> action, json measurements,float reward){
+    void update(pair<string,int> action, json measurements,double reward){
         current_state.visit();
         QState qstate = current_state.get_qstate(action);
         if (qstate.num_states == -1) return;
-        State* new_state = &_get_state(measurements);
+        State new_state = _get_state(measurements);
         qstate.update(new_state, reward);
         value_iteration();
-        current_state = *new_state;
+        current_state = new_state;
     }
 
     void _q_update(QState qstate){
-        float new_qvalue = 0;
-        float r;
-        float t;
+        double new_qvalue = 0;
+        double r;
+        double t;
         for (int i=0; i < states.size(); i++){
             t = qstate.get_transition(i);
             r = qstate.get_reward(i);
@@ -447,12 +447,12 @@ class MDPModel{
         state.update_value();
     }
 
-    void value_iteration(float error = -1){
+    void value_iteration(double error = -1){
        if (error < 0)
             error = update_error;
         bool repeat = true;
-        float old_value;
-        float new_value;
+        double old_value;
+        double new_value;
         while(repeat){
             repeat = false;
             for (auto& s:states){
@@ -472,9 +472,9 @@ class MDPModel{
         return v;
     }
     
-    float get_percent_not_taken(){
-        float total = 0;
-        float not_taken = 0;
+    double get_percent_not_taken(){
+        double total = 0;
+        double not_taken = 0;
         for (auto& s:states){
             for (auto& qs:s.get_qstates()){
                 total++;
@@ -482,6 +482,7 @@ class MDPModel{
                     not_taken++;
             }
         }
+        return not_taken / total;
     }
         
 };
