@@ -36,15 +36,18 @@ public:
     vector<double> rewards;
     int num_states;
 
-    QState(pair<string, int> action = pair<string,int>("a",0), int num_states = -1, double qvalue = 0.0){
+    QState(pair<string, int> action = make_pair("a",0), int num_states = -1, double qvalue = 0.0){
         action = action;
         num_taken = 0;
         qvalue = qvalue;
         num_states = num_states;
-        transitions = vector<int>(num_states, 0);
-        rewards = vector<double>(num_states, 0);
-        for (int i = 0; i < num_states; i++) transitions[i] = 0;
-        for (int i = 0; i < num_states; i++) rewards[i] = 0;
+        if (num_states > 0){
+            for (int i=0; i< num_states;i++){
+            transitions.push_back(0);
+            rewards.push_back(0.0);
+            }
+        }
+
     }
 
     void update(State new_state, double reward);
@@ -263,12 +266,12 @@ class MDPModel{
         double update_error = 0.01;
         int max_updates = 100;
         string update_algorithm;
-        vector<json> reverse_transitions;
-        vector<double> priorities;
+        //vector<json> reverse_transitions;
+        //vector<double> priorities;
         int max_VMs;
         int min_VMs;
 
-    MDPModel(json conf){
+    MDPModel(json conf = json({})){
         string required_fields[5] = {"parameters", "actions", "discount", "initial_qvalues"};
         for (int i=0; i<4 ; i++){
             if (!conf.contains(required_fields[i])){
