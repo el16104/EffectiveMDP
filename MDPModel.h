@@ -15,11 +15,11 @@ int max(int a, int b){
     else return b;
 }
 
-string printableParameters(vector<pair<string,double>> params){
+string printableParameters(vector<pair<string,array<int,2>>> params){
     string s = "[";
     for (auto& element:params){
         s = s + "(";
-        s = s + element.first + "," + to_string(element.second) + ") ";
+        s = s + element.first + "," + to_string(element.second[0]) + "," + to_string(element.second[1]) + ") ";
     }
     s = s + "]";
     return s;
@@ -36,11 +36,11 @@ public:
     vector<double> rewards;
     int num_states;
 
-    QState(pair<string, int> action = make_pair("a",0), int num_states = -1, double qvalue = 0.0){
-        action = action;
+    QState(pair<string, int> actionn = make_pair("a",0), int numstates = -1, double qvaluee = 0.0){
+        action = actionn;
         num_taken = 0;
-        qvalue = qvalue;
-        num_states = num_states;
+        qvalue = qvaluee;
+        num_states = numstates;
         if (num_states > 0){
             for (int i=0; i< num_states;i++){
             transitions.push_back(0);
@@ -119,13 +119,13 @@ public:
     double value = 0.0;
     QState best_qstate;
     int num_visited = 0;
-    vector<pair<string,double>> parameters;
+    vector<pair<string,array<int,2>>> parameters;
 
-    State(vector<pair<string,double>> parameters = {}, int state_num = 0, double initial_value = 0, int num_states = 0){
-        state_num   = state_num;
-        num_states  = num_states;
-        value = initial_value;
-        parameters = parameters;
+    State(vector<pair<string,array<int,2>>> parameterss = {}, int statenum = 0, double initialvalue = 0, int numstates = 0){
+        state_num   = statenum;
+        num_states  = numstates;
+        value = initialvalue;
+        parameters = parameterss;
     }
 
     void visit(){
@@ -136,8 +136,8 @@ public:
         return state_num;
     }
 
-    void set_num_states(int num_states){
-        num_states = num_states;
+    void set_num_states(int numstates){
+        num_states = numstates;
     }
 
     double get_value(){
@@ -169,20 +169,21 @@ public:
         }
     }
 
-    vector<pair<string,double>> get_parameters(){
+    vector<pair<string,array<int,2>>> get_parameters(){
         return parameters;
     }
 
-    void add_new_parameter(string name, double values){
+    void add_new_parameter(string name, array<int,2> values){
         parameters.push_back(make_pair(name, values));
     }
 
-    double *get_parameter(string param){
+    pair<bool,array<int,2>> get_parameter(string param){
         for (auto& x:parameters){
             if (x.first == param)
-                return &x.second;
+                return make_pair(true, x.second);
         }
-        return nullptr;
+        std::array<int, 2> n;
+        return make_pair(false, n);
     }
 
 
@@ -258,7 +259,7 @@ void QState::update(State new_state, double reward){
 class MDPModel{
     public:
         double discount;
-        vector<State> states;
+        vector<State> states = {State()};
         vector<pair<string,double>> index_params;
         vector<State> index_states = states;
         State current_state;
@@ -266,43 +267,33 @@ class MDPModel{
         double update_error = 0.01;
         int max_updates = 100;
         string update_algorithm;
-        //vector<json> reverse_transitions;
-        //vector<double> priorities;
         int max_VMs;
         int min_VMs;
 
     MDPModel(json conf = json({})){
-        string required_fields[5] = {"parameters", "actions", "discount", "initial_qvalues"};
-        for (int i=0; i<4 ; i++){
-            if (!conf.contains(required_fields[i])){
-                throw std::invalid_argument( "SOMETHING IS MISSING FROM CONF" );
-            }
-        }
-        
+        string required_fields[4] = {"parameters", "actions", "discount", "initial_qvalues"};
+
+        if (conf.contains("discount"))
         discount = conf["discount"];
 
-        //_assert_modeled_params(conf);
-        //parameters = _get_params(conf["parameters"]);
-    /*
+        if (conf.contains("parameters"))
+        parameters = _get_params(conf["parameters"]);
+    
         for (auto& element : parameters.items()) {
-            index_params.push_back( make_pair(element.key(), element.value()["values"]));
             _update_states(element.key(), element.value());
         }
 
         int num_states = states.size();
-        for (auto & element : states)
+        for (auto & element : states){
             element.set_num_states(num_states);
-
-        _set_maxima_minima(parameters, conf["actions"]);
-        _add_qstates(conf["actions"], conf["initial_qvalues"]);
-
-        update_algorithm  = "value_iteration";
-
-        for (int i=0; i < num_states; i++){
-            reverse_transitions.push_back({});
-            priorities.push_back(0.0);
         }
-*/
+        if (conf.contains("actions")){
+        _set_maxima_minima(parameters, conf["actions"]);
+
+        if (conf.contains("initial_qvalues"))
+            _add_qstates(conf["actions"], conf["initial_qvalues"]);
+        }
+        update_algorithm  = "value_iteration";
             
     };
 
@@ -315,7 +306,7 @@ class MDPModel{
 
     json _get_params(json par){
         json new_pars;
-        for (auto& element : parameters.items()){
+        for (auto& element : par.items()){
             new_pars[element.key()] = {};
             if (element.value().contains("values")){
                 vector<pair<int,int>> values;
@@ -345,10 +336,10 @@ class MDPModel{
         int state_num = 0;
         vector<State> new_states;
         vector<int> aux;
+        State new_state;
         for (auto& x:new_parameter["values"]){
             for (auto& s:states){
-                State new_state = State(s.get_parameters(), state_num);
-                //State new_state = State(state_num);
+                new_state = State(s.get_parameters(), state_num);
                 new_state.add_new_parameter(name, x);
                 new_states.push_back(new_state);
                 state_num++;
@@ -361,9 +352,9 @@ class MDPModel{
         for (auto& s:states){
             bool matches = true;
             for (auto& par:s.get_parameters()){
-                double min_v = par.second;
-                double max_v = par.second;
-                if (measurements[par.first] < min_v || measurements[par.second] > max_v){
+                double min_v = par.second[0];
+                double max_v = par.second[1];
+                if (measurements[par.first] < min_v || measurements[par.first] > max_v){
                     matches = false;
                     break;
                 }
@@ -376,7 +367,7 @@ class MDPModel{
         if (acts.contains("add_VMs") || acts.contains("remove_VMs")){
             vector<int> vms;
             for (auto& x:parameters["number_of_VMs"]["values"]){
-                vms.push_back(x);
+                vms.push_back(x[0]);
             }
             max_VMs = *max_element(vms.begin(), vms.end());
             min_VMs = *min_element(vms.begin(), vms.end());
@@ -390,8 +381,10 @@ class MDPModel{
             for (auto& val:action.value()){
                 pair<string,int> act = make_pair(action.key(), val);
                 for (auto& s:states){
-                        if (_is_permissible(s, act))
-                        s.add_qstate(QState(act, num_states, initq));
+                        if (_is_permissible(s, act)){
+                            s.add_qstate(QState(act, num_states, initq));
+                        }
+
                 }
             }
         }
@@ -403,13 +396,16 @@ class MDPModel{
     bool _is_permissible(State s, pair<string,int> a){
         string action_type = a.first;
         int action_value = a.second;
+        pair<bool, array<int,2>> param_values;
         if (action_type == "add_VMs"){
-            //double* param_values = s.get_parameter("number_of_VMs");
-            //return max(param_values) + action_value <= max_VMs
+             param_values = s.get_parameter("number_of_VMs");
+             if (param_values.first)
+                return (*std::max_element(param_values.second.begin(), param_values.second.end()) + action_value <= max_VMs);
         }
         else if (action_type == "remove_VMs"){
-            //param_values = state.get_parameter(NUMBER_OF_VMS)
-            //return min(param_values) - action_value >= self.min_VMs
+             param_values = s.get_parameter("number_of_VMs");
+             if (param_values.first)
+                return (*std::min_element(param_values.second.begin(), param_values.second.end()) - action_value >= min_VMs);
         }
         return true;
     }

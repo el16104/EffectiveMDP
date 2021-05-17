@@ -16,12 +16,11 @@ class DecisionMaker{
         bool do_vi;
         MDPModel model;
             
-        DecisionMaker(string conf_file, string training_file){
-            training_file = training_file;
+        DecisionMaker(string conf_file, string trainingfile){
+            training_file = trainingfile;
             ModelConf conf(conf_file);
             model_type = conf.get_model_type();
             model_conf = conf.get_model_conf();
-
             if (model_type == "mdp"){
                 do_vi = true;
                 model = MDPModel(model_conf);
@@ -72,8 +71,11 @@ class DecisionMaker{
                                 }
                                 model.update(aux, new_meas, reward);
                                 num_exp++;
-                                if (num_exp % 100 == 0 && do_vi)
+                                if (num_exp % 100 == 0 && do_vi){
                                     model.value_iteration(0.1);
+                                }
+
+
                             }
                             break;
                     }
