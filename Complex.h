@@ -75,7 +75,7 @@ public:
         double capacity = this->get_current_capacity();
         double served_load = min(capacity, (double)load);
 
-        double reward = served_load - 2 * vms;
+        double reward = served_load - 2.0*vms;
         return reward;
     }
 

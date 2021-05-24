@@ -10,12 +10,12 @@ using json = nlohmann::json;
 
 using namespace std;
 
-int max(int a, int b){
+/*int max(int a, int b){
     if (a>=b) return a;
     else return b;
-}
+}*/
 
-string printableParameters(vector<pair<string,array<int,2>>> params){
+string printableParameters(vector<pair<string,array<double,2>>> params){
     string s = "[";
     for (auto& element:params){
         s = s + "(";
@@ -25,7 +25,7 @@ string printableParameters(vector<pair<string,array<int,2>>> params){
     return s;
 }
 
-class State;
+//class State;
 
 class QState{
 public:
@@ -36,7 +36,7 @@ public:
     vector<double> rewards;
     int num_states;
 
-    QState(pair<string, int> actionn = make_pair("a",0), int numstates = -1, double qvaluee = 0.0){
+    QState(pair<string, int> actionn = make_pair("ab",0), int numstates = -1, double qvaluee = 0.0){
         action = actionn;
         num_taken = 0;
         qvalue = qvaluee;
@@ -50,7 +50,11 @@ public:
 
     }
 
-    void update(State new_state, double reward);
+    void update(int state_num, double reward){
+        num_taken++;
+        transitions[state_num] += 1;
+        rewards[state_num] += reward;
+    }
 
 
     pair<string, int> get_action(){
@@ -67,10 +71,14 @@ public:
 
 
     double get_transition(int state_num){
-        if (num_taken == 0)
-            return (1 /num_states);
-        else
-            return (transitions[state_num] /num_taken);
+        if (num_taken == 0){
+            //cout << "1 dia num " << 1.0/num_states << endl;
+            return (1.0 /num_states);
+        }
+        else{
+            //cout << "Allli periptwsi " << transitions[state_num] << "/" << num_taken << endl;
+            return ((double)transitions[state_num] /(double)num_taken);
+        }
     }
 
     int get_num_transitions(int state_num){
@@ -82,11 +90,11 @@ public:
         if (transitions[state_num] == 0)
             return 0.0;
         else
-            return (rewards[state_num] / transitions[state_num]);
+            return (rewards[state_num] / (double)transitions[state_num]);
     }
 
-    void set_qvalue(double qvalue){
-        qvalue = qvalue;
+    void set_qvalue(double qvaluee){
+        qvalue = qvaluee;
     }
 
     int get_num_taken(){
@@ -119,9 +127,9 @@ public:
     double value = 0.0;
     QState best_qstate;
     int num_visited = 0;
-    vector<pair<string,array<int,2>>> parameters;
+    vector<pair<string,array<double,2>>> parameters;
 
-    State(vector<pair<string,array<int,2>>> parameterss = {}, int statenum = 0, double initialvalue = 0, int numstates = 0){
+    State(vector<pair<string,array<double,2>>> parameterss = {}, int statenum = 0, double initialvalue = 0, int numstates = 0){
         state_num   = statenum;
         num_states  = numstates;
         value = initialvalue;
@@ -169,20 +177,20 @@ public:
         }
     }
 
-    vector<pair<string,array<int,2>>> get_parameters(){
+    vector<pair<string,array<double,2>>> get_parameters(){
         return parameters;
     }
 
-    void add_new_parameter(string name, array<int,2> values){
+    void add_new_parameter(string name, array<double,2> values){
         parameters.push_back(make_pair(name, values));
     }
 
-    pair<bool,array<int,2>> get_parameter(string param){
+    pair<bool,array<double,2>> get_parameter(string param){
         for (auto& x:parameters){
             if (x.first == param)
                 return make_pair(true, x.second);
         }
-        std::array<int, 2> n;
+        std::array<double, 2> n;
         return make_pair(false, n);
     }
 
@@ -208,7 +216,7 @@ public:
         }
     }
 
-   map<int,int> get_max_transitions(){
+   /*map<int,int> get_max_transitions(){
         map<int,int> trans;
         
         for (int i=0; i < num_states; i++){
@@ -222,7 +230,7 @@ public:
             }
         }
         return trans;
-    }
+    }*/
 
     vector<pair<string, int>> get_legal_actions(){
 
@@ -249,30 +257,27 @@ ostream &operator<<(ostream &output, State& s){
         return output;
 }
 
-void QState::update(State new_state, double reward){
+/*void QState::update(State new_state, double reward){
         num_taken++;
         int state_num = new_state.get_state_num();
         transitions[state_num] += 1;
         rewards[state_num] += reward;
-    }
+    }*/
 
 class MDPModel{
     public:
         double discount;
         vector<State> states = {State()};
-        vector<pair<string,double>> index_params;
-        vector<State> index_states = states;
+        vector<string> index_params;
         State current_state;
         json parameters;
         double update_error = 0.01;
-        int max_updates = 100;
         string update_algorithm;
         int max_VMs;
         int min_VMs;
 
     MDPModel(json conf = json({})){
         string required_fields[4] = {"parameters", "actions", "discount", "initial_qvalues"};
-
         if (conf.contains("discount"))
         discount = conf["discount"];
 
@@ -280,10 +285,12 @@ class MDPModel{
         parameters = _get_params(conf["parameters"]);
     
         for (auto& element : parameters.items()) {
+            index_params.push_back(element.key());
             _update_states(element.key(), element.value());
         }
 
         int num_states = states.size();
+
         for (auto & element : states){
             element.set_num_states(num_states);
         }
@@ -293,7 +300,7 @@ class MDPModel{
         if (conf.contains("initial_qvalues"))
             _add_qstates(conf["actions"], conf["initial_qvalues"]);
         }
-        update_algorithm  = "value_iteration";
+        update_algorithm  = "single_update";
             
     };
 
@@ -309,7 +316,7 @@ class MDPModel{
         for (auto& element : par.items()){
             new_pars[element.key()] = {};
             if (element.value().contains("values")){
-                vector<pair<int,int>> values;
+                vector<pair<double,double>> values;
                 for (auto& x:element.value()["values"]){
                     values.push_back(make_pair(x, x));
                 }
@@ -317,8 +324,8 @@ class MDPModel{
             }
 
             else if (element.value().contains("limits")){
-                vector<pair<int,int>> values;
-                vector<int> aux;
+                vector<pair<double,double>> values;
+                vector<double> aux;
                 for (auto& x:element.value()["limits"]) aux.push_back(x);
                 for (int i = 1; i< aux.size(); i++ )
                     values.push_back(make_pair(aux[i-1] , aux[i]));
@@ -335,11 +342,10 @@ class MDPModel{
     void _update_states(string name, json new_parameter){
         int state_num = 0;
         vector<State> new_states;
-        vector<int> aux;
-        State new_state;
+        //State new_state;
         for (auto& x:new_parameter["values"]){
             for (auto& s:states){
-                new_state = State(s.get_parameters(), state_num);
+                State new_state(s.get_parameters(), state_num);
                 new_state.add_new_parameter(name, x);
                 new_states.push_back(new_state);
                 state_num++;
@@ -382,32 +388,34 @@ class MDPModel{
                 pair<string,int> act = make_pair(action.key(), val);
                 for (auto& s:states){
                         if (_is_permissible(s, act)){
-                            s.add_qstate(QState(act, num_states, initq));
+                            QState q(act, num_states, initq);
+                            s.add_qstate(q);
                         }
 
                 }
             }
         }
 
-        for (auto& s:states)
+        for (auto& s:states){
             s.update_value();
+        }
     }
 
     bool _is_permissible(State s, pair<string,int> a){
         string action_type = a.first;
         int action_value = a.second;
-        pair<bool, array<int,2>> param_values;
+        pair<bool, array<double,2>> param_values;
         if (action_type == "add_VMs"){
              param_values = s.get_parameter("number_of_VMs");
              if (param_values.first)
-                return (*std::max_element(param_values.second.begin(), param_values.second.end()) + action_value <= max_VMs);
+                return (max(param_values.second[0] , param_values.second[1]) + action_value <= max_VMs);
         }
         else if (action_type == "remove_VMs"){
              param_values = s.get_parameter("number_of_VMs");
              if (param_values.first)
-                return (*std::min_element(param_values.second.begin(), param_values.second.end()) - action_value >= min_VMs);
+                return (min(param_values.second[0] , param_values.second[1]) - action_value >= min_VMs);
         }
-        return true;
+        else return true;
     }
 
     pair<string,int> suggest_action(){
@@ -423,8 +431,15 @@ class MDPModel{
         QState qstate = current_state.get_qstate(action);
         if (qstate.num_states == -1) return;
         State new_state = _get_state(measurements);
-        qstate.update(new_state, reward);
-        value_iteration();
+        qstate.update(new_state.get_state_num(), reward);
+        //cout << "epitelous tha doulepsei: " << qstate.rewards[new_state.get_state_num()] << " GIATI DEN MPAINEI: " << reward <<  endl;
+        if (update_algorithm == "single_update"){
+            _q_update(qstate);
+            current_state.update_value();
+        }
+        else{
+            value_iteration();
+        }
         current_state = new_state;
     }
 
@@ -436,6 +451,7 @@ class MDPModel{
             t = qstate.get_transition(i);
             r = qstate.get_reward(i);
             new_qvalue += t * (r + discount * states[i].get_value());
+            //cout << "T: " << t << ", Reward: " << r << "Discount: " << discount << endl;
         }
         qstate.set_qvalue(new_qvalue);
     }
@@ -465,23 +481,31 @@ class MDPModel{
     }
 
     vector<string> get_parameters(){
-        vector<string> v;
-        for (auto& x:index_params)
-            v.push_back(x.first);
-        return v;
+        return index_params;
     }
     
     double get_percent_not_taken(){
-        double total = 0;
-        double not_taken = 0;
+        double total = 0.0;
+        double not_taken = 0.0;
         for (auto& s:states){
             for (auto& qs:s.get_qstates()){
-                total++;
+                total = total + 1.0;
                 if (qs.get_num_taken() == 0)
-                    not_taken++;
+                    not_taken = not_taken + 1.0;
             }
         }
         return not_taken / total;
+    }
+
+    void print_model(bool detailed=false){
+        for (auto& s:states){
+            if (detailed){
+                s.print_detailed();
+                cout << endl;
+            }
+            else
+                cout << s << endl;
+        }
     }
         
 };
