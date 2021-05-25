@@ -72,11 +72,9 @@ public:
 
     double get_transition(int state_num){
         if (num_taken == 0){
-            //cout << "1 dia num " << 1.0/num_states << endl;
             return (1.0 /num_states);
         }
         else{
-            //cout << "Allli periptwsi " << transitions[state_num] << "/" << num_taken << endl;
             return ((double)transitions[state_num] /(double)num_taken);
         }
     }
@@ -432,7 +430,6 @@ class MDPModel{
         if (qstate.num_states == -1) return;
         State new_state = _get_state(measurements);
         qstate.update(new_state.get_state_num(), reward);
-        //cout << "epitelous tha doulepsei: " << qstate.rewards[new_state.get_state_num()] << " GIATI DEN MPAINEI: " << reward <<  endl;
         if (update_algorithm == "single_update"){
             _q_update(qstate);
             current_state.update_value();
