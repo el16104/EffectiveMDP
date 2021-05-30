@@ -17,7 +17,6 @@ double avg(vector<double> v)
     {
         return_value += v[i];
     }
-
     return (return_value / (double)n);
 }
 
@@ -54,7 +53,6 @@ int main()
         MDPModel model(conf.get_model_conf());
         model.set_state(scenario.get_current_measurements());
         double total_reward = 0.0;
-
         for (int time = 0; time < training_steps + eval_steps; time++)
         {
             double x = myRand(0, 1);
@@ -70,7 +68,6 @@ int main()
             double reward = scenario.execute_action(action);
             json meas = scenario.get_current_measurements();
             model.update(action, meas, reward);
-            cout << "Number of States: " << model.get_percent_not_taken() << endl;
             if (time % 500 == 1){
                 model.value_iteration(0.1);
             }

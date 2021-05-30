@@ -72,10 +72,10 @@ public:
     double  _get_reward(pair<string,int> action){
         int vms = measurements["number_of_VMs"];
         int load = measurements["total_load"];
-        double capacity = this->get_current_capacity();
+        double capacity = get_current_capacity();
         double served_load = min(capacity, (double)load);
 
-        double reward = served_load - 2.0*vms;
+        double reward = served_load - 2.0*(double)vms;
         return reward;
     }
 
@@ -99,7 +99,7 @@ public:
         else
             ram_penalty = 0.0;
 
-        double capacity = (read_load * 10 - io_penalty - ram_penalty) * vms;
+        double capacity = (read_load * 10.0 - io_penalty - ram_penalty) * (double)vms;
 
         return capacity;
     }
