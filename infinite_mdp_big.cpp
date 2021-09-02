@@ -63,9 +63,11 @@ pair<string, int> randomchoice(vector<pair<string, int>> v)
 
 int main()
 {
-    int num_tests = 10;
+    int num_tests = 7;
     int training_steps = 5000;
     int eval_steps = 80;
+    vector<int> horizon{1,5,10,50,100,500,1000};
+    int max_memory_used = 0;
     int load_period = 250;
     int MIN_VMS = 1;
     int MAX_VMS = 20;
@@ -75,16 +77,17 @@ int main()
     vector<float> total_rewards_results;
 
     pair<string, int> action;
-    auto start = high_resolution_clock::now();
+
     for (int i = 0; i < num_tests; i++)
     {
         ComplexScenario scenario(training_steps, load_period, 10, MIN_VMS, MAX_VMS);
         MDPModel model(conf.get_model_conf());
         model.set_state(scenario.get_current_measurements());
         float total_reward = 0.0;
-        cout << "TEST " << i << endl;
+        cout << "TEST " << i+1 << endl;
         cout << "----------------\n" ;
-        for (int time = 0; time < training_steps + eval_steps; time++)
+        auto start = high_resolution_clock::now();
+        for (int time = 0; time < training_steps + horizon[i]; time++)
         {
             float x = myRand(0, 1);
             if (x < epsilon && time < training_steps)
@@ -106,11 +109,16 @@ int main()
             if (time > training_steps)
             {
                 total_reward += reward;
-                cout << getValue() << "KB" << endl;
+                //cout << getValue() << "KB" << endl;
+                if (getValue() > max_memory_used) max_memory_used = getValue();
             }
             //cout << "Reward: " << total_reward << endl;
         }
-        cout << "Total Reward after evaluation: " << total_reward << endl;
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+        cout << "Total Reward after " << horizon[i] << " steps long horizon: " << total_reward << ". Total duration: "<< duration.count() * 0.000001<< " seconds. Maximum memory used: " << max_memory_used/1024.0 << " MB"<< endl;
+        max_memory_used = 0;
+        //cout << "Total Reward after evaluation: " << total_reward << endl;
         cout << endl;
         total_rewards_results.push_back(total_reward);
     }
@@ -118,7 +126,5 @@ int main()
     cout << "Total results after running " << num_tests << " tests" << endl;
     cout << "Average total rewards : " << avg(total_rewards_results) << endl;
     cout << '\n';
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    cout << duration.count() << " microseconds" << endl;
+    //cout << duration.count() << " microseconds" << endl;
 }
