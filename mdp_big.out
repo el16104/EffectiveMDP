@@ -1,0 +1,17 @@
+
+Total results after running 20 tests WITHOUT bounds
+Average total rewards : 47865.3
+
+77388317 microseconds
+
+
+Total results after running 20 tests WITH bounds
+Average total rewards : 47817.1
+
+91426387 microseconds
+
+
+Total results after running 20 tests WITH bounds
+Average total rewards : 48278.5
+
+88239537 microseconds

@@ -70,8 +70,8 @@ int main()
     int num_tests = 1;
     int training_steps = 10000;
     /*vector<int> horizon{1, 5, 10, 25, 50, 75, 100, 250, 500, 750, 1000, 2500, 5000, 7500 ,10000, 25000, 50000, 75000, 100000 };*/
-    //vector<int> horizon{100, 250, 500, 750, 1000, 2500, 5000, 7500};
-    vector<int> horizon{500};
+    vector<int> horizon{100, 250, 500, 750, 1000, 2500, 5000, 7500};
+    //vector<int> horizon{500};
     int max_memory_used = 0;
     int load_period = 250;
     int MIN_VMS = 1;
@@ -79,7 +79,6 @@ int main()
     float epsilon = 0.7;
     string CONF_FILE = "/home/giannispapag/Thesis_Code/EffectiveMDP/Sim_Data/mdp_small.json";
     ModelConf conf(CONF_FILE);
-    FiniteMDPModel models[3];
     float total_rewards_results[3][11];
     for (int i=0; i<3; i++){
         for (int j=0; j<11; j++){
@@ -87,94 +86,93 @@ int main()
         }
     }
 
-    for (int test_number = 0; test_number < num_tests; test_number++){
+    ComplexScenario scenario(5000, load_period, 10, MIN_VMS, MAX_VMS);
+    FiniteMDPModel model(conf.get_model_conf());
+    model.set_state(scenario.get_current_measurements());
+    float total_reward = 0.0;
     pair<string, int> action;
+    //TRAIN THE MODEL
+
+    for (int time = 0; time < training_steps; time++){
+
+        double x = unif(eng);
+        if (x < epsilon)
+        {
+            action = randomchoice(model.get_legal_actions());
+        }
+        else
+        {
+            action = model.suggest_action();
+        }
+        float reward = scenario.execute_action(action);
+        json meas = scenario.get_current_measurements();
+        model.update(action, meas, reward);
+        if (time % 500 == 1){
+            model.value_iteration(0.1);
+        }
+    }
+    model.initial_state_num = model.current_state_num;
+
+    for (int test_number = 0; test_number < num_tests; test_number++){
     for (int i = 0; i < horizon.size(); i++)
     {
 
-        ComplexScenario scenario(5000, load_period, 10, MIN_VMS, MAX_VMS);
-        FiniteMDPModel model(conf.get_model_conf());
-        model.set_state(scenario.get_current_measurements());
-        float total_reward = 0.0;
-
-        //TRAIN THE MODEL
-
-        for (int time = 0; time < training_steps; time++){
-
-            float x = unif(eng);
-            if (x < epsilon)
-            {
-                action = randomchoice(model.get_legal_actions());
-            }
-            else
-            {
-                action = model.suggest_action();
-            }
-            float reward = scenario.execute_action(action);
-            json meas = scenario.get_current_measurements();
-            model.update(action, meas, reward);
-            if (time % 500 == 1){
-                model.value_iteration(0.1);
-            }
-        }
-
-        //COPY THE CREATED MODEL ONCE FOR EACH ALGORITHM
-
-        for (int k = 0; k < 3; k++){
-                //models.push_back(model);
-                models[k] = model;
-        }
 
         //INFINITE MDP MODEL
         cout << "INFINITE MDP: " << endl;
+
         auto start = high_resolution_clock::now();
-        models[0].resetValueFunction();
-        models[0].value_iteration(0.1, false);
+
+        model.resetValueFunction();
+        model.value_iteration(0.1, false);
+
         for (int time = training_steps; time < training_steps + horizon[i] ; time++)
         {
-            models[0].takeAction(true);
-            //if (getValue2() > max_memory_used) max_memory_used = getValue2();
+
+            model.takeAction(true);
+
+            if (getValue2() > max_memory_used) max_memory_used = getValue2();
         }
+
         auto stop = high_resolution_clock::now();
         auto duration = duration_cast<microseconds>(stop - start);
-        cout << horizon[i] << "," << models[0].total_reward << "," << duration.count() * 0.000001 << "," << max_memory_used/1000.0 << endl;
-        total_rewards_results[0][i] += models[0].total_reward;
+
+        cout << horizon[i] << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << max_memory_used/1000.0 << endl;
+        
+        total_rewards_results[0][i] += model.total_reward;
+
         cout << endl;
+        
         max_memory_used = 0;
+
+        model.resetModel();
         
         cout << "FINITE MDP MODEL (TREE): " << endl;
         start = high_resolution_clock::now();
-        models[1].traverseTree(1, horizon[i]);
+        model.traverseTree(1, horizon[i]);
         stop = high_resolution_clock::now();
         duration = duration_cast<microseconds>(stop - start);
-        cout << horizon[i] << "," << models[1].total_reward << "," << duration.count() * 0.000001 << "," << models[1].max_memory_used/1000.0 << endl;
-        total_rewards_results[1][i] += models[1].total_reward;
-        cout << "Steps made: " << models[1].steps_made << endl;
+        cout << horizon[i] << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000.0 << endl;
+        total_rewards_results[1][i] += model.total_reward;
+        cout << "Steps made: " << model.steps_made << endl;
         cout << endl;
         //delete models[1].finite_stack;
         
+        model.resetModel();
 
-        
+        /*
         cout << "FINITE MDP MODEL (CLASSIC): " << endl;
         start = high_resolution_clock::now();
-        models[2].simpleEvaluation(horizon[i]);
+        model.simpleEvaluation(horizon[i]);
         stop = high_resolution_clock::now();
         duration = duration_cast<microseconds>(stop - start);
-        cout << horizon[i] << "," << models[2].total_reward << "," << duration.count() * 0.000001 << "," << models[2].max_memory_used/1000.0 << endl;
-        total_rewards_results[2][i] += models[2].total_reward;
-        cout << "Steps made: " << models[2].steps_made << " " << sizeof(models[2]) << endl;
+        cout << horizon[i] << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000.0 << endl;
+        total_rewards_results[2][i] += model.total_reward;
+        cout << "Steps made: " << model.steps_made << endl;
         cout << endl;
 
-        //models.clear();
-        //delete models;
-        //free(models);
-            for (int k = 0; k < 3; k++){
-                //models.push_back(model);
-        models[k] = model;
+        model.resetModel();*/
     }
-    }
-
-    cout << "TOTAL MEMORY IN USE: " << getValue2()/1000.0 << endl;
     }
 
 

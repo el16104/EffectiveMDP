@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <string>
 #include <stack>
+#include <random>
 #include "MDPModel.h"
 #include "Complex.h"
 
@@ -37,6 +38,10 @@ int getValue(){ //Note: this value is in KB!
     return result;
 }
 
+std::random_device rd;
+std::default_random_engine eng(rd());
+std::uniform_real_distribution<double> unif(0,1);
+
 // for convenience
 using json = nlohmann::json;
 
@@ -46,13 +51,11 @@ class FiniteMDPModel: public MDPModel{
     public:
         stack<int> index_stack;
         stack<vector<State>> finite_stack;
-        int current_state_num;
-        ComplexScenario* scenario;
-        float total_reward = 0.0;
+        double total_reward = 0.0;
         int max_memory_used = 0;
+        int steps_made = 0;
 
-    FiniteMDPModel(ComplexScenario &scen,json conf = json({})){
-        scenario = &scen;
+    FiniteMDPModel(json conf = json({})){
         if (conf.contains("discount"))
         discount = conf["discount"];
 
@@ -84,36 +87,34 @@ class FiniteMDPModel: public MDPModel{
         current_state_num = s.state_num;
     }
 
-    void setScenario(ComplexScenario &s){
-        scenario = &s;
-    }
-
     void _q_update_finite(QState &qstate, vector<State> &V){
-        float new_qvalue = 0;
-        float r;
-        float t;
+        double new_qvalue = 0.0;
+        double r;
+        double t;
         for (int i=0; i < V.size(); i++){
             t = qstate.get_transition(i);
             r = qstate.get_reward(i);
-            new_qvalue += t * (r + V[i].get_value());
+            new_qvalue += t * (r +V[i].get_value());
         }
         qstate.set_qvalue(new_qvalue);
     }
 
+
     vector<State> calculateValues(int k, int starting_index, vector<State> &V, bool tree = false){
         vector<State> V_tmp = V;
         for (int i = starting_index+1 ; i < k+1; i++){
-            for (auto& s:states){
-                for (auto& qs:s.get_qstates()){
-                    _q_update_finite(qs, V_tmp);
+            for (int j = 0 ; j < states.size(); j++ ){
+                for (int m = 0; m < states[j].get_qstates().size(); m++){
+                    _q_update_finite(states[j].qstates[m], V_tmp);
                 }
-                s.update_value();
+                states[j].update_value();
             }
+
+            V_tmp = states;
             if (!tree){
                 index_stack.push(i);
                 finite_stack.push(V_tmp);
             }
-            V_tmp = states;
         }
         if (getValue() > max_memory_used){
             max_memory_used = getValue();
@@ -126,64 +127,125 @@ class FiniteMDPModel: public MDPModel{
         return states[current_state_num].get_optimal_action();
     }
 
-    void finite_update(pair<string,int> action, json measurements, float reward){
-        current_state->visit();
-        QState* qstate = current_state->get_qstate(action);
-        if (qstate->num_states == -1) return;
-        State* new_state = _get_state(measurements);
-        qstate->update(new_state->get_state_num(), reward);
-        if (update_algorithm){
-            _q_update(*qstate);
-            current_state->update_value();
+    void takeAction(bool isInfinite, bool p=false){
+        pair<string,int> action;
+        if (isInfinite) {action = suggest_action();}
+        else {action = finite_suggest_action();}
+        double reward;
+        //double reward = scenario.execute_action(action);
+        //json meas = scenario.get_current_measurements();
+
+        int prev_state_num = current_state_num;
+        //current_state_num = _get_state(meas)->get_state_num();
+        double x = unif(eng);
+        double acc = 0.0;
+        for (int i=0; i< states[prev_state_num].qstates.size();i++){
+            if (states[prev_state_num].qstates[i].action.first == action.first){
+                for (int j=0; j<states[prev_state_num].qstates[i].transitions.size();j++){
+                    if (states[prev_state_num].qstates[i].get_transition(j) > 0){
+                        acc += states[prev_state_num].qstates[i].get_transition(j);
+                        if (x < acc){
+                            current_state_num = j;
+                            reward = states[prev_state_num].qstates[i].get_reward(current_state_num);
+                            break;
+                        }
+                    }
+                }
+            }
         }
-        else{
-            value_iteration();
+
+        total_reward += reward;
+        if (p){
+            cout << "Current state: " << prev_state_num<< endl;
+            for (int i=0; i < states[prev_state_num].qstates.size(); i++){
+                cout << "   Qstate: " << states[prev_state_num].qstates[i].action.first << " ,QValue:" << states[prev_state_num].qstates[i].qvalue << endl;
+            }
+            cout << action.first << " ,Reward: " << reward << "   Next state: " << endl << states[current_state_num] << endl;
         }
-        current_state = new_state;
     }
 
     void traverseTree(int l, int r){
-        if (r >=l){
-            int k = l + (r-l)/2;
+        if (r >=l ){
+
+            int k = l + (r-l)/2;//index which needs to be calculated
+
+            steps_made++;
+
             vector<State> V;
             if (finite_stack.empty()){
-                V = calculateValues(k, 0, states, true);
+                resetValueFunction();
+                V = calculateValues(k, 0, states, true); //if no vector is saved in memory, calculate objective from the beginning
+
             }
             else{
-                V = calculateValues(k, index_stack.top(), finite_stack.top(), true);
+
+                V = calculateValues(k, index_stack.top(), finite_stack.top(), true);//use last saved vector in memory to calculate objective
+
             }
-            finite_stack.push(V);
+
+            finite_stack.push(V);//add newly calculated vector to memory
             index_stack.push(k);
-            this->traverseTree(k+1, r);
-            this->states = V;
-            pair<string,int> action = this->finite_suggest_action();
-            float reward = scenario->execute_action(action);
-            total_reward += reward;
-            json meas = scenario->get_current_measurements();
-            current_state_num = _get_state(meas)->get_state_num();
-            //model.(action, meas, reward);
-            finite_stack.pop();
+
+            traverseTree(k+1, r);
+
+            states = V;
+
+            takeAction(false);
+
+            finite_stack.pop();//remove top of the stack from memory
             index_stack.pop();
-            this->traverseTree(l, k-1);
+
+            traverseTree(l, k-1);
         }
     }
 
-        void simpleEvaluation(int horizon){
+    void simpleEvaluation(int horizon){
             vector<State> V;
-            current_state_num = current_state->get_state_num();
+            resetValueFunction();
             V = calculateValues(horizon, 0, states);
             while (!finite_stack.empty()){
-                this->states = finite_stack.top();
-                pair<string,int> action = this->finite_suggest_action();
-                float reward = scenario->execute_action(action);
-                total_reward += reward;
-                json meas = scenario->get_current_measurements();
-                current_state_num = _get_state(meas)->get_state_num();
+
+                steps_made++;
+
+                states = finite_stack.top();
+                takeAction(false);
+
                 finite_stack.pop();
                 index_stack.pop();
             }
         }
 
+
+    void printValueFunction(){
+        if(!finite_stack.empty()){
+            for (int i = 0; i < finite_stack.top().size(); i++){
+                cout << "State " << finite_stack.top()[i].get_state_num()<< ": " << finite_stack.top()[i].value << endl;
+            }
+        }
+        else{
+            for (int i = 0; i < states.size(); i++){
+                cout << "State " << states[i].get_state_num()<< ": " << states[i].value << endl;
+            }  
+        }
+    }
+
+    void resetValueFunction(){
+        for (int i=0; i<states.size(); i++){
+            for (int j=0; j < states[i].qstates.size(); j++){
+                states[i].qstates[j].qvalue = 0.0;
+            }
+            states[i].value = 0.0;
+        }
+    }
+
+
+    void resetModel(){
+        resetValueFunction();
+        current_state_num = initial_state_num;
+        total_reward = 0.0;
+        max_memory_used = 0.0;
+        steps_made = 0;
+    }
 
 
 };

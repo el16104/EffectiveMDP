@@ -40,7 +40,7 @@ public:
     }
 
     json get_current_measurements(){
-        float load = measurements["total_load"];
+        int load = measurements["total_load"];
         float capacity = this->get_current_capacity();
         float served_load = min(capacity, (float)load);
 
@@ -73,7 +73,7 @@ public:
 
     float  _get_reward(pair<string,int> action){
         int vms = measurements["number_of_VMs"];
-        float load = measurements["total_load"];
+        int load = measurements["total_load"];
         float capacity = get_current_capacity();
         float served_load = min(capacity, (float)load);
 
@@ -113,8 +113,8 @@ public:
             {"RAM_size", this->_get_ram_size()},
             {"number_of_CPUs", this->_get_num_cpus()},
             {"storage_capacity", this->_get_storage_capacity()},
-            {"perc_free_RAM", this->_get_free_ram()},
-            {"perc_CPU_usage", this->_get_cpu_usage()},
+            {"%_free_RAM", this->_get_free_ram()},
+            {"%_CPU_usage", this->_get_cpu_usage()},
             {"io_per_sec", this->_get_io_per_sec()},
             {"total_load", this->_get_load()},
             {"%_read_load", this->_get_read_load()},
@@ -125,7 +125,7 @@ public:
 
         }
 
-    float get_incoming_load(){
+    int get_incoming_load(){
         return measurements["total_load"];
     }
 

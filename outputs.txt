@@ -1,0 +1,15 @@
+Total number of States:7800
+Total number of States:7800
+Total number of States:7800
+Total number of States:7800
+Total number of States:7800
+Total number of States:7800
+Total number of States:7800
+Total number of States:7800
+Total number of States:7800
+Total number of States:7800
+
+Total results after running 10 tests
+Average total rewards : 45856.1
+
+566510955 microseconds

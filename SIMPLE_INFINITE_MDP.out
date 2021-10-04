@@ -1,0 +1,115 @@
+TEST 0
+----------------
+495824KB
+Total Reward after 0 horizons: 643.928
+495824KB
+Total Reward after 1 horizons: 1644.99
+495824KB
+Total Reward after 2 horizons: 2477.17
+495824KB
+Total Reward after 3 horizons: 2636.17
+
+TEST 1
+----------------
+495824KB
+Total Reward after 0 horizons: 446.204
+495824KB
+Total Reward after 1 horizons: 1005.33
+495824KB
+Total Reward after 2 horizons: 1660.01
+495824KB
+Total Reward after 3 horizons: 1739.01
+
+TEST 2
+----------------
+495824KB
+Total Reward after 0 horizons: 342.41
+495824KB
+Total Reward after 1 horizons: 1111.99
+495824KB
+Total Reward after 2 horizons: 1898.24
+495824KB
+Total Reward after 3 horizons: 2021.24
+
+TEST 3
+----------------
+495824KB
+Total Reward after 0 horizons: 437.702
+495888KB
+Total Reward after 1 horizons: 1142.5
+495888KB
+Total Reward after 2 horizons: 1960.85
+495888KB
+Total Reward after 3 horizons: 2217.85
+
+TEST 4
+----------------
+495888KB
+Total Reward after 0 horizons: 682.365
+495888KB
+Total Reward after 1 horizons: 1532.22
+495888KB
+Total Reward after 2 horizons: 2379.91
+495888KB
+Total Reward after 3 horizons: 2524.91
+
+TEST 5
+----------------
+495888KB
+Total Reward after 0 horizons: 758.211
+495888KB
+Total Reward after 1 horizons: 1767.41
+495888KB
+Total Reward after 2 horizons: 2599.59
+495888KB
+Total Reward after 3 horizons: 2730.59
+
+TEST 6
+----------------
+496152KB
+Total Reward after 0 horizons: 647.325
+496152KB
+Total Reward after 1 horizons: 1390.95
+496152KB
+Total Reward after 2 horizons: 2205.54
+496152KB
+Total Reward after 3 horizons: 2458.54
+
+TEST 7
+----------------
+495888KB
+Total Reward after 0 horizons: 302.302
+495888KB
+Total Reward after 1 horizons: 969.702
+495888KB
+Total Reward after 2 horizons: 1780.84
+495888KB
+Total Reward after 3 horizons: 2117.84
+
+TEST 8
+----------------
+495888KB
+Total Reward after 0 horizons: 680.238
+495888KB
+Total Reward after 1 horizons: 1620.04
+495888KB
+Total Reward after 2 horizons: 2437.58
+495888KB
+Total Reward after 3 horizons: 2566.58
+
+TEST 9
+----------------
+495888KB
+Total Reward after 0 horizons: 525.424
+495888KB
+Total Reward after 1 horizons: 1056.58
+495888KB
+Total Reward after 2 horizons: 1677.07
+495888KB
+Total Reward after 3 horizons: 2031.21
+
+
+Total results after running 10 tests
+Average total rewards : 2304.39
+
+61392710 microseconds

@@ -1,0 +1,97 @@
+HORIZON = 3
+------------------------------------------------------------------------------------------------------------
+
+INFINITE MDP: 
+Current state: 2
+   Qstate: no_op ,QValue:11.64216118
+   Qstate: remove_VMs ,QValue:11.39202732
+no_op ,Reward: 5.729477907   Next state: 
+2: [(number_of_VMs,3.000000,3.000000) (total_load,0.000000,50.000000) ]
+
+Current state: 2
+   Qstate: no_op ,QValue:11.64216118
+   Qstate: remove_VMs ,QValue:11.39202732
+no_op ,Reward: 5.729477907   Next state: 
+2: [(number_of_VMs,3.000000,3.000000) (total_load,0.000000,50.000000) ]
+
+Current state: 2
+   Qstate: no_op ,QValue:11.64216118
+   Qstate: remove_VMs ,QValue:11.39202732
+no_op ,Reward: 5.729477907   Next state: 
+2: [(number_of_VMs,3.000000,3.000000) (total_load,0.000000,50.000000) ]
+
+3,17.18843372,0.000373,5.728
+
+FINITE MDP MODEL (CLASSIC): 
+Current state: 2
+   Qstate: no_op ,QValue:17.32622649
+   Qstate: remove_VMs ,QValue:17.41546366
+remove_VMs ,Reward: 5.138031998   Next state: 
+1: [(number_of_VMs,2.000000,2.000000) (total_load,0.000000,50.000000) ]
+
+Current state: 1
+   Qstate: add_VMs ,QValue:12.13305625
+   Qstate: no_op ,QValue:11.23055796
+   Qstate: remove_VMs ,QValue:7.928871256
+add_VMs ,Reward: 6.111462966   Next state: 
+2: [(number_of_VMs,3.000000,3.000000) (total_load,0.000000,50.000000) ]
+
+Current state: 2
+   Qstate: no_op ,QValue:5.785283563
+   Qstate: remove_VMs ,QValue:5.191817804
+no_op ,Reward: 5.729477907   Next state: 
+2: [(number_of_VMs,3.000000,3.000000) (total_load,0.000000,50.000000) ]
+
+3,16.97897287,0.000203,5.728
+Steps made: 3
+
+
+3 , 17.1884346 , 0 , 16.97897339
+State 0: 
+	Qstate add_VMs: 
+	Transition to 1 :0.9825870647, Reward: 4.801087778
+	Transition to 4 :0.01741293532, Reward: 10.0906246
+	Qstate no_op: 
+	Transition to 0 :0.9836065574, Reward: 3.167471195
+	Transition to 3 :0.01639344262, Reward: 4.478777409
+State 1: 
+	Qstate add_VMs: 
+	Transition to 2 :0.9800443459, Reward: 6.111462966
+	Transition to 5 :0.0199556541, Reward: 12.34950317
+	Qstate no_op: 
+	Transition to 1 :0.9901719902, Reward: 4.935670393
+	Transition to 4 :0.009828009828, Reward: 9.419356704
+	Qstate remove_VMs: 
+	Transition to 0 :0.9875621891, Reward: 3.00566514
+	Transition to 3 :0.01243781095, Reward: 4.987116337
+State 2: 
+	Qstate no_op: 
+	Transition to 2 :0.9943052392, Reward: 5.729477907
+	Transition to 5 :0.00569476082, Reward: 15.52895117
+	Qstate remove_VMs: 
+	Transition to 1 :0.98676957, Reward: 5.138031998
+	Transition to 4 :0.01323042999, Reward: 9.203342497
+State 3: 
+	Qstate add_VMs: 
+	Transition to 1 :0.01005025126, Reward: 8.119031101
+	Transition to 4 :0.9899497487, Reward: 9.314950513
+	Qstate no_op: 
+	Transition to 0 :0.01851851852, Reward: 5.127518833
+	Transition to 3 :0.9814814815, Reward: 4.792243629
+State 4: 
+	Qstate add_VMs: 
+	Transition to 2 :0.01077586207, Reward: 12.05596015
+	Transition to 5 :0.9892241379, Reward: 14.19697629
+	Qstate no_op: 
+	Transition to 1 :0.01020408163, Reward: 8.414692223
+	Transition to 4 :0.9897959184, Reward: 9.51177326
+	Qstate remove_VMs: 
+	Transition to 0 :0.01256281407, Reward: 4.119715738
+	Transition to 3 :0.9874371859, Reward: 4.650690145
+State 5: 
+	Qstate no_op: 
+	Transition to 2 :0.01390498262, Reward: 15.6113369
+	Transition to 5 :0.9860950174, Reward: 14.35649376
+	Qstate remove_VMs: 
+	Transition to 1 :0.009761388286, Reward: 10.62298123
+	Transition to 4 :0.9902386117, Reward: 9.427239613

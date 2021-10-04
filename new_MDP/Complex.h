@@ -12,13 +12,13 @@ using namespace std;
 
 extern bool flag = true;
 
-float myRand(float LO, float HI){
+double myRand(double LO, double HI){
     if (flag){
         srand(static_cast <unsigned> (time(0)));
         flag = false;
     }
 
-    float r3 = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
+    double r3 = LO + static_cast <double> (rand()) /( static_cast <double> (RAND_MAX/(HI-LO)));
     return r3;
 }
 
@@ -31,7 +31,7 @@ public:
     int MAX_VMS;
     json measurements;
 
-    ComplexScenario(int trainingsteps, int loadperiod=250, int initvms=10, int minvms=1, int maxvms=40){
+    ComplexScenario(int trainingsteps=5000, int loadperiod=250, int initvms=10, int minvms=1, int maxvms=2){
         training_steps = trainingsteps;
         load_period = loadperiod;
         MIN_VMS = minvms;
@@ -40,16 +40,16 @@ public:
     }
 
     json get_current_measurements(){
-        float load = measurements["total_load"];
-        float capacity = this->get_current_capacity();
-        float served_load = min(capacity, (float)load);
+        double load = measurements["total_load"];
+        double capacity = this->get_current_capacity();
+        double served_load = min(capacity, (double)load);
 
         json curr_meas = measurements;
         curr_meas += json::object_t::value_type("total_load", served_load);
         return curr_meas;
     }
 
-    float execute_action(pair<string,int> action){
+    double execute_action(pair<string,int> action){
         time++;
         int num_vms = measurements["number_of_VMs"];
         string action_type = action.first;
@@ -66,28 +66,28 @@ public:
             num_vms = MAX_VMS;
 
         measurements = _get_measurements(num_vms);
-        float reward = _get_reward(action);
+        double reward = _get_reward(action);
         return reward;
 
     }
 
-    float  _get_reward(pair<string,int> action){
+    double  _get_reward(pair<string,int> action){
         int vms = measurements["number_of_VMs"];
-        float load = measurements["total_load"];
-        float capacity = get_current_capacity();
-        float served_load = min(capacity, (float)load);
+        double load = measurements["total_load"];
+        double capacity = get_current_capacity();
+        double served_load = min(capacity, (double)load);
 
-        float reward = served_load - 2.0*(float)vms;
+        double reward = served_load - 2.0*(double)vms;
         return reward;
     }
 
-    float get_current_capacity(){
+    double get_current_capacity(){
         int vms = measurements["number_of_VMs"];
-        float read_load = measurements["%_read_load"];
-        float io_per_sec = measurements["io_per_sec"];
+        double read_load = measurements["%_read_load"];
+        double io_per_sec = measurements["io_per_sec"];
         int ram_size = measurements["RAM_size"];
-        float io_penalty;
-        float ram_penalty;
+        double io_penalty;
+        double ram_penalty;
 
         if (io_per_sec < 0.7)
             io_penalty = 0.0;
@@ -101,7 +101,7 @@ public:
         else
             ram_penalty = 0.0;
             
-        float capacity = (read_load * 10.0 - io_penalty - ram_penalty) * (float)vms;
+        double capacity = (read_load * 10.0 - io_penalty - ram_penalty) * (double)vms;
 
         return capacity;
     }
@@ -125,22 +125,22 @@ public:
 
         }
 
-    float get_incoming_load(){
+    double get_incoming_load(){
         return measurements["total_load"];
     }
 
-    float _get_load(){
+    double _get_load(){
         if (time <= training_steps)
             return 50.0 + 50.0 * sin(2.0 * PI * time / load_period);
         else
             return 50.0 + 50.0 * sin(2.0 * PI * time * 2 / load_period);
     }
 
-    float _get_read_load(){
+    double _get_read_load(){
         return 0.75 + 0.25 * sin(2.0 * PI * time / 340);
     }
 
-    float _get_io_per_sec(){
+    double _get_io_per_sec(){
         return 0.6 + 0.4 * sin(2.0 * PI * time / 195);
     }
 
@@ -151,20 +151,20 @@ public:
             return 2048;
     }
 
-    float _get_latency(){
+    double _get_latency(){
         return 0.5 + 0.5 * myRand(0, 1);
     }
 
-    float _get_free_ram(){
+    double _get_free_ram(){
         return 0.4 + 0.4 * myRand(0, 1);
     }
 
-    float _get_cpu_usage(){
+    double _get_cpu_usage(){
         return 0.6 + 0.3 * myRand(0, 1);
     }
 
     int _get_storage_capacity(){
-        float x = myRand(0,1);
+        double x = myRand(0,1);
         if (x < 0.33333)
             return 10;
         else if (x < 0.66666)
@@ -174,7 +174,7 @@ public:
     }
 
     int _get_num_cpus(){
-        float x = myRand(0,1);
+        double x = myRand(0,1);
         if (x < 0.5)
             return 2;
         else
