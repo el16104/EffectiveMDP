@@ -40,7 +40,7 @@ int getValue(){ //Note: this value is in KB!
 
 std::random_device rd;
 std::default_random_engine eng(rd());
-std::uniform_real_distribution<double> unif(0,1);
+std::uniform_real_distribution<float> unif(0,1);
 
 // for convenience
 using json = nlohmann::json;
@@ -50,10 +50,12 @@ using namespace std;
 class FiniteMDPModel: public MDPModel{
     public:
         stack<int> index_stack;
-        stack<vector<State>> finite_stack;
-        double total_reward = 0.0;
+        //stack<vector<State>> finite_stack;
+        stack<vector<float>> finite_stack;
+        float total_reward = 0.0;
         int max_memory_used = 0;
         int steps_made = 0;
+        float expected_reward = 0.0;
 
     FiniteMDPModel(json conf = json({})){
         if (conf.contains("discount"))
@@ -87,19 +89,31 @@ class FiniteMDPModel: public MDPModel{
         current_state_num = s.state_num;
     }
 
-    void _q_update_finite(QState &qstate, vector<State> &V){
-        double new_qvalue = 0.0;
-        double r;
-        double t;
+    /*void _q_update_finite(QState &qstate, vector<State> &V){
+        float new_qvalue = 0.0;
+        float r;
+        float t;
         for (int i=0; i < V.size(); i++){
             t = qstate.get_transition(i);
             r = qstate.get_reward(i);
             new_qvalue += t * (r +V[i].get_value());
         }
         qstate.set_qvalue(new_qvalue);
+    }*/
+
+    void _q_update_finite(QState &qstate, vector<float> V){
+        float new_qvalue = 0.0;
+        float r;
+        float t;
+        for (int i=0; i < V.size(); i++){
+            t = qstate.get_transition(i);
+            r = qstate.get_reward(i);
+            new_qvalue += t * (r +V[i]);
+        }
+        qstate.set_qvalue(new_qvalue);
     }
 
-
+    /*
     vector<State> calculateValues(int k, int starting_index, vector<State> &V, bool tree = false){
         vector<State> V_tmp = V;
         for (int i = starting_index+1 ; i < k+1; i++){
@@ -109,8 +123,29 @@ class FiniteMDPModel: public MDPModel{
                 }
                 states[j].update_value();
             }
-
             V_tmp = states;
+            if (!tree){
+                index_stack.push(i);
+                finite_stack.push(V_tmp);
+            }
+        }
+        if (getValue() > max_memory_used){
+            max_memory_used = getValue();
+        }
+        return V_tmp;
+
+    }*/
+
+        vector<float> calculateValues(int k, int starting_index, vector<float> V, bool tree = false){
+        vector<float> V_tmp = V;
+        for (int i = starting_index+1 ; i < k+1; i++){
+            for (int j = 0 ; j < states.size(); j++ ){
+                for (int m = 0; m < states[j].get_qstates().size(); m++){
+                    _q_update_finite(states[j].qstates[m], V_tmp);
+                }
+                states[j].update_value();
+            }
+            V_tmp = getStateValues(states);
             if (!tree){
                 index_stack.push(i);
                 finite_stack.push(V_tmp);
@@ -131,14 +166,14 @@ class FiniteMDPModel: public MDPModel{
         pair<string,int> action;
         if (isInfinite) {action = suggest_action();}
         else {action = finite_suggest_action();}
-        double reward;
-        //double reward = scenario.execute_action(action);
+        float reward;
+        //float reward = scenario.execute_action(action);
         //json meas = scenario.get_current_measurements();
 
         int prev_state_num = current_state_num;
         //current_state_num = _get_state(meas)->get_state_num();
-        double x = unif(eng);
-        double acc = 0.0;
+        float x = unif(eng);
+        float acc = 0.0;
         for (int i=0; i< states[prev_state_num].qstates.size();i++){
             if (states[prev_state_num].qstates[i].action.first == action.first){
                 for (int j=0; j<states[prev_state_num].qstates[i].transitions.size();j++){
@@ -171,25 +206,28 @@ class FiniteMDPModel: public MDPModel{
 
             steps_made++;
 
-            vector<State> V;
+            //vector<State> V;
+            vector<float> V;
             if (finite_stack.empty()){
                 resetValueFunction();
-                V = calculateValues(k, 0, states, true); //if no vector is saved in memory, calculate objective from the beginning
+                //V = calculateValues(k, 0, states, true); //if no vector is saved in memory, calculate objective from the beginning
+                V = calculateValues(k, 0, getStateValues(states), true);
 
             }
             else{
 
                 V = calculateValues(k, index_stack.top(), finite_stack.top(), true);//use last saved vector in memory to calculate objective
-
             }
 
             finite_stack.push(V);//add newly calculated vector to memory
             index_stack.push(k);
 
+            if (V[initial_state_num] > expected_reward) expected_reward = V[initial_state_num];
+
             traverseTree(k+1, r);
 
-            states = V;
-
+            //states = V;
+            loadValueFunction(V);
             takeAction(false);
 
             finite_stack.pop();//remove top of the stack from memory
@@ -200,22 +238,27 @@ class FiniteMDPModel: public MDPModel{
     }
 
     void simpleEvaluation(int horizon){
-            vector<State> V;
+            //vector<State> V;
+            vector<float> V;
             resetValueFunction();
-            V = calculateValues(horizon, 0, states);
+            //V = calculateValues(horizon, 0, states);
+            V = calculateValues(horizon, 0, getStateValues(states));
+            expected_reward = V[initial_state_num];
+
             while (!finite_stack.empty()){
 
                 steps_made++;
 
-                states = finite_stack.top();
+                //states = finite_stack.top();
+                loadValueFunction(finite_stack.top());
                 takeAction(false);
-
                 finite_stack.pop();
                 index_stack.pop();
             }
         }
 
 
+/*
     void printValueFunction(){
         if(!finite_stack.empty()){
             for (int i = 0; i < finite_stack.top().size(); i++){
@@ -228,7 +271,7 @@ class FiniteMDPModel: public MDPModel{
             }  
         }
     }
-
+*/
     void resetValueFunction(){
         for (int i=0; i<states.size(); i++){
             for (int j=0; j < states[i].qstates.size(); j++){
@@ -243,6 +286,7 @@ class FiniteMDPModel: public MDPModel{
         resetValueFunction();
         current_state_num = initial_state_num;
         total_reward = 0.0;
+        expected_reward = 0.0;
         max_memory_used = 0.0;
         steps_made = 0;
     }
