@@ -67,20 +67,20 @@ pair<string, int> randomchoice(vector<pair<string, int>> v)
 
 int main()
 {
-    int num_tests = 1;
+    int num_tests = 2;
     int training_steps = 10000;
     /*vector<int> horizon{1, 5, 10, 25, 50, 75, 100, 250, 500, 750, 1000, 2500, 5000, 7500 ,10000, 25000, 50000, 75000, 100000 };*/
-    vector<int> horizon{100, 250, 500, 750, 1000, 2500, 5000, 7500};
-    //vector<int> horizon{5};
+    //vector<int> horizon{100, 250, 500, 750, 1000, 2500, 5000, 7500};
+    vector<int> horizon{100,250,500};
     int max_memory_used = 0;
     int load_period = 250;
     int MIN_VMS = 1;
     int MAX_VMS = 20;
     float epsilon = 0.7;
-    string CONF_FILE = "/home/giannispapag/Thesis_Code/EffectiveMDP/Sim_Data/mdp_small.json";
+    string CONF_FILE = "/home/giannispapag/Thesis_Code/EffectiveMDP/Sim_Data/mdp_actual_big.json";
     ModelConf conf(CONF_FILE);
-    float total_rewards_results[3][11];
-    for (int i=0; i<3; i++){
+    float total_rewards_results[5][11];
+    for (int i=0; i<5; i++){
         for (int j=0; j<11; j++){
             total_rewards_results[i][j] = 0.0;
         }
@@ -117,7 +117,7 @@ int main()
     for (int i = 0; i < horizon.size(); i++)
     {
 
-
+        
         //INFINITE MDP MODEL
         cout << "INFINITE MDP: " << endl;
         auto start = high_resolution_clock::now();
@@ -138,7 +138,7 @@ int main()
         max_memory_used = 0.0;
 
         model.resetModel();
-
+    /*
         cout << "FINITE MDP MODEL (TREE): " << endl;
         start = high_resolution_clock::now();
         model.traverseTree(1, horizon[i]);
@@ -151,9 +151,8 @@ int main()
         cout << endl;
 
         
-        model.resetModel();
-
-        cout << "FINITE MDP MODEL (CLASSIC): " << endl;
+        model.resetModel();*/
+        cout << "FINITE MDP MODEL (NAIVE): " << endl;
         start = high_resolution_clock::now();
         model.simpleEvaluation(horizon[i]);
         stop = high_resolution_clock::now();
@@ -165,19 +164,46 @@ int main()
         cout << endl;
 
         model.resetModel();
+        cout << getValue2() << endl;
+
+        /*cout << "FINITE MDP MODEL (IN-PLACE): " << endl;
+        start = high_resolution_clock::now();
+        model.naiveEvaluation(horizon[i]);
+        stop = high_resolution_clock::now();
+        duration = duration_cast<microseconds>(stop - start);
+        cout << horizon[i] << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000.0 << endl;
+        cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
+        total_rewards_results[3][i] += model.total_reward;
+        cout << "Steps made: " << model.steps_made << endl;
+        cout << endl;
+
+        model.resetModel();
+
+        cout << "FINITE MDP MODEL (SQUARE ROOT): " << endl;
+        start = high_resolution_clock::now();
+        model.rootEvaluation(horizon[i]);
+        stop = high_resolution_clock::now();
+        duration = duration_cast<microseconds>(stop - start);
+        cout << horizon[i] << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000.0 << endl;
+        cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
+        total_rewards_results[4][i] += model.total_reward;
+        cout << "Steps made: " << model.steps_made << endl;
+        cout << endl;
+
+        model.resetModel();*/
     }
     }
 
 
 
     cout << endl;
-        for(int j=0;j<horizon.size();j++){
-            cout << horizon[j] << " , "<< total_rewards_results[0][j] / num_tests*1.0 << " , " << total_rewards_results[1][j] / num_tests*1.0 << " , " << total_rewards_results[2][j] / num_tests*1.0 << endl;
-            /*if ((total_rewards_results[0][j] / num_tests*1.0 - total_rewards_results[2][j] / num_tests*1.0) < 0.00001 ){
+        /*for(int j=0;j<horizon.size();j++){
+            cout << horizon[j] << " , "<< total_rewards_results[0][j] / num_tests*1.0 << " , " << total_rewards_results[1][j] / num_tests*1.0 << " , " << total_rewards_results[2][j] / num_tests*1.0 << " , " << total_rewards_results[3][j] / num_tests*1.0 << endl;
+            if ((total_rewards_results[0][j] / num_tests*1.0 - total_rewards_results[2][j] / num_tests*1.0) < 0.00001 ){
                 main();
             }
             else{
                 models[1].printDetails();
-            }*/
-        }
+            }
+        }*/
 }

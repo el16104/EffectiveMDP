@@ -150,7 +150,8 @@ public:
     bool isBestQStateSet = false;
     int num_visited;
     map<string,pair<float,float>> parameters;
-    float max_lower_bound = -INFINITY;
+    //float max_lower_bound = -INFINITY;
+    float max_lower_bound;
 
     State(map<string,pair<float,float>> parameterss = {} , int statenum = 0, float initialvalue = 0.0, int numstates = 0){
         value = 0.0;
@@ -161,7 +162,7 @@ public:
         parameters = parameterss;
         isBestQStateSet  = false;
         vector<QState> qstates = {};
-        max_lower_bound = -INFINITY;
+        //max_lower_bound = -INFINITY;
     }
 
     ~State(){

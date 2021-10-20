@@ -1,0 +1,29 @@
+INFINITE MDP: 
+100,4497.95,0.037042,6.124
+Expected reward: 38.7189 vs. Actual reward: 4497.95
+
+FINITE MDP MODEL (CLASSIC): 
+100,5210.25,0.370286,7.436
+Expected reward: 5055.78 vs. Actual reward: 5210.25
+Steps made: 100
+
+FINITE MDP MODEL (NAIVE): 
+100,5240.6,18.453,7.436
+Expected reward: 5055.78 vs. Actual reward: 5240.6
+Steps made: 100
+
+FINITE MDP MODEL (SQUARE ROOT): 
+100,4896.42,0.680766,7.436
+Expected reward: 5055.78 vs. Actual reward: 4896.42
+Steps made: 100
+
+INFINITE MDP: 
+250,12022.4,0.038388,7.436
+Expected reward: 38.7189 vs. Actual reward: 12022.4
+
+FINITE MDP MODEL (CLASSIC): 
+250,13395.9,0.905611,7.632
+Expected reward: 13437.9 vs. Actual reward: 13395.9
+Steps made: 250
+
+FINITE MDP MODEL (NAIVE): 
