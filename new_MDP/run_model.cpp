@@ -160,7 +160,6 @@ int main(int argc, char *argv[])
     auto duration = duration_cast<microseconds>(stop - start);
     cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000.0 << endl;
     cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
-    cout << "Steps made: " << model.steps_made << endl;
     cout << endl;
     }
     else if (algorithm_type == "inplace"){

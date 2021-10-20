@@ -1,0 +1,16 @@
+INFINITE MDP: 
+100,4894.56,0.036851,6.2
+Expected reward: 37.2464 vs. Actual reward: 4894.56
+
+FINITE MDP MODEL (NAIVE): 
+100,5249.97,0.372736,7.252
+Expected reward: 5366.85 vs. Actual reward: 5249.97
+
+FINITE MDP MODEL (IN-PLACE): 
+100,5249.97,18.1213,7.188
+Expected reward: 5366.85 vs. Actual reward: 5249.97
+
+FINITE MDP MODEL (SQUARE ROOT): 
+100,5249.97,0.699351,7.32
+Expected reward: 5366.85 vs. Actual reward: 5249.97
+

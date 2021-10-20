@@ -229,7 +229,7 @@ class FiniteMDPModel: public MDPModel{
             //V = calculateValues(horizon, 0, states);
             V = calculateValues(horizon, 0, getStateValues(states));
             expected_reward = V[initial_state_num];
-            cout << "CURRENT MEMORY USED: " << getValue() << endl;
+
             while (!finite_stack.empty()){
 
                 steps_made++;
@@ -271,7 +271,7 @@ class FiniteMDPModel: public MDPModel{
         V = calculateValues(1, 0, getStateValues(states),true);
 
         int floor_of_square_root = floor(sqrt(horizon));
-        cout << "SQUARE ROOT: " << floor_of_square_root << endl;
+
         for (int i = 2; i <= horizon; i++){
             V = calculateValues(i, i-1, V, true);
             if (i % floor_of_square_root == 0){
