@@ -592,19 +592,20 @@ class MDPModel{
         }
     }
 
-    vector<float> getStateValues(vector<State> V){
-        vector<float> values;
+    vector<pair<int,float>> getStateValues(vector<State> V){
+        vector<pair<int,float>> values;
 
         for (int i=0; i < V.size(); i++){
-            values.push_back(V[i].get_value());
+            values.push_back(make_pair( V[i].get_best_qstate(), V[i].get_value()));
         }
         
         return values;
     }
 
-    void loadValueFunction(vector<float> V){
+    void loadValueFunction(vector<pair<int, float>> V){
         for (int i=0; i < V.size(); i++){
-            states[i].value = V[i];
+            states[i].best_qstate = V[i].first;
+            states[i].value = V[i].second;
         }
     }
         

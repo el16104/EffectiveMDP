@@ -7,6 +7,7 @@
 #include <stack>
 #include <random>
 #include <math.h>
+#include <array>
 #include "MDPModel.h"
 #include "Complex.h"
 
@@ -52,13 +53,14 @@ using namespace std;
 class FiniteMDPModel: public MDPModel{
     public:
         stack<int> index_stack;
-        stack<vector<float>> finite_stack;
+        stack<vector<pair<int , float>>> finite_stack;
         float total_reward = 0.0;
         int max_memory_used = 0;
         int steps_made = 0;
         float expected_reward = 0.0;
         default_random_engine eng;
         uniform_real_distribution<float> unif;
+        int stack_memory = 0;
 
     FiniteMDPModel(json conf = json({}), int seed = 21){
         if (conf.contains("discount"))
@@ -107,22 +109,21 @@ class FiniteMDPModel: public MDPModel{
         qstate.set_qvalue(new_qvalue);
     }*/
 
-    void _q_update_finite(QState &qstate, vector<float> V){
+    void _q_update_finite(QState &qstate, vector<pair<int,float>> V){
         float new_qvalue = 0.0;
         float r;
         float t;
         for (int i=0; i < V.size(); i++){
             t = qstate.get_transition(i);
             r = qstate.get_reward(i);
-            new_qvalue += t * (r +V[i]);
+            new_qvalue += t * (r +V[i].second);
         }
         qstate.set_qvalue(new_qvalue);
     }
 
 
-    vector<float> calculateValues(int k, int starting_index, vector<float> V, bool tree = false){
-        vector<float> V_tmp = V;
-        //cout << "CALCULATING INDEX " << k << " STARTING FROM INDEX " << starting_index << endl;
+    vector<pair<int, float>> calculateValues(int k, int starting_index, vector<pair<int, float>> V, bool tree = false){
+        vector<pair<int,float>> V_tmp = V;
         for (int i = starting_index+1 ; i < k+1; i++){
             for (int j = 0 ; j < states.size(); j++ ){
                 for (int m = 0; m < states[j].get_qstates().size(); m++){
@@ -134,10 +135,15 @@ class FiniteMDPModel: public MDPModel{
             if (!tree){
                 index_stack.push(i);
                 finite_stack.push(V_tmp);
+
+                stack_memory += V_tmp.size() * sizeof(float);
             }
         }
-        if (getValue() > max_memory_used){
-            max_memory_used = getValue();
+        cout << "MEMORY USED: " << getValue()/1000.0 << endl;
+        //if (getValue() > max_memory_used){
+            if ( stack_memory > max_memory_used){
+            //max_memory_used = getValue();
+            max_memory_used = stack_memory;
         }
         return V_tmp;
 
@@ -192,7 +198,7 @@ class FiniteMDPModel: public MDPModel{
             steps_made++;
 
             //vector<State> V;
-            vector<float> V;
+            vector<pair<int,float>> V;
             if (finite_stack.empty()){
                 resetValueFunction();
                 //V = calculateValues(k, 0, states, true); //if no vector is saved in memory, calculate objective from the beginning
@@ -207,7 +213,9 @@ class FiniteMDPModel: public MDPModel{
             finite_stack.push(V);//add newly calculated vector to memory
             index_stack.push(k);
 
-            if (V[initial_state_num] > expected_reward) expected_reward = V[initial_state_num];
+            stack_memory += V.size() * sizeof(float);
+
+            if (V[initial_state_num].second > expected_reward) expected_reward = V[initial_state_num].second;
 
             traverseTree(k+1, r);
 
@@ -218,18 +226,20 @@ class FiniteMDPModel: public MDPModel{
             finite_stack.pop();//remove top of the stack from memory
             index_stack.pop();
 
+            stack_memory -= V.size() * sizeof(float);
+
             traverseTree(l, k-1);
         }
     }
 
     void simpleEvaluation(int horizon){
             //vector<State> V;
-            vector<float> V;
+            vector<pair<int,float>> V;
             resetValueFunction();
             //V = calculateValues(horizon, 0, states);
             V = calculateValues(horizon, 0, getStateValues(states));
-            expected_reward = V[initial_state_num];
-
+            expected_reward = V[initial_state_num].second;
+            cout << "MEMORY WITH FULL STACK: " << getValue() << endl;
             while (!finite_stack.empty()){
 
                 steps_made++;
@@ -237,20 +247,23 @@ class FiniteMDPModel: public MDPModel{
                 //states = finite_stack.top();
                 loadValueFunction(finite_stack.top());
                 takeAction(false);
+
                 finite_stack.pop();
                 index_stack.pop();
+                stack_memory -= V.size() * sizeof(float);
             }
+            cout << "MEMORY WITH EMPTY STACK: " << getValue() << endl;
         }
 
 
     void naiveEvaluation(int horizon){
 
-        vector<float> V;
+        vector<pair<int,float>> V;
         int steps_remaining = horizon;
         resetValueFunction();
 
         V = calculateValues(steps_remaining, 0, getStateValues(states),true);
-        expected_reward = V[initial_state_num];
+        expected_reward = V[initial_state_num].second;
 
         while(steps_remaining > 0){
             V = calculateValues(steps_remaining, 0, getStateValues(states),true);
@@ -259,12 +272,11 @@ class FiniteMDPModel: public MDPModel{
             steps_made++;
             steps_remaining--;
         }
-
     }
 
     void rootEvaluation(int horizon){
 
-        vector<float> V;
+        vector<pair<int,float>> V;
         int steps_remaining = horizon;
         resetValueFunction();
 
@@ -277,10 +289,12 @@ class FiniteMDPModel: public MDPModel{
             if (i % floor_of_square_root == 0){
                 finite_stack.push(V);
                 index_stack.push(i);
+
+                stack_memory += states.size()*sizeof(float);
             }
         }
 
-        expected_reward = V[initial_state_num];
+        expected_reward = V[initial_state_num].second;
 
         while(steps_remaining > 0){
             if (finite_stack.empty()){
@@ -300,6 +314,8 @@ class FiniteMDPModel: public MDPModel{
 
             finite_stack.pop();
             index_stack.pop();
+
+            stack_memory -= states.size()*sizeof(float);
 
             steps_made++;
             steps_remaining--;
@@ -338,6 +354,7 @@ class FiniteMDPModel: public MDPModel{
         expected_reward = 0.0;
         max_memory_used = 0.0;
         steps_made = 0;
+        stack_memory = 0;
     }
 
 

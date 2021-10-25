@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
     int MIN_VMS = 1;
     int MAX_VMS = 20;
     float epsilon = 0.7;
-    string CONF_FILE = "/home/giannispapag/Thesis_Code/EffectiveMDP/Sim_Data/mdp_small.json";
+    string CONF_FILE = "mdp_actual_big.json";
     ModelConf conf(CONF_FILE);
     float total_rewards_results[5][11];
     for (int i=0; i<5; i++){
@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
     model.traverseTree(1, horizon);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000.0 << endl;
+    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000000.0 << endl;
     cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
     cout << endl;
     }
@@ -158,7 +158,7 @@ int main(int argc, char *argv[])
     model.simpleEvaluation(horizon);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000.0 << endl;
+    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000000.0 << endl;
     cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
     cout << endl;
     }
@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
     model.naiveEvaluation(horizon);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000.0 << endl;
+    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000000.0 << endl;
     cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
     cout << endl;
     }
@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
     model.rootEvaluation(horizon);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000.0 << endl;
+    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000000.0 << endl;
     cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
     cout << endl;
     }

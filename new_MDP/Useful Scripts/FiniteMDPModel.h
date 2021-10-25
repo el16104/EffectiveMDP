@@ -5,7 +5,6 @@
 #include <stdexcept>
 #include <string>
 #include <stack>
-#include "MyStack.h"
 #include <random>
 #include <math.h>
 #include "MDPModel.h"
@@ -40,9 +39,10 @@ int getValue(){ //Note: this value is in KB!
     return result;
 }
 
-std::random_device rd;
-std::default_random_engine eng(rd());
-std::uniform_real_distribution<float> unif(0,1);
+//std::random_device rd;
+//std::seed_seq seed{rd()};
+//std::default_random_engine eng(seed);
+
 
 // for convenience
 using json = nlohmann::json;
@@ -52,13 +52,16 @@ using namespace std;
 class FiniteMDPModel: public MDPModel{
     public:
         stack<int> index_stack;
-        vector<stack<float>>* finite_stack;
+        stack<vector<float>> finite_stack;
         float total_reward = 0.0;
         int max_memory_used = 0;
         int steps_made = 0;
         float expected_reward = 0.0;
+        default_random_engine eng;
+        uniform_real_distribution<float> unif;
+        int stack_memory = 0;
 
-    FiniteMDPModel(json conf = json({})){
+    FiniteMDPModel(json conf = json({}), int seed = 21){
         if (conf.contains("discount"))
         discount = conf["discount"];
 
@@ -83,27 +86,15 @@ class FiniteMDPModel: public MDPModel{
             _add_qstates(conf["actions"], conf["initial_qvalues"]);
         }
         update_algorithm  = true;
-        finite_stack = new vector<stack<float>>;
-        //MIGHT DELETE LATER
-        for (int i=0; i<states.size(); i++){
-            finite_stack->push_back(stack<float>());
-        }
+        
+        eng = default_random_engine(seed);
+        unif = uniform_real_distribution<float>(0,1);
             
     };
 
     void setInitialState(State &s){
         current_state_num = s.state_num;
     }
-
-    //NEW LINE ADDED
-    vector<float> getFiniteStackTop(){
-        vector<float> V;
-        for (int i=0; i<finite_stack->size(); i++){
-            V.push_back((*finite_stack)[i].top());
-        }
-        return V;
-    }
-    //NEW LINE ADDED
 
     /*void _q_update_finite(QState &qstate, vector<State> &V){
         float new_qvalue = 0.0;
@@ -142,17 +133,15 @@ class FiniteMDPModel: public MDPModel{
             V_tmp = getStateValues(states);
             if (!tree){
                 index_stack.push(i);
-                //finite_stack.push(V_tmp);
+                finite_stack.push(V_tmp);
 
-                //NEW LINE ADDED
-                for(int n=0; n < V_tmp.size(); n++){
-                    (*finite_stack)[n].push(V_tmp[n]);
-                }
-                //NEW LINE ADDED
+                stack_memory += V_tmp.size() * sizeof(float);
             }
         }
-        if (getValue() > max_memory_used){
-            max_memory_used = getValue();
+        //if (getValue() > max_memory_used){
+            if ( stack_memory > max_memory_used){
+            //max_memory_used = getValue();
+            max_memory_used = stack_memory;
         }
         return V_tmp;
 
@@ -208,7 +197,7 @@ class FiniteMDPModel: public MDPModel{
 
             //vector<State> V;
             vector<float> V;
-            if (index_stack.empty()){
+            if (finite_stack.empty()){
                 resetValueFunction();
                 //V = calculateValues(k, 0, states, true); //if no vector is saved in memory, calculate objective from the beginning
                 V = calculateValues(k, 0, getStateValues(states), true);
@@ -216,19 +205,13 @@ class FiniteMDPModel: public MDPModel{
             }
             else{
 
-                //V = calculateValues(k, index_stack.top(), finite_stack.top(), true);//use last saved vector in memory to calculate objective
-                V = calculateValues(k, index_stack.top(), getFiniteStackTop(), true);
+                V = calculateValues(k, index_stack.top(), finite_stack.top(), true);//use last saved vector in memory to calculate objective
             }
 
-            //finite_stack.push(V);//add newly calculated vector to memory
-
-            //NEW LINE ADDED
-            for(int n=0; n < V.size(); n++){
-                    (*finite_stack)[n].push(V[n]);
-            }
-            //NEW LINE ADDED
-
+            finite_stack.push(V);//add newly calculated vector to memory
             index_stack.push(k);
+
+            stack_memory += V.size() * sizeof(float);
 
             if (V[initial_state_num] > expected_reward) expected_reward = V[initial_state_num];
 
@@ -238,16 +221,10 @@ class FiniteMDPModel: public MDPModel{
             loadValueFunction(V);
             takeAction(false);
 
-            //finite_stack.pop();//remove top of the stack from memory
-
-            //NEW LINE ADDED
-            for(int n=0; n < finite_stack->size(); n++){
-                (*finite_stack)[n].pop();
-            }
-            //NEW LINE ADDED
-
-
+            finite_stack.pop();//remove top of the stack from memory
             index_stack.pop();
+
+            stack_memory -= V.size() * sizeof(float);
 
             traverseTree(l, k-1);
         }
@@ -261,30 +238,22 @@ class FiniteMDPModel: public MDPModel{
             V = calculateValues(horizon, 0, getStateValues(states));
             expected_reward = V[initial_state_num];
 
-            while (!index_stack.empty()){
+            while (!finite_stack.empty()){
 
                 steps_made++;
 
                 //states = finite_stack.top();
-                //loadValueFunction(finite_stack.top());
-                loadValueFunction(getFiniteStackTop());
-
+                loadValueFunction(finite_stack.top());
                 takeAction(false);
 
-                //finite_stack.pop();
-
-                //NEW LINE ADDED
-                for(int n=0; n < (*finite_stack).size(); n++){
-                    (*finite_stack)[n].pop();
-                }
-                //NEW LINE ADDED
-
+                finite_stack.pop();
                 index_stack.pop();
+                stack_memory -= V.size() * sizeof(float);
             }
         }
 
 
-    /*void naiveEvaluation(int horizon){
+    void naiveEvaluation(int horizon){
 
         vector<float> V;
         int steps_remaining = horizon;
@@ -318,6 +287,8 @@ class FiniteMDPModel: public MDPModel{
             if (i % floor_of_square_root == 0){
                 finite_stack.push(V);
                 index_stack.push(i);
+
+                stack_memory += states.size()*sizeof(float);
             }
         }
 
@@ -328,7 +299,12 @@ class FiniteMDPModel: public MDPModel{
                 V = calculateValues(steps_remaining, 0, getStateValues(states));
             }
             else{
-                V = calculateValues(steps_remaining, index_stack.top(), finite_stack.top());
+                if(index_stack.top() == steps_remaining){
+                    V = finite_stack.top();
+                }
+                else{
+                    V = calculateValues(steps_remaining, index_stack.top(), finite_stack.top());
+                }
             }
 
             loadValueFunction(V);
@@ -337,10 +313,12 @@ class FiniteMDPModel: public MDPModel{
             finite_stack.pop();
             index_stack.pop();
 
+            stack_memory -= states.size()*sizeof(float);
+
             steps_made++;
             steps_remaining--;
         }
-    }*/
+    }
 
 
 /*
@@ -374,13 +352,9 @@ class FiniteMDPModel: public MDPModel{
         expected_reward = 0.0;
         max_memory_used = 0.0;
         steps_made = 0;
-        delete finite_stack;
-        finite_stack = new vector<stack<float>>;
-        for (int i=0; i<states.size(); i++){
-            finite_stack->push_back(stack<float>());
-        }
-
+        stack_memory = 0;
     }
+
 
 
 };
