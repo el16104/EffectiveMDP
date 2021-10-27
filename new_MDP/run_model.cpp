@@ -5,6 +5,8 @@
 #include "Complex.h"
 #include <chrono>
 #include <sstream>
+#include <Windows.h>
+#include <psapi.h>
 
 #include "stdlib.h"
 #include "stdio.h"
@@ -21,7 +23,7 @@ int parseLine2(char* line){
 }
 
 int getValue2(){ //Note: this value is in KB!
-    FILE* file = fopen("/proc/self/status", "r");
+    /*FILE* file = fopen("/proc/self/status", "r");
     int result = -1;
     char line[128];
 
@@ -32,7 +34,15 @@ int getValue2(){ //Note: this value is in KB!
         }
     }
     fclose(file);
-    return result;
+    return result;*/
+
+    PROCESS_MEMORY_COUNTERS_EX pmc;
+    GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+    //SIZE_T virtualMemUsedByMe = pmc.PrivateUsage;
+    SIZE_T physicalMemUsedByMe = pmc.WorkingSetSize;
+    //return virtualMemUsedByMe;
+    return physicalMemUsedByMe;
+
 }
 using namespace std::chrono;
 
@@ -88,14 +98,8 @@ int main(int argc, char *argv[])
     int MIN_VMS = 1;
     int MAX_VMS = 20;
     float epsilon = 0.7;
-    string CONF_FILE = "mdp_actual_big.json";
+    string CONF_FILE = "mdp_small.json";
     ModelConf conf(CONF_FILE);
-    float total_rewards_results[5][11];
-    for (int i=0; i<5; i++){
-        for (int j=0; j<11; j++){
-            total_rewards_results[i][j] = 0.0;
-        }
-    }
 
     ComplexScenario scenario(5000, load_period, 10, MIN_VMS, MAX_VMS);
     FiniteMDPModel model(conf.get_model_conf(), seed);
@@ -137,10 +141,13 @@ int main(int argc, char *argv[])
     }
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << max_memory_used/1000.0 << endl; 
-    cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
+    cout << "Horizon size: " << horizon << endl;
+    cout << "Total Reward Expected: " << model.expected_reward << endl;
+    cout << "Total Reward Collected: " << model.total_reward << endl;
+    cout << "Execution time (sec): " << duration.count() * 0.000001 << endl;
+    cout << "Peak memory used (MB): " << max_memory_used / 1000000.0 << endl;
+    cout << horizon << "," << max_memory_used / 1000000.0 << endl;
     cout << endl;
-    max_memory_used = 0.0;
     }
     else if (algorithm_type == "tree"){
     cout << "FINITE MDP MODEL (TREE): " << endl;
@@ -148,8 +155,12 @@ int main(int argc, char *argv[])
     model.traverseTree(1, horizon);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000000.0 << endl;
-    cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
+    cout << "Horizon size: " << horizon << endl;
+    cout << "Total Reward Expected: " << model.expected_reward << endl;
+    cout << "Total Reward Collected: " << model.total_reward << endl;
+    cout << "Execution time (sec): " << duration.count() * 0.000001 << endl;
+    cout << "Peak memory used (MB): " << model.max_memory_used / 1000000.0 << endl;
+    cout << horizon << "," << model.max_memory_used / 1000000.0 << endl;
     cout << endl;
     }
     else if (algorithm_type == "naive"){
@@ -158,8 +169,12 @@ int main(int argc, char *argv[])
     model.simpleEvaluation(horizon);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000000.0 << endl;
-    cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
+    cout << "Horizon size: " << horizon << endl;
+    cout << "Total Reward Expected: " << model.expected_reward << endl;
+    cout << "Total Reward Collected: " << model.total_reward << endl;
+    cout << "Execution time (sec): " << duration.count() * 0.000001 << endl;
+    cout << "Peak memory used (MB): " << model.max_memory_used / 1000000.0 << endl;
+    cout << horizon << "," << model.max_memory_used / 1000000.0 << endl;
     cout << endl;
     }
     else if (algorithm_type == "inplace"){
@@ -168,8 +183,12 @@ int main(int argc, char *argv[])
     model.naiveEvaluation(horizon);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000000.0 << endl;
-    cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
+    cout << "Horizon size: " << horizon << endl;
+    cout << "Total Reward Expected: " << model.expected_reward << endl;
+    cout << "Total Reward Collected: " << model.total_reward << endl;
+    cout << "Execution time (sec): " << duration.count() * 0.000001 << endl;
+    cout << "Peak memory used (MB): " << model.max_memory_used / 1000000.0 << endl;
+    cout << horizon << "," << model.max_memory_used / 1000000.0 << endl;
     cout << endl;
     }
     else if (algorithm_type == "root"){
@@ -178,8 +197,12 @@ int main(int argc, char *argv[])
     model.rootEvaluation(horizon);
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<microseconds>(stop - start);
-    cout << horizon << "," << model.total_reward << "," << duration.count() * 0.000001 << "," << model.max_memory_used/1000000.0 << endl;
-    cout << "Expected reward: " << model.expected_reward << " vs. Actual reward: " << model.total_reward << endl;  
+    cout << "Horizon size: " << horizon << endl;
+    cout << "Total Reward Expected: " << model.expected_reward << endl;
+    cout << "Total Reward Collected: " << model.total_reward << endl;
+    cout << "Execution time (sec): " << duration.count() * 0.000001 << endl;
+    cout << "Peak memory used (MB): " << model.max_memory_used / 1000000.0 << endl;
+    cout << horizon << model.max_memory_used / 1000000.0 << endl;
     cout << endl;
     }
     else return 0;

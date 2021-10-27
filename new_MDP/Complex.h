@@ -1,7 +1,7 @@
 #ifndef COMPLEX_H
 #define COMPLEX_H
 #include <iostream>
-#include <nlohmann/json.hpp>
+#include <nlohmann\json.hpp>
 #include <math.h> 
 
 #define PI 3.14159265
@@ -13,13 +13,14 @@ using namespace std;
 extern bool flag = true;
 
 double myRand(double LO, double HI){
-    if (flag){
+    /*if (flag){
         srand(static_cast <unsigned> (time(0)));
         flag = false;
     }
 
     double r3 = LO + static_cast <double> (rand()) /( static_cast <double> (RAND_MAX/(HI-LO)));
-    return r3;
+    return r3;*/
+    return 0.5;
 }
 
 class ComplexScenario{

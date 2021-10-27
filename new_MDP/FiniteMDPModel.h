@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <nlohmann/json.hpp>
+#include <nlohmann\json.hpp>
 #include <stdexcept>
 #include <string>
 #include <stack>
@@ -15,6 +15,9 @@
 #include "stdio.h"
 #include "string.h"
 
+#include <Windows.h>
+#include <psapi.h>
+
 int parseLine(char* line){
     // This assumes that a digit will be found and the line ends in " Kb".
     int i = strlen(line);
@@ -25,8 +28,8 @@ int parseLine(char* line){
     return i;
 }
 
-int getValue(){ //Note: this value is in KB!
-    FILE* file = fopen("/proc/self/status", "r");
+SIZE_T getValue(){ //Note: this value is in KB!
+    /*FILE* file = fopen("/proc/self/status", "r");
     int result = -1;
     char line[128];
 
@@ -37,7 +40,13 @@ int getValue(){ //Note: this value is in KB!
         }
     }
     fclose(file);
-    return result;
+    return result;*/
+    PROCESS_MEMORY_COUNTERS_EX pmc;
+    GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+    //SIZE_T virtualMemUsedByMe = pmc.PrivateUsage;
+    SIZE_T physicalMemUsedByMe = pmc.WorkingSetSize;
+    //return virtualMemUsedByMe;
+    return physicalMemUsedByMe;
 }
 
 //std::random_device rd;
@@ -139,11 +148,8 @@ class FiniteMDPModel: public MDPModel{
                 stack_memory += V_tmp.size() * sizeof(float);
             }
         }
-        cout << "MEMORY USED: " << getValue()/1000.0 << endl;
-        //if (getValue() > max_memory_used){
-            if ( stack_memory > max_memory_used){
-            //max_memory_used = getValue();
-            max_memory_used = stack_memory;
+        if (getValue() > max_memory_used){
+            max_memory_used = getValue();
         }
         return V_tmp;
 
@@ -239,7 +245,7 @@ class FiniteMDPModel: public MDPModel{
             //V = calculateValues(horizon, 0, states);
             V = calculateValues(horizon, 0, getStateValues(states));
             expected_reward = V[initial_state_num].second;
-            cout << "MEMORY WITH FULL STACK: " << getValue() << endl;
+
             while (!finite_stack.empty()){
 
                 steps_made++;
@@ -252,7 +258,6 @@ class FiniteMDPModel: public MDPModel{
                 index_stack.pop();
                 stack_memory -= V.size() * sizeof(float);
             }
-            cout << "MEMORY WITH EMPTY STACK: " << getValue() << endl;
         }
 
 
