@@ -51,7 +51,7 @@ SIZE_T getValue(){
         return 0;
 #endif
 #ifdef linux
-    file = fopen("/proc/self/status", "r");
+    FILE* file = fopen("/proc/self/status", "r");
     int result = -1;
     char line[128];
 
