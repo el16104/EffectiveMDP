@@ -26,7 +26,7 @@
 
 #ifdef linux
 #include <nlohmann/json.hpp>
-#include <cstddef>
+#define SIZE_T int
 #endif
 
 using namespace std::chrono;
