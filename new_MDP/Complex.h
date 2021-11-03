@@ -1,8 +1,15 @@
 #ifndef COMPLEX_H
 #define COMPLEX_H
 #include <iostream>
+#include <math.h>
+
+#ifdef _WIN32
 #include <nlohmann\json.hpp>
-#include <math.h> 
+#endif
+
+#ifdef linux
+#include <nlohmann/json.hpp>
+#endif
 
 #define PI 3.14159265
 

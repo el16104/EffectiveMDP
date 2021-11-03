@@ -1,10 +1,17 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <nlohmann\json.hpp>
 #include <stdexcept>
 #include <string>
 #include <stack>
+
+#ifdef _WIN32
+#include <nlohmann\json.hpp>
+#endif
+
+#ifdef linux
+#include <nlohmann/json.hpp>
+#endif
 
 // for convenience
 using json = nlohmann::json;

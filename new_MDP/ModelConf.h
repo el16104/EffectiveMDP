@@ -1,6 +1,15 @@
 #include <iostream>
-#include <nlohmann/json.hpp>
 #include <fstream>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <psapi.h>
+#include <nlohmann\json.hpp>
+#endif
+
+#ifdef linux
+#include <nlohmann/json.hpp>
+#endif
 
 // for convenience
 using json = nlohmann::json;

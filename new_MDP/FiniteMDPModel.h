@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include <nlohmann\json.hpp>
 #include <stdexcept>
 #include <string>
 #include <stack>
@@ -21,6 +20,11 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <psapi.h>
+#include <nlohmann\json.hpp>
+#endif
+
+#ifdef linux
+#include <nlohmann/json.hpp>
 #endif
 
 using namespace std::chrono;
