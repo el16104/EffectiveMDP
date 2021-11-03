@@ -4,30 +4,27 @@
 #include <vector>
 #include "Complex.h"
 #include <chrono>
-#include <sstream>
-
 
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
 
+
 /*
 
-This script is used to run only ONE model and create measurements. 
+This script is used to run all models and create measurements. 
 
 To compile in Windows, type in a terminal:
-    g++ -o output_script.exe run_model.cpp -lpsapi
+    g++ -o output_script.exe compare_all_models.cpp -lpsapi
 and execute by typing:
-    .\output_script.exe <algorithm_type> <horizon_size> <seed>
+    .\output_script.exe <model_parameters.json>
 
 To compile in Linux, type in a terminal:
-    g++ -o output_script.sh run_model.cpp
+    g++ -o output_script.sh compare_all_models.cpp
 and execute by typing:
-    ./output_script.exe <algorithm_type> <horizon_size> <seed>
+    ./output_script.exe <model_parameters.json>
 
-where <algorithm_type> can be: infinite, naive, root, tree, inplace
-<horizon_size> can be any positive integer
-and <seed> can be any positive integer
+where <model_parameters.json> is the path of the input json file containing the data (in JSON format) to configure the MDP Model.
 
 */
 
@@ -64,44 +61,35 @@ pair<string, int> randomchoice(vector<pair<string, int>> v, FiniteMDPModel &mode
 
 int main(int argc, char *argv[])
 {
-    int horizon = 100;
-    string algorithm_type = "none";
-    int seed = 21;
-    model_type algo;
-    if (argc >1) {
-        algorithm_type = argv[1];
-        if (algorithm_type == "infinite") algo = infinite;
-        else if (algorithm_type == "naive") algo = naive;
-        else if (algorithm_type == "root") algo = root;
-        else if (algorithm_type == "tree") algo = tree;
-        else if (algorithm_type == "inplace") algo = inplace;
-    }
-
-    if (argc == 4){
-        std::size_t pos;
-        horizon = std::stoi(argv[2], &pos);
-        seed = std::stoi(argv[3], &pos);
-    }
-
-
+    int num_tests = 1;
     int training_steps = 10000;
+    vector<int> horizon {1000000};
+    int seed = 21;
     int max_memory_used = 0;
     int load_period = 250;
     int MIN_VMS = 1;
     int MAX_VMS = 20;
     float epsilon = 0.7;
-    string CONF_FILE = "./model_parameters/mdp_small_1.json";
+    //string CONF_FILE = "mdp_small_1.json";
+    string CONF_FILE = argv[1];
     ModelConf conf(CONF_FILE);
+    float total_rewards_results[5][13];
+    for (int i=0; i<5; i++){
+        for (int j=0; j<13; j++){
+            total_rewards_results[i][j] = 0.0;
+        }
+    }
 
     ComplexScenario scenario(5000, load_period, 10, MIN_VMS, MAX_VMS);
+
+    pair<string, int> action;
+    for (int number_of_tests =0; number_of_tests < num_tests; number_of_tests++){
     FiniteMDPModel model(conf.get_model_conf(), seed);
     model.set_state(scenario.get_current_measurements());
     float total_reward = 0.0;
-    pair<string, int> action;
-    //TRAIN THE MODEL
-
+    
     for (int time = 0; time < training_steps; time++){
-
+    
         float x = model.unif(model.eng);
         if (x < epsilon)
         {
@@ -119,6 +107,34 @@ int main(int argc, char *argv[])
         }
     }
     model.initial_state_num = model.current_state_num;
-    
-    model.runAlgorithm(algo, horizon);   
+
+        for (int i = 0; i < horizon.size(); i++){
+            model.runAlgorithm(infinite, horizon[i]);
+            total_rewards_results[0][i] += model.total_reward;
+            model.resetModel();
+
+            model.runAlgorithm(naive, horizon[i]);
+            total_rewards_results[1][i] += model.total_reward;
+            model.resetModel();
+
+            model.runAlgorithm(root, horizon[i]);
+            total_rewards_results[2][i] += model.total_reward;
+            model.resetModel();
+
+            model.runAlgorithm(tree, horizon[i]);
+            total_rewards_results[3][i] += model.total_reward;
+            model.resetModel();
+        
+            model.runAlgorithm(inplace, horizon[i]);
+            total_rewards_results[4][i] += model.total_reward;
+            model.resetModel();        
+        }
+    }
+
+    for (int i=0; i < 2; i++){
+        for (int j =0; j < horizon.size(); j++){
+            cout << "(" << horizon[j] << "," << total_rewards_results[i][j]  << ")";
+        }
+        cout << endl;
+    }
 }

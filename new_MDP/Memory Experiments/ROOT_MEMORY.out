@@ -1,0 +1,16 @@
+FINITE MDP MODEL (SQUARE ROOT): 
+Horizon size: 1000
+Total Reward Expected: 55305.8
+Total Reward Collected: 55262.4
+Execution time (sec): 11.5056
+Peak memory used (MB): 8.13466
+1000,0.0976
+
+FINITE MDP MODEL (TREE): 
+Horizon size: 1000
+Total Reward Expected: 55305.8
+Total Reward Collected: 55262.4
+Execution time (sec): 30.5164
+Peak memory used (MB): 9.0153
+1000,0.0144
+

@@ -8,6 +8,9 @@
 #include <random>
 #include <math.h>
 #include <array>
+#include <chrono>
+#include <sstream>
+
 #include "MDPModel.h"
 #include "Complex.h"
 
@@ -15,8 +18,13 @@
 #include "stdio.h"
 #include "string.h"
 
-#include <Windows.h>
+#ifdef _WIN32
+#include <windows.h>
 #include <psapi.h>
+#endif
+
+using namespace std::chrono;
+enum model_type {infinite, naive, root, tree, inplace};
 
 int parseLine(char* line){
     // This assumes that a digit will be found and the line ends in " Kb".
@@ -28,8 +36,16 @@ int parseLine(char* line){
     return i;
 }
 
-SIZE_T getValue(){ //Note: this value is in KB!
-    /*FILE* file = fopen("/proc/self/status", "r");
+SIZE_T getValue(){
+#ifdef _WIN32
+    PROCESS_MEMORY_COUNTERS pmc;
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc)))
+        return(pmc.WorkingSetSize); //Value in Bytes!
+    else
+        return 0;
+#endif
+#ifdef linux
+    file = fopen("/proc/self/status", "r");
     int result = -1;
     char line[128];
 
@@ -40,21 +56,11 @@ SIZE_T getValue(){ //Note: this value is in KB!
         }
     }
     fclose(file);
-    return result;*/
-    PROCESS_MEMORY_COUNTERS_EX pmc;
-    GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
-    //SIZE_T virtualMemUsedByMe = pmc.PrivateUsage;
-    SIZE_T physicalMemUsedByMe = pmc.WorkingSetSize;
-    //return virtualMemUsedByMe;
-    return physicalMemUsedByMe;
+    return result;
+#endif
+
 }
 
-//std::random_device rd;
-//std::seed_seq seed{rd()};
-//std::default_random_engine eng(seed);
-
-
-// for convenience
 using json = nlohmann::json;
 
 using namespace std;
@@ -65,6 +71,7 @@ class FiniteMDPModel: public MDPModel{
         stack<vector<pair<int , float>>> finite_stack;
         float total_reward = 0.0;
         int max_memory_used = 0;
+        int max_stack_memory = 0;
         int steps_made = 0;
         float expected_reward = 0.0;
         default_random_engine eng;
@@ -144,8 +151,11 @@ class FiniteMDPModel: public MDPModel{
             if (!tree){
                 index_stack.push(i);
                 finite_stack.push(V_tmp);
+                cout << "Saving index: " << i << endl;
+                stack_memory += V_tmp.size() * sizeof(pair<int,float>);
 
-                stack_memory += V_tmp.size() * sizeof(float);
+                if (stack_memory > max_stack_memory)
+                    max_stack_memory = stack_memory;
             }
         }
         if (getValue() > max_memory_used){
@@ -219,7 +229,7 @@ class FiniteMDPModel: public MDPModel{
             finite_stack.push(V);//add newly calculated vector to memory
             index_stack.push(k);
 
-            stack_memory += V.size() * sizeof(float);
+            stack_memory += V.size() * sizeof(pair<int,float>);
 
             if (V[initial_state_num].second > expected_reward) expected_reward = V[initial_state_num].second;
 
@@ -232,13 +242,13 @@ class FiniteMDPModel: public MDPModel{
             finite_stack.pop();//remove top of the stack from memory
             index_stack.pop();
 
-            stack_memory -= V.size() * sizeof(float);
+            stack_memory -= V.size() * sizeof(pair<int,float>);
 
             traverseTree(l, k-1);
         }
     }
 
-    void simpleEvaluation(int horizon){
+    void naiveEvaluation(int horizon){
             //vector<State> V;
             vector<pair<int,float>> V;
             resetValueFunction();
@@ -253,15 +263,15 @@ class FiniteMDPModel: public MDPModel{
                 //states = finite_stack.top();
                 loadValueFunction(finite_stack.top());
                 takeAction(false);
-
+                cout << "Just made step " << steps_made << endl;
                 finite_stack.pop();
                 index_stack.pop();
-                stack_memory -= V.size() * sizeof(float);
+                stack_memory -= V.size() * sizeof(pair<int,float>);
             }
         }
 
 
-    void naiveEvaluation(int horizon){
+    void inPlaceEvaluation(int horizon){
 
         vector<pair<int,float>> V;
         int steps_remaining = horizon;
@@ -270,6 +280,9 @@ class FiniteMDPModel: public MDPModel{
         V = calculateValues(steps_remaining, 0, getStateValues(states),true);
         expected_reward = V[initial_state_num].second;
 
+        if (getValue() > max_memory_used){
+            max_memory_used = getValue();
+        }
         while(steps_remaining > 0){
             V = calculateValues(steps_remaining, 0, getStateValues(states),true);
             loadValueFunction(V);
@@ -295,7 +308,9 @@ class FiniteMDPModel: public MDPModel{
                 finite_stack.push(V);
                 index_stack.push(i);
 
-                stack_memory += states.size()*sizeof(float);
+                stack_memory += states.size()*sizeof(pair<int,float>);
+                if (stack_memory > max_stack_memory)
+                    max_stack_memory = stack_memory;
             }
         }
 
@@ -303,6 +318,7 @@ class FiniteMDPModel: public MDPModel{
 
         while(steps_remaining > 0){
             if (finite_stack.empty()){
+                resetValueFunction();
                 V = calculateValues(steps_remaining, 0, getStateValues(states));
             }
             else{
@@ -317,10 +333,14 @@ class FiniteMDPModel: public MDPModel{
             loadValueFunction(V);
             takeAction(false);
 
+            if (getValue() > max_memory_used){
+                max_memory_used = getValue();
+            }
+            //cout << "Current Memory in use: " << getValue() << endl;
             finite_stack.pop();
             index_stack.pop();
 
-            stack_memory -= states.size()*sizeof(float);
+            stack_memory -= states.size()*sizeof(pair<int,float>);
 
             steps_made++;
             steps_remaining--;
@@ -328,11 +348,11 @@ class FiniteMDPModel: public MDPModel{
     }
 
 
-/*
+
     void printValueFunction(){
         if(!finite_stack.empty()){
             for (int i = 0; i < finite_stack.top().size(); i++){
-                cout << "State " << finite_stack.top()[i].get_state_num()<< ": " << finite_stack.top()[i].value << endl;
+                cout << "State " << i << ": " << finite_stack.top()[i].second << endl;
             }
         }
         else{
@@ -341,7 +361,7 @@ class FiniteMDPModel: public MDPModel{
             }  
         }
     }
-*/
+
     void resetValueFunction(){
         for (int i=0; i<states.size(); i++){
             for (int j=0; j < states[i].qstates.size(); j++){
@@ -360,6 +380,148 @@ class FiniteMDPModel: public MDPModel{
         max_memory_used = 0.0;
         steps_made = 0;
         stack_memory = 0;
+    }
+
+
+    //calculates Value Function for target index while saving every intermediate index needed
+    vector<pair<int,float>> treeTraversal(int target, int horizon){
+        int l = 0;
+        int r = horizon;
+        vector<pair<int,float>> V;
+        int k = (l + r)/2;
+
+        if (!index_stack.empty()){
+            if (index_stack.top() == target){
+                V = finite_stack.top();
+                finite_stack.pop();
+                index_stack.pop();
+                stack_memory -= states.size()*sizeof(pair<int,float>);
+                return V;
+            }
+            else{
+                k = index_stack.top();
+            }
+        }
+
+
+        while ( l <= r){
+            if (k == target){
+                if (finite_stack.empty()){
+                    resetValueFunction();//if no vector is saved in memory, calculate objective from the beginning
+                    V = calculateValues(k, 0, getStateValues(states), true);
+
+                }
+                else{
+
+                    V = calculateValues(k, index_stack.top(), finite_stack.top(), true);//use last saved vector in memory to calculate objective
+                }
+                break;
+            }
+            else if ( k < target){
+                if (finite_stack.empty()){
+                    resetValueFunction();//if no vector is saved in memory, calculate objective from the beginning
+                    finite_stack.push(calculateValues(k, 0, getStateValues(states), true));
+                    index_stack.push(k);
+                    stack_memory += states.size()*sizeof(pair<int,float>);
+                if (stack_memory > max_stack_memory)
+                    max_stack_memory = stack_memory;
+                }
+                else{
+                    if (index_stack.top() != k){
+                        finite_stack.push(calculateValues(k, index_stack.top(), finite_stack.top(), true));//use last saved vector in memory to calculate objective
+                        index_stack.push(k);
+                        stack_memory += states.size()*sizeof(pair<int,float>);
+                                        if (stack_memory > max_stack_memory)
+                    max_stack_memory = stack_memory;
+                    }
+                }
+                l = k + 1;
+                k = (l + r)/2;
+            }
+            else if ( k > target){
+                r = k - 1;
+                k = (l + r)/2;
+            }
+        }
+
+        return V;
+    }
+
+    void treeEvaluation(int horizon){
+        int steps_remaining = horizon;
+        vector<pair<int,float>> V;
+        while(steps_remaining > 0){
+            V = treeTraversal(steps_remaining, horizon);
+            if (steps_remaining == horizon)
+                expected_reward = V[initial_state_num].second;
+            loadValueFunction(V);
+            takeAction(false);
+            steps_remaining--;
+        }
+    }
+
+    void infiniteEvaluation(int horizon){
+        resetValueFunction();
+        value_iteration(0.1, false);
+        for (int time = 0; time < horizon; time++){
+            if (time == 0) 
+                expected_reward = states[initial_state_num].value;
+            takeAction(true);
+            if (getValue() > max_memory_used)
+                max_memory_used = getValue();
+            }
+    }
+
+    void runAlgorithm(model_type alg, int horizon=100){
+
+        auto start = high_resolution_clock::now();
+
+        switch(alg) {
+            case infinite:
+                cout << "INFINITE MDP MODEL: " << endl;
+
+                infiniteEvaluation(horizon);
+
+                break;
+            case naive:
+                cout << "NAIVE FINITE MDP MODEL: " << endl;
+
+                naiveEvaluation(horizon);
+
+                break;
+            case root:
+                cout << "ROOT FINITE MDP MODEL: " << endl;
+
+                rootEvaluation(horizon);
+
+                break;
+            case tree:
+                cout << "TREE FINITE MDP MODEL: " << endl;
+
+                treeEvaluation(horizon);
+
+                break;
+            case inplace:
+                cout << "IN-PLACE FINITE MDP MODEL: " << endl;
+
+                inPlaceEvaluation(horizon);
+
+                break;
+            default:
+                cout << "Invalid Model Type. Valid model types are: infinite, naive, root, tree, inplace" << endl;
+                return;
+        }
+
+        auto stop = high_resolution_clock::now();
+        auto duration = duration_cast<microseconds>(stop - start);
+
+        cout << "Horizon size: " << horizon << endl;
+        cout << "Total Reward Expected: " << expected_reward << endl;
+        cout << "Total Reward Collected: " << total_reward << endl;
+        cout << "Execution time (sec): " << duration.count() * 0.000001 << endl;
+        cout << "Peak memory used (MB): " << max_memory_used / 1000000.0 << endl;
+
+        cout << endl;
     }
 
 
