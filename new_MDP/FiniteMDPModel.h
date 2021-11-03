@@ -17,6 +17,7 @@
 #include "stdio.h"
 #include "string.h"
 
+
 #ifdef _WIN32
 #include <windows.h>
 #include <psapi.h>
@@ -25,6 +26,7 @@
 
 #ifdef linux
 #include <nlohmann/json.hpp>
+#include <cstddef>
 #endif
 
 using namespace std::chrono;
