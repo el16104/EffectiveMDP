@@ -120,5 +120,5 @@ int main(int argc, char *argv[])
     }
     model.initial_state_num = model.current_state_num;
     
-    model.runAlgorithm(algo, horizon);   
+    model.runAlgorithm(algo, horizon);
 }

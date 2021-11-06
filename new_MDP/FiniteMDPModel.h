@@ -157,15 +157,19 @@ class FiniteMDPModel: public MDPModel{
             if (!tree){
                 index_stack.push(i);
                 finite_stack.push(V_tmp);
-                cout << "Saving index: " << i << endl;
                 stack_memory += V_tmp.size() * sizeof(pair<int,float>);
 
                 if (stack_memory > max_stack_memory)
                     max_stack_memory = stack_memory;
+                if (getValue() > max_memory_used){
+                    max_memory_used = getValue();
+                    cout << "Index " << i << ": " << max_memory_used / 1000000.0 << endl;
+                }
             }
         }
         if (getValue() > max_memory_used){
             max_memory_used = getValue();
+            cout << "Current Memory used: " << max_memory_used / 1000000.0 << "MB" << endl;
         }
         return V_tmp;
 
@@ -269,7 +273,6 @@ class FiniteMDPModel: public MDPModel{
                 //states = finite_stack.top();
                 loadValueFunction(finite_stack.top());
                 takeAction(false);
-                cout << "Just made step " << steps_made << endl;
                 finite_stack.pop();
                 index_stack.pop();
                 stack_memory -= V.size() * sizeof(pair<int,float>);
@@ -520,13 +523,12 @@ class FiniteMDPModel: public MDPModel{
 
         auto stop = high_resolution_clock::now();
         auto duration = duration_cast<microseconds>(stop - start);
-
         cout << "Horizon size: " << horizon << endl;
         cout << "Total Reward Expected: " << expected_reward << endl;
         cout << "Total Reward Collected: " << total_reward << endl;
         cout << "Execution time (sec): " << duration.count() * 0.000001 << endl;
         cout << "Peak memory used (MB): " << max_memory_used / 1000000.0 << endl;
-
+        //cout << "(" << horizon << "," << duration.count() * 0.000001 << ")";
         cout << endl;
     }
 

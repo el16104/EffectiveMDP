@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 {
     int num_tests = 1;
     int training_steps = 10000;
-    vector<int> horizon {1000000};
+    vector<int> horizon {10001000};
     int seed = 21;
     int max_memory_used = 0;
     int load_period = 250;
@@ -109,14 +109,22 @@ int main(int argc, char *argv[])
     model.initial_state_num = model.current_state_num;
 
         for (int i = 0; i < horizon.size(); i++){
+            /*
             model.runAlgorithm(infinite, horizon[i]);
             total_rewards_results[0][i] += model.total_reward;
             model.resetModel();
+            */
 
             model.runAlgorithm(naive, horizon[i]);
             total_rewards_results[1][i] += model.total_reward;
-            model.resetModel();
 
+            cout << "Horizon size: " << horizon[i] << endl;
+            cout << "Total Reward Expected: " << model.expected_reward << endl;
+            cout << "Total Reward Collected: " << model.total_reward << endl;
+            cout << "Peak memory used (MB): " << model.max_memory_used / 1000000.0 << endl;
+
+            model.resetModel();
+            /*
             model.runAlgorithm(root, horizon[i]);
             total_rewards_results[2][i] += model.total_reward;
             model.resetModel();
@@ -127,7 +135,8 @@ int main(int argc, char *argv[])
         
             model.runAlgorithm(inplace, horizon[i]);
             total_rewards_results[4][i] += model.total_reward;
-            model.resetModel();        
+            model.resetModel();
+            */     
         }
     }
 
