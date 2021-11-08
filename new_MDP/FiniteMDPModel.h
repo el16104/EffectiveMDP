@@ -30,7 +30,7 @@
 #endif
 
 using namespace std::chrono;
-enum model_type {infinite, naive, root, tree, inplace};
+enum model_type {infinite, naive, root, tree, inplace,infiniteM};
 
 int parseLine(char* line){
     // This assumes that a digit will be found and the line ends in " Kb".
@@ -145,7 +145,9 @@ class FiniteMDPModel: public MDPModel{
 
 
     vector<pair<int, float>> calculateValues(int k, int starting_index, vector<pair<int, float>> V, bool tree = false){
-        vector<pair<int,float>> V_tmp = V;
+        vector<pair<int,float>> V_tmp;
+        V_tmp.reserve(states.size());      
+        V_tmp = V;
         for (int i = starting_index+1 ; i < k+1; i++){
             for (int j = 0 ; j < states.size(); j++ ){
                 for (int m = 0; m < states[j].get_qstates().size(); m++){
@@ -159,17 +161,15 @@ class FiniteMDPModel: public MDPModel{
                 finite_stack.push(V_tmp);
                 stack_memory += V_tmp.size() * sizeof(pair<int,float>);
 
-                if (stack_memory > max_stack_memory)
-                    max_stack_memory = stack_memory;
-                if (getValue() > max_memory_used){
-                    max_memory_used = getValue();
-                    cout << "Index " << i << ": " << max_memory_used / 1000000.0 << endl;
+
+                   // cout << "Index " << i << ": " << max_memory_used / 1000000.0 << endl;
                 }
             }
-        }
+        if (stack_memory > max_stack_memory)
+            max_stack_memory = stack_memory;
         if (getValue() > max_memory_used){
             max_memory_used = getValue();
-            cout << "Current Memory used: " << max_memory_used / 1000000.0 << "MB" << endl;
+            //cout << "Current Memory used: " << max_memory_used / 1000000.0 << "MB" << endl;
         }
         return V_tmp;
 
@@ -260,12 +260,13 @@ class FiniteMDPModel: public MDPModel{
 
     void naiveEvaluation(int horizon){
             //vector<State> V;
+
             vector<pair<int,float>> V;
+            V.reserve(states.size());
             resetValueFunction();
             //V = calculateValues(horizon, 0, states);
             V = calculateValues(horizon, 0, getStateValues(states));
             expected_reward = V[initial_state_num].second;
-
             while (!finite_stack.empty()){
 
                 steps_made++;
@@ -304,6 +305,7 @@ class FiniteMDPModel: public MDPModel{
     void rootEvaluation(int horizon){
 
         vector<pair<int,float>> V;
+        V.reserve(states.size());
         int steps_remaining = horizon;
         resetValueFunction();
 
@@ -397,6 +399,7 @@ class FiniteMDPModel: public MDPModel{
         int l = 0;
         int r = horizon;
         vector<pair<int,float>> V;
+        V.reserve(states.size());
         int k = (l + r)/2;
 
         if (!index_stack.empty()){
@@ -459,6 +462,7 @@ class FiniteMDPModel: public MDPModel{
     void treeEvaluation(int horizon){
         int steps_remaining = horizon;
         vector<pair<int,float>> V;
+        V.reserve(states.size());
         while(steps_remaining > 0){
             V = treeTraversal(steps_remaining, horizon);
             if (steps_remaining == horizon)
@@ -472,14 +476,21 @@ class FiniteMDPModel: public MDPModel{
     void infiniteEvaluation(int horizon){
         resetValueFunction();
         value_iteration(0.1, false);
+        max_memory_used = getValue();
+        expected_reward = states[initial_state_num].value;
         for (int time = 0; time < horizon; time++){
-            if (time == 0) 
-                expected_reward = states[initial_state_num].value;
             takeAction(true);
-            if (getValue() > max_memory_used)
-                max_memory_used = getValue();
             }
     }
+        void infiniteEvaluationM(int horizon){
+        resetValueFunction();
+        value_iterationM(horizon);
+        max_memory_used = getValue();
+        expected_reward = states[initial_state_num].value;
+        for (int time = 0; time < horizon; time++){
+            takeAction(true);
+    }
+        }
 
     void runAlgorithm(model_type alg, int horizon=100){
 
@@ -490,6 +501,12 @@ class FiniteMDPModel: public MDPModel{
                 cout << "INFINITE MDP MODEL: " << endl;
 
                 infiniteEvaluation(horizon);
+
+                break;
+            case infiniteM:
+                cout << "INFINITEM MDP MODEL: " << endl;
+
+                infiniteEvaluationM(horizon);
 
                 break;
             case naive:

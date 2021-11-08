@@ -501,6 +501,7 @@ class MDPModel{
         float old_value;
         float new_value;
         vector<State> V_tmp;
+        V_tmp.reserve(states.size());
         while(repeat){
             repeat = false;
             V_tmp = states;
@@ -518,6 +519,18 @@ class MDPModel{
                 new_value = states[j].get_value();
                 if (abs(old_value - new_value) > error)
                     repeat = true;
+            }
+        }
+    }
+    void value_iterationM(int horizon){
+        vector<State> V_tmp;
+        for (int i = 1 ; i < horizon+1; i++ ){
+            V_tmp = states;
+            for (int j = 0 ; j < states.size(); j++ ){
+                for (int m = 0; m < states[j].get_qstates().size(); m++){
+                    _q_update(states[j].qstates[m], V_tmp);
+                }
+                states[j].update_value();
             }
         }
     }
@@ -601,6 +614,7 @@ class MDPModel{
 
     vector<pair<int,float>> getStateValues(vector<State> V){
         vector<pair<int,float>> values;
+        values.reserve(V.size());    
 
         for (int i=0; i < V.size(); i++){
             values.push_back(make_pair( V[i].get_best_qstate(), V[i].get_value()));
