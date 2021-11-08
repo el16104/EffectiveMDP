@@ -70,8 +70,8 @@ int main(int argc, char *argv[])
     int MIN_VMS = 1;
     int MAX_VMS = 20;
     float epsilon = 0.7;
-    //string CONF_FILE = "model_parameters/mdp_small_3.json"; //sorry for that but keep it in comments
-    string CONF_FILE = argv[1];
+    string CONF_FILE = "model_parameters/mdp_small_3.json"; //sorry for that but keep it in comments
+    //string CONF_FILE = argv[1];
     ModelConf conf(CONF_FILE);
     float total_rewards_results[5][13];
     for (int i=0; i<5; i++){
@@ -107,14 +107,14 @@ int main(int argc, char *argv[])
         }
     }
     model.initial_state_num = model.current_state_num;
-    //model.discount=1; //for the infiniteM to test the discount=1
-       // for (int j = 0; j < 10; j++){//just to test the same model results
+    model.discount=1; //for the infiniteM to test the discount=1
+        for (int j = 0; j < 10; j++){//just to test the same model results
         for (int i = 0; i < horizon.size(); i++){
             /*
             model.runAlgorithm(infinite, horizon[i]);
             total_rewards_results[0][i] += model.total_reward;
             model.resetModel();
-            */
+            
             model.runAlgorithm(naive, horizon[i]);
             total_rewards_results[1][i] += model.total_reward;
             /*
@@ -133,7 +133,7 @@ int main(int argc, char *argv[])
             total_rewards_results[3][i] += model.total_reward;
             model.resetModel();
             */
-            model.resetModel();
+            //model.resetModel();
             model.runAlgorithm(infiniteM, horizon[i]);
             total_rewards_results[4][i] += model.total_reward;
             model.resetModel();
@@ -143,7 +143,7 @@ int main(int argc, char *argv[])
             model.resetModel();
             */     
         }
-        //}//just to test the same model results
+        }//just to test the same model results
     
 
     for (int i=0; i < 5; i++){
