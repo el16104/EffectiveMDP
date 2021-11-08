@@ -1,0 +1,3642 @@
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 31.0575
+Total Reward Collected: 5213.51
+Execution time (sec): 0.036201
+Peak memory used (MB): 0.005944
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5094.3
+Total Reward Collected: 5123.07
+Execution time (sec): 1.15082
+Peak memory used (MB): 0.007224
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 31.0575
+Total Reward Collected: 5910.62
+Execution time (sec): 0.03894
+Peak memory used (MB): 0.007224
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13331.3
+Total Reward Collected: 13164
+Execution time (sec): 2.84455
+Peak memory used (MB): 0.00762
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 31.0575
+Total Reward Collected: 13914.1
+Execution time (sec): 0.04492
+Peak memory used (MB): 0.00762
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 27059.4
+Total Reward Collected: 26587.3
+Execution time (sec): 5.64531
+Peak memory used (MB): 0.007976
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 31.0575
+Total Reward Collected: 19355.1
+Execution time (sec): 0.050766
+Peak memory used (MB): 0.008052
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 40787.6
+Total Reward Collected: 40916.4
+Execution time (sec): 8.55485
+Peak memory used (MB): 0.008208
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 31.0575
+Total Reward Collected: 23339.2
+Execution time (sec): 0.058507
+Peak memory used (MB): 0.008208
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 54516.2
+Total Reward Collected: 54739.3
+Execution time (sec): 11.5716
+Peak memory used (MB): 0.008812
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 31.0575
+Total Reward Collected: 52352.2
+Execution time (sec): 0.094448
+Peak memory used (MB): 0.008784
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 136887
+Total Reward Collected: 136908
+Execution time (sec): 28.5529
+Peak memory used (MB): 0.011256
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 31.0575
+Total Reward Collected: 96061
+Execution time (sec): 0.151805
+Peak memory used (MB): 0.0113
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 274152
+Total Reward Collected: 274387
+Execution time (sec): 58.5403
+Peak memory used (MB): 0.015292
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 31.0575
+Total Reward Collected: 139800
+Execution time (sec): 0.213959
+Peak memory used (MB): 0.015052
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 411418
+Total Reward Collected: 411527
+Execution time (sec): 88.8529
+Peak memory used (MB): 0.019336
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 31.0575
+Total Reward Collected: 192333
+Execution time (sec): 0.266917
+Peak memory used (MB): 0.019208
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 548697
+Total Reward Collected: 548762
+Execution time (sec): 117.119
+Peak memory used (MB): 0.023412
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 31.0575
+Total Reward Collected: 462964
+Execution time (sec): 0.612349
+Peak memory used (MB): 0.023424
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.37239e+06
+Total Reward Collected: 1.37241e+06
+Execution time (sec): 292.411
+Peak memory used (MB): 0.0476
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 31.0575
+Total Reward Collected: 928328
+Execution time (sec): 1.18811
+Peak memory used (MB): 0.0476
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.74574e+06
+Total Reward Collected: 2.74588e+06
+Execution time (sec): 585.876
+Peak memory used (MB): 0.088052
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 31.0575
+Total Reward Collected: 1.38341e+06
+Execution time (sec): 1.76989
+Peak memory used (MB): 0.088036
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.12074e+06
+Total Reward Collected: 4.12077e+06
+Execution time (sec): 881.203
+Peak memory used (MB): 0.128432
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 31.0575
+Total Reward Collected: 1.84111e+06
+Execution time (sec): 2.33122
+Peak memory used (MB): 0.12806
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.49574e+06
+Total Reward Collected: 5.49584e+06
+Execution time (sec): 1172.07
+Peak memory used (MB): 0.16884
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 26.3695
+Total Reward Collected: 4366.36
+Execution time (sec): 0.036417
+Peak memory used (MB): 0.16884
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5226.82
+Total Reward Collected: 4913.25
+Execution time (sec): 1.17223
+Peak memory used (MB): 0.168684
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 26.3695
+Total Reward Collected: 8420.81
+Execution time (sec): 0.039955
+Peak memory used (MB): 0.168684
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13798.3
+Total Reward Collected: 13464.2
+Execution time (sec): 2.92722
+Peak memory used (MB): 0.168684
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 26.3695
+Total Reward Collected: 21693.7
+Execution time (sec): 0.046236
+Peak memory used (MB): 0.168684
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 28084.2
+Total Reward Collected: 27999.5
+Execution time (sec): 5.85837
+Peak memory used (MB): 0.168684
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 26.3695
+Total Reward Collected: 29130.4
+Execution time (sec): 0.051945
+Peak memory used (MB): 0.168684
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 42370
+Total Reward Collected: 42465.9
+Execution time (sec): 8.78363
+Peak memory used (MB): 0.168684
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 26.3695
+Total Reward Collected: 44967.8
+Execution time (sec): 0.058793
+Peak memory used (MB): 0.168684
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 56655.7
+Total Reward Collected: 56096.8
+Execution time (sec): 11.6989
+Peak memory used (MB): 0.168684
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 26.3695
+Total Reward Collected: 103397
+Execution time (sec): 0.09495
+Peak memory used (MB): 0.16868
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 142372
+Total Reward Collected: 142172
+Execution time (sec): 29.27
+Peak memory used (MB): 0.16868
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 26.3695
+Total Reward Collected: 198926
+Execution time (sec): 0.155149
+Peak memory used (MB): 0.16868
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 285246
+Total Reward Collected: 286903
+Execution time (sec): 58.4765
+Peak memory used (MB): 0.16868
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 26.3695
+Total Reward Collected: 298513
+Execution time (sec): 0.216961
+Peak memory used (MB): 0.16868
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 428154
+Total Reward Collected: 427300
+Execution time (sec): 87.8409
+Peak memory used (MB): 0.16868
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 26.3695
+Total Reward Collected: 385240
+Execution time (sec): 0.27533
+Peak memory used (MB): 0.16868
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 571070
+Total Reward Collected: 570162
+Execution time (sec): 117.039
+Peak memory used (MB): 0.16868
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 26.3695
+Total Reward Collected: 997954
+Execution time (sec): 0.643226
+Peak memory used (MB): 0.16868
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.42875e+06
+Total Reward Collected: 1.42935e+06
+Execution time (sec): 292.97
+Peak memory used (MB): 0.16868
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 26.3695
+Total Reward Collected: 1.95312e+06
+Execution time (sec): 1.28961
+Peak memory used (MB): 0.16868
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.8574e+06
+Total Reward Collected: 2.84993e+06
+Execution time (sec): 591.699
+Peak memory used (MB): 0.16868
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 26.3695
+Total Reward Collected: 2.93646e+06
+Execution time (sec): 1.92332
+Peak memory used (MB): 0.16868
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.28611e+06
+Total Reward Collected: 4.28961e+06
+Execution time (sec): 881.765
+Peak memory used (MB): 0.16868
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 26.3695
+Total Reward Collected: 3.92792e+06
+Execution time (sec): 2.45298
+Peak memory used (MB): 0.16868
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.72016e+06
+Total Reward Collected: 5.71874e+06
+Execution time (sec): 1174.9
+Peak memory used (MB): 0.168964
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 31.2356
+Total Reward Collected: 4913.33
+Execution time (sec): 0.036449
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5000.54
+Total Reward Collected: 5172.94
+Execution time (sec): 1.17812
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 31.2356
+Total Reward Collected: 7639.28
+Execution time (sec): 0.039874
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13168.2
+Total Reward Collected: 13503.3
+Execution time (sec): 2.92943
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 31.2356
+Total Reward Collected: 19466.6
+Execution time (sec): 0.046187
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 26839.2
+Total Reward Collected: 26699.3
+Execution time (sec): 5.85732
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 31.2356
+Total Reward Collected: 32220.4
+Execution time (sec): 0.052757
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 40639.5
+Total Reward Collected: 40491.7
+Execution time (sec): 8.80024
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 31.2356
+Total Reward Collected: 38162
+Execution time (sec): 0.058302
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 54440.3
+Total Reward Collected: 54550.3
+Execution time (sec): 11.7298
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 31.2356
+Total Reward Collected: 93868.8
+Execution time (sec): 0.095408
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 137245
+Total Reward Collected: 137532
+Execution time (sec): 29.3229
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 31.2356
+Total Reward Collected: 202087
+Execution time (sec): 0.157986
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 275256
+Total Reward Collected: 275671
+Execution time (sec): 58.6534
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 31.2356
+Total Reward Collected: 293309
+Execution time (sec): 0.217834
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 413303
+Total Reward Collected: 412657
+Execution time (sec): 88.0997
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 31.2356
+Total Reward Collected: 401415
+Execution time (sec): 0.278264
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 551336
+Total Reward Collected: 551069
+Execution time (sec): 117.33
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 31.2356
+Total Reward Collected: 992612
+Execution time (sec): 0.642395
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.37952e+06
+Total Reward Collected: 1.37939e+06
+Execution time (sec): 293.761
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 31.2356
+Total Reward Collected: 2.00649e+06
+Execution time (sec): 1.25952
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.76077e+06
+Total Reward Collected: 2.76099e+06
+Execution time (sec): 587.769
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 31.2356
+Total Reward Collected: 2.98842e+06
+Execution time (sec): 1.87329
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.14202e+06
+Total Reward Collected: 4.14242e+06
+Execution time (sec): 882.69
+Peak memory used (MB): 0.152416
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 31.2356
+Total Reward Collected: 3.96567e+06
+Execution time (sec): 2.47376
+Peak memory used (MB): 0.152416
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.51727e+06
+Total Reward Collected: 5.51725e+06
+Execution time (sec): 1178.2
+Peak memory used (MB): 0.16892
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 31.827
+Total Reward Collected: 5081.03
+Execution time (sec): 0.036738
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5207.39
+Total Reward Collected: 5077.48
+Execution time (sec): 1.17418
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 31.827
+Total Reward Collected: 11766.2
+Execution time (sec): 0.040469
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13649.6
+Total Reward Collected: 13687.4
+Execution time (sec): 2.93865
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 31.827
+Total Reward Collected: 19446.1
+Execution time (sec): 0.046169
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 27720.1
+Total Reward Collected: 27542.1
+Execution time (sec): 5.87017
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 31.827
+Total Reward Collected: 29365.5
+Execution time (sec): 0.052493
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 41790.4
+Total Reward Collected: 41894.1
+Execution time (sec): 8.79926
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 31.827
+Total Reward Collected: 33163.3
+Execution time (sec): 0.059054
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 55860.6
+Total Reward Collected: 56042.9
+Execution time (sec): 11.7215
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 31.827
+Total Reward Collected: 32529.2
+Execution time (sec): 0.089697
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 140287
+Total Reward Collected: 140545
+Execution time (sec): 29.343
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 31.827
+Total Reward Collected: 150111
+Execution time (sec): 0.15157
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 280986
+Total Reward Collected: 280841
+Execution time (sec): 58.7078
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 31.827
+Total Reward Collected: 134261
+Execution time (sec): 0.203383
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 421689
+Total Reward Collected: 420873
+Execution time (sec): 87.9415
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 31.827
+Total Reward Collected: 117331
+Execution time (sec): 0.25481
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 562414
+Total Reward Collected: 561652
+Execution time (sec): 117.097
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 31.827
+Total Reward Collected: 186922
+Execution time (sec): 0.57947
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.40712e+06
+Total Reward Collected: 1.40754e+06
+Execution time (sec): 293.657
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 31.827
+Total Reward Collected: 425946
+Execution time (sec): 1.12916
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.81468e+06
+Total Reward Collected: 2.81304e+06
+Execution time (sec): 587.027
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 31.827
+Total Reward Collected: 558942
+Execution time (sec): 1.67068
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.22258e+06
+Total Reward Collected: 4.2194e+06
+Execution time (sec): 882.243
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 31.827
+Total Reward Collected: 727312
+Execution time (sec): 2.2078
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.63556e+06
+Total Reward Collected: 5.62998e+06
+Execution time (sec): 1177.35
+Peak memory used (MB): 0.168792
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 30.0692
+Total Reward Collected: 3354.6
+Execution time (sec): 0.036393
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 4875.2
+Total Reward Collected: 4396.71
+Execution time (sec): 1.17312
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 30.0692
+Total Reward Collected: 7551.06
+Execution time (sec): 0.040007
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13587.8
+Total Reward Collected: 14085.1
+Execution time (sec): 2.92982
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 30.0692
+Total Reward Collected: 20029.5
+Execution time (sec): 0.046333
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 28196.7
+Total Reward Collected: 28244.8
+Execution time (sec): 5.85671
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 30.0692
+Total Reward Collected: 27888
+Execution time (sec): 0.052499
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 42806.2
+Total Reward Collected: 43161.3
+Execution time (sec): 8.80253
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 30.0692
+Total Reward Collected: 39269
+Execution time (sec): 0.058243
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 57415.6
+Total Reward Collected: 57023.6
+Execution time (sec): 11.7305
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 30.0692
+Total Reward Collected: 92117.2
+Execution time (sec): 0.094254
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 145073
+Total Reward Collected: 145570
+Execution time (sec): 29.3193
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 30.0692
+Total Reward Collected: 183094
+Execution time (sec): 0.155222
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 291183
+Total Reward Collected: 290851
+Execution time (sec): 58.6503
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 30.0692
+Total Reward Collected: 278073
+Execution time (sec): 0.2152
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 437277
+Total Reward Collected: 437231
+Execution time (sec): 87.9633
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 30.0692
+Total Reward Collected: 369705
+Execution time (sec): 0.275575
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 583371
+Total Reward Collected: 583688
+Execution time (sec): 117.445
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 30.0692
+Total Reward Collected: 928044
+Execution time (sec): 0.635737
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.45993e+06
+Total Reward Collected: 1.46005e+06
+Execution time (sec): 293.152
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 30.0692
+Total Reward Collected: 1.8019e+06
+Execution time (sec): 1.27237
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.92175e+06
+Total Reward Collected: 2.92157e+06
+Execution time (sec): 587.12
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 30.0692
+Total Reward Collected: 2.78438e+06
+Execution time (sec): 1.83394
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.38344e+06
+Total Reward Collected: 4.38362e+06
+Execution time (sec): 883
+Peak memory used (MB): 0.168672
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 30.0692
+Total Reward Collected: 3.6982e+06
+Execution time (sec): 2.43553
+Peak memory used (MB): 0.168672
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.83969e+06
+Total Reward Collected: 5.84044e+06
+Execution time (sec): 1176.28
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 18.4195
+Total Reward Collected: 4663.75
+Execution time (sec): 0.036499
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 4864.56
+Total Reward Collected: 4218.9
+Execution time (sec): 1.17112
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 18.4195
+Total Reward Collected: 6931.66
+Execution time (sec): 0.039567
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 12868.7
+Total Reward Collected: 13139.6
+Execution time (sec): 2.92847
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 18.4195
+Total Reward Collected: 15588.8
+Execution time (sec): 0.045827
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 26208.9
+Total Reward Collected: 26821.6
+Execution time (sec): 5.85802
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 18.4195
+Total Reward Collected: 31737.5
+Execution time (sec): 0.052722
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 39549.1
+Total Reward Collected: 39479.7
+Execution time (sec): 8.79724
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 18.4195
+Total Reward Collected: 39581
+Execution time (sec): 0.058256
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 52889.4
+Total Reward Collected: 52069.2
+Execution time (sec): 11.7158
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 18.4195
+Total Reward Collected: 97381
+Execution time (sec): 0.095347
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 132931
+Total Reward Collected: 132939
+Execution time (sec): 29.3046
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 18.4195
+Total Reward Collected: 200534
+Execution time (sec): 0.157427
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 266333
+Total Reward Collected: 267338
+Execution time (sec): 58.7358
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 18.4195
+Total Reward Collected: 285214
+Execution time (sec): 0.216737
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 399738
+Total Reward Collected: 403042
+Execution time (sec): 87.9482
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 18.4195
+Total Reward Collected: 391113
+Execution time (sec): 0.285339
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 533143
+Total Reward Collected: 530986
+Execution time (sec): 117.437
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 18.4195
+Total Reward Collected: 1.00002e+06
+Execution time (sec): 0.663114
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.33362e+06
+Total Reward Collected: 1.32356e+06
+Execution time (sec): 293.413
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 18.4195
+Total Reward Collected: 1.96813e+06
+Execution time (sec): 1.28709
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.66752e+06
+Total Reward Collected: 2.66111e+06
+Execution time (sec): 587.512
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 18.4195
+Total Reward Collected: 2.96873e+06
+Execution time (sec): 1.91889
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.0003e+06
+Total Reward Collected: 4.00463e+06
+Execution time (sec): 882.116
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 18.4195
+Total Reward Collected: 3.9811e+06
+Execution time (sec): 2.5516
+Peak memory used (MB): 0.168932
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.33779e+06
+Total Reward Collected: 5.33043e+06
+Execution time (sec): 1176.27
+Peak memory used (MB): 0.168932
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 32.4686
+Total Reward Collected: 4452.36
+Execution time (sec): 0.036584
+Peak memory used (MB): 0.16744
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5081.04
+Total Reward Collected: 5221.8
+Execution time (sec): 1.17029
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 32.4686
+Total Reward Collected: 9579.51
+Execution time (sec): 0.040331
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13391.1
+Total Reward Collected: 13601.2
+Execution time (sec): 2.92451
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 32.4686
+Total Reward Collected: 17024.3
+Execution time (sec): 0.046316
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 27243.7
+Total Reward Collected: 27042.1
+Execution time (sec): 5.85576
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 32.4686
+Total Reward Collected: 23386.9
+Execution time (sec): 0.052219
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 41096.2
+Total Reward Collected: 41277
+Execution time (sec): 8.79261
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 32.4686
+Total Reward Collected: 30203.1
+Execution time (sec): 0.058014
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 54948.8
+Total Reward Collected: 54917.1
+Execution time (sec): 11.7133
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 32.4686
+Total Reward Collected: 86386.1
+Execution time (sec): 0.095377
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 138068
+Total Reward Collected: 137588
+Execution time (sec): 29.2601
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 32.4686
+Total Reward Collected: 169969
+Execution time (sec): 0.156942
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 276584
+Total Reward Collected: 276398
+Execution time (sec): 58.5545
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 32.4686
+Total Reward Collected: 261096
+Execution time (sec): 0.218154
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 415100
+Total Reward Collected: 415303
+Execution time (sec): 87.8349
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 32.4686
+Total Reward Collected: 332000
+Execution time (sec): 0.279082
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 553631
+Total Reward Collected: 553715
+Execution time (sec): 117.278
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 32.4686
+Total Reward Collected: 863534
+Execution time (sec): 0.648395
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.38482e+06
+Total Reward Collected: 1.38488e+06
+Execution time (sec): 292.974
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 32.4686
+Total Reward Collected: 1.69622e+06
+Execution time (sec): 1.27674
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.7707e+06
+Total Reward Collected: 2.77074e+06
+Execution time (sec): 588.615
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 32.4686
+Total Reward Collected: 2.5967e+06
+Execution time (sec): 1.87888
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.1582e+06
+Total Reward Collected: 4.15784e+06
+Execution time (sec): 881.071
+Peak memory used (MB): 0.166776
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 32.4686
+Total Reward Collected: 3.91679e+06
+Execution time (sec): 2.52103
+Peak memory used (MB): 0.166776
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.54571e+06
+Total Reward Collected: 5.54589e+06
+Execution time (sec): 1174.41
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 29.0169
+Total Reward Collected: 4108.19
+Execution time (sec): 0.036533
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5190.38
+Total Reward Collected: 5076.89
+Execution time (sec): 1.17256
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 29.0169
+Total Reward Collected: 11502.1
+Execution time (sec): 0.040598
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13845.2
+Total Reward Collected: 13940
+Execution time (sec): 2.93357
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 29.0169
+Total Reward Collected: 21054.8
+Execution time (sec): 0.046825
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 28270.3
+Total Reward Collected: 28506.5
+Execution time (sec): 5.85681
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 29.0169
+Total Reward Collected: 34675.2
+Execution time (sec): 0.053227
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 42744.9
+Total Reward Collected: 42467.3
+Execution time (sec): 8.78955
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 29.0169
+Total Reward Collected: 48111.3
+Execution time (sec): 0.05996
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 57226.4
+Total Reward Collected: 57496.3
+Execution time (sec): 11.7052
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 29.0169
+Total Reward Collected: 96320.6
+Execution time (sec): 0.096476
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 144110
+Total Reward Collected: 143897
+Execution time (sec): 29.3354
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 29.0169
+Total Reward Collected: 174660
+Execution time (sec): 0.156339
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 288921
+Total Reward Collected: 288893
+Execution time (sec): 58.6142
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 29.0169
+Total Reward Collected: 277922
+Execution time (sec): 0.218377
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 433765
+Total Reward Collected: 433922
+Execution time (sec): 88.0141
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 29.0169
+Total Reward Collected: 357537
+Execution time (sec): 0.27883
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 578609
+Total Reward Collected: 578356
+Execution time (sec): 117.252
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 29.0169
+Total Reward Collected: 872564
+Execution time (sec): 0.641921
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.44724e+06
+Total Reward Collected: 1.44695e+06
+Execution time (sec): 292.81
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 29.0169
+Total Reward Collected: 1.7495e+06
+Execution time (sec): 1.24272
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.89584e+06
+Total Reward Collected: 2.89559e+06
+Execution time (sec): 587.598
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 29.0169
+Total Reward Collected: 2.62819e+06
+Execution time (sec): 1.86629
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.34584e+06
+Total Reward Collected: 4.34635e+06
+Execution time (sec): 882.019
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 29.0169
+Total Reward Collected: 3.50258e+06
+Execution time (sec): 2.47825
+Peak memory used (MB): 0.168864
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.79584e+06
+Total Reward Collected: 5.79535e+06
+Execution time (sec): 1178.19
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 30.8221
+Total Reward Collected: 4522.54
+Execution time (sec): 0.036701
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5164.53
+Total Reward Collected: 5334.19
+Execution time (sec): 1.17311
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 30.8221
+Total Reward Collected: 11237.4
+Execution time (sec): 0.040419
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 14064.7
+Total Reward Collected: 13150.2
+Execution time (sec): 2.92938
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 30.8221
+Total Reward Collected: 20411.1
+Execution time (sec): 0.046534
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 28924.1
+Total Reward Collected: 29080.8
+Execution time (sec): 5.85669
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 30.8221
+Total Reward Collected: 30567
+Execution time (sec): 0.053373
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 43783.5
+Total Reward Collected: 43698.5
+Execution time (sec): 8.79322
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 30.8221
+Total Reward Collected: 44012.5
+Execution time (sec): 0.059899
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 58642.9
+Total Reward Collected: 59160.1
+Execution time (sec): 11.7275
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 30.8221
+Total Reward Collected: 100031
+Execution time (sec): 0.098726
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 147799
+Total Reward Collected: 147761
+Execution time (sec): 29.2673
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 30.8221
+Total Reward Collected: 218428
+Execution time (sec): 0.163317
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 296393
+Total Reward Collected: 296802
+Execution time (sec): 58.6041
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 30.8221
+Total Reward Collected: 299507
+Execution time (sec): 0.22828
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 444987
+Total Reward Collected: 444262
+Execution time (sec): 87.7451
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 30.8221
+Total Reward Collected: 439313
+Execution time (sec): 0.291208
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 593581
+Total Reward Collected: 594027
+Execution time (sec): 117.127
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 30.8221
+Total Reward Collected: 1.00169e+06
+Execution time (sec): 0.679766
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.4856e+06
+Total Reward Collected: 1.48603e+06
+Execution time (sec): 292.938
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 30.8221
+Total Reward Collected: 2.00144e+06
+Execution time (sec): 1.32184
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.9731e+06
+Total Reward Collected: 2.97332e+06
+Execution time (sec): 585.418
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 30.8221
+Total Reward Collected: 3.00222e+06
+Execution time (sec): 1.97309
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.4606e+06
+Total Reward Collected: 4.46046e+06
+Execution time (sec): 881.193
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 30.8221
+Total Reward Collected: 4.00164e+06
+Execution time (sec): 2.61761
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.9481e+06
+Total Reward Collected: 5.94799e+06
+Execution time (sec): 1175.77
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 26.7146
+Total Reward Collected: 2067.72
+Execution time (sec): 0.036358
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5043.37
+Total Reward Collected: 5159.49
+Execution time (sec): 1.17477
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 26.7146
+Total Reward Collected: 6192.82
+Execution time (sec): 0.039938
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13836.3
+Total Reward Collected: 13964.4
+Execution time (sec): 2.92596
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 26.7146
+Total Reward Collected: 15404.7
+Execution time (sec): 0.046232
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 28495.3
+Total Reward Collected: 28648.3
+Execution time (sec): 5.84425
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 26.7146
+Total Reward Collected: 27036.1
+Execution time (sec): 0.052643
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 43154.4
+Total Reward Collected: 42921
+Execution time (sec): 8.78003
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 26.7146
+Total Reward Collected: 34491.3
+Execution time (sec): 0.058897
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 57813.6
+Total Reward Collected: 58114.1
+Execution time (sec): 11.707
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 26.7146
+Total Reward Collected: 86652.2
+Execution time (sec): 0.096198
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 145770
+Total Reward Collected: 145319
+Execution time (sec): 29.2493
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 26.7146
+Total Reward Collected: 155377
+Execution time (sec): 0.156394
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 292371
+Total Reward Collected: 292675
+Execution time (sec): 58.5455
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 26.7146
+Total Reward Collected: 252161
+Execution time (sec): 0.22072
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 438973
+Total Reward Collected: 439310
+Execution time (sec): 87.7535
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 26.7146
+Total Reward Collected: 343037
+Execution time (sec): 0.284418
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 585558
+Total Reward Collected: 585862
+Execution time (sec): 117.176
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 26.7146
+Total Reward Collected: 865356
+Execution time (sec): 0.664684
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.46493e+06
+Total Reward Collected: 1.46479e+06
+Execution time (sec): 292.467
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 26.7146
+Total Reward Collected: 1.65597e+06
+Execution time (sec): 1.27255
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.93056e+06
+Total Reward Collected: 2.9309e+06
+Execution time (sec): 586.414
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 26.7146
+Total Reward Collected: 2.47383e+06
+Execution time (sec): 1.88713
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.39661e+06
+Total Reward Collected: 4.39665e+06
+Execution time (sec): 880.301
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 26.7146
+Total Reward Collected: 3.36933e+06
+Execution time (sec): 2.5355
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.86536e+06
+Total Reward Collected: 5.86424e+06
+Execution time (sec): 1175.53
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 33.3109
+Total Reward Collected: 4668.03
+Execution time (sec): 0.036475
+Peak memory used (MB): 0.126812
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5229.39
+Total Reward Collected: 5285.36
+Execution time (sec): 1.1753
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 33.3109
+Total Reward Collected: 9700.89
+Execution time (sec): 0.040012
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13935.9
+Total Reward Collected: 13889.9
+Execution time (sec): 2.92751
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 33.3109
+Total Reward Collected: 19911.7
+Execution time (sec): 0.046449
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 28452.4
+Total Reward Collected: 28305.4
+Execution time (sec): 5.84115
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 33.3109
+Total Reward Collected: 31093.6
+Execution time (sec): 0.052521
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 42969.1
+Total Reward Collected: 43300.4
+Execution time (sec): 8.78602
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 33.3109
+Total Reward Collected: 40943
+Execution time (sec): 0.05928
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 57485.7
+Total Reward Collected: 56562.6
+Execution time (sec): 11.7255
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 33.3109
+Total Reward Collected: 111039
+Execution time (sec): 0.098453
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 144580
+Total Reward Collected: 144931
+Execution time (sec): 29.3595
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 33.3109
+Total Reward Collected: 217608
+Execution time (sec): 0.161844
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 289736
+Total Reward Collected: 289968
+Execution time (sec): 58.5537
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 33.3109
+Total Reward Collected: 318031
+Execution time (sec): 0.224957
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 434893
+Total Reward Collected: 433174
+Execution time (sec): 87.9258
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 33.3109
+Total Reward Collected: 417380
+Execution time (sec): 0.291971
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 580049
+Total Reward Collected: 580287
+Execution time (sec): 117.04
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 33.3109
+Total Reward Collected: 1.06921e+06
+Execution time (sec): 0.680296
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.45142e+06
+Total Reward Collected: 1.45167e+06
+Execution time (sec): 292.74
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 33.3109
+Total Reward Collected: 2.19292e+06
+Execution time (sec): 1.30914
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.90281e+06
+Total Reward Collected: 2.90272e+06
+Execution time (sec): 585.467
+Peak memory used (MB): 0.126808
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 33.3109
+Total Reward Collected: 3.24174e+06
+Execution time (sec): 1.94108
+Peak memory used (MB): 0.126808
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.35281e+06
+Total Reward Collected: 4.353e+06
+Execution time (sec): 880.127
+Peak memory used (MB): 0.128536
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 33.3109
+Total Reward Collected: 4.31789e+06
+Execution time (sec): 2.561
+Peak memory used (MB): 0.128596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.80281e+06
+Total Reward Collected: 5.80295e+06
+Execution time (sec): 1173.07
+Peak memory used (MB): 0.168944
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 30.1296
+Total Reward Collected: 4078.91
+Execution time (sec): 0.036564
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 4850.34
+Total Reward Collected: 4869.43
+Execution time (sec): 1.17478
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 30.1296
+Total Reward Collected: 8949.51
+Execution time (sec): 0.04021
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 12998
+Total Reward Collected: 13275.9
+Execution time (sec): 2.92899
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 30.1296
+Total Reward Collected: 18814.6
+Execution time (sec): 0.046347
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 26580.7
+Total Reward Collected: 26901.7
+Execution time (sec): 5.85076
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 30.1296
+Total Reward Collected: 30568.1
+Execution time (sec): 0.052871
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 40163.4
+Total Reward Collected: 39617.7
+Execution time (sec): 8.78595
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 30.1296
+Total Reward Collected: 35346.6
+Execution time (sec): 0.058714
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 53745.9
+Total Reward Collected: 53889.7
+Execution time (sec): 11.7183
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 30.1296
+Total Reward Collected: 85717
+Execution time (sec): 0.09575
+Peak memory used (MB): 0.169
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 135239
+Total Reward Collected: 135427
+Execution time (sec): 29.2853
+Peak memory used (MB): 0.169
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 30.1296
+Total Reward Collected: 167325
+Execution time (sec): 0.157252
+Peak memory used (MB): 0.168604
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 271059
+Total Reward Collected: 270889
+Execution time (sec): 58.5235
+Peak memory used (MB): 0.168604
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 30.1296
+Total Reward Collected: 275056
+Execution time (sec): 0.220568
+Peak memory used (MB): 0.168604
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 406879
+Total Reward Collected: 407178
+Execution time (sec): 87.8094
+Peak memory used (MB): 0.168604
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 30.1296
+Total Reward Collected: 336734
+Execution time (sec): 0.27971
+Peak memory used (MB): 0.168604
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 542705
+Total Reward Collected: 542784
+Execution time (sec): 117.267
+Peak memory used (MB): 0.168604
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 30.1296
+Total Reward Collected: 854979
+Execution time (sec): 0.632302
+Peak memory used (MB): 0.168604
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.35804e+06
+Total Reward Collected: 1.35779e+06
+Execution time (sec): 293.524
+Peak memory used (MB): 0.168604
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 30.1296
+Total Reward Collected: 1.76446e+06
+Execution time (sec): 1.22943
+Peak memory used (MB): 0.168604
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.71741e+06
+Total Reward Collected: 2.71777e+06
+Execution time (sec): 587.046
+Peak memory used (MB): 0.168604
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 30.1296
+Total Reward Collected: 2.64996e+06
+Execution time (sec): 1.83514
+Peak memory used (MB): 0.168604
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.07679e+06
+Total Reward Collected: 4.07714e+06
+Execution time (sec): 880.546
+Peak memory used (MB): 0.168604
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 30.1296
+Total Reward Collected: 3.54795e+06
+Execution time (sec): 2.4259
+Peak memory used (MB): 0.168604
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.43331e+06
+Total Reward Collected: 5.43329e+06
+Execution time (sec): 1176.52
+Peak memory used (MB): 0.168944
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 27.5693
+Total Reward Collected: 5421.53
+Execution time (sec): 0.036516
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5035
+Total Reward Collected: 4395.84
+Execution time (sec): 1.17533
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 27.5693
+Total Reward Collected: 12946.5
+Execution time (sec): 0.040364
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13266.3
+Total Reward Collected: 13921.2
+Execution time (sec): 2.92964
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 27.5693
+Total Reward Collected: 23398.5
+Execution time (sec): 0.046521
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 27225.5
+Total Reward Collected: 27645.2
+Execution time (sec): 5.86241
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 27.5693
+Total Reward Collected: 40347
+Execution time (sec): 0.053079
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 41202
+Total Reward Collected: 41531.3
+Execution time (sec): 8.76845
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 27.5693
+Total Reward Collected: 50555.5
+Execution time (sec): 0.05932
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 55178.6
+Total Reward Collected: 55624.8
+Execution time (sec): 11.7122
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 27.5693
+Total Reward Collected: 114268
+Execution time (sec): 0.096293
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 139038
+Total Reward Collected: 139200
+Execution time (sec): 29.2544
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 27.5693
+Total Reward Collected: 214146
+Execution time (sec): 0.157485
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 278804
+Total Reward Collected: 277739
+Execution time (sec): 58.469
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 27.5693
+Total Reward Collected: 356730
+Execution time (sec): 0.223223
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 418569
+Total Reward Collected: 418702
+Execution time (sec): 87.7978
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 27.5693
+Total Reward Collected: 465909
+Execution time (sec): 0.284466
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 558353
+Total Reward Collected: 557684
+Execution time (sec): 117.296
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 27.5693
+Total Reward Collected: 1.12903e+06
+Execution time (sec): 0.68262
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.39703e+06
+Total Reward Collected: 1.39748e+06
+Execution time (sec): 293.386
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 27.5693
+Total Reward Collected: 2.26231e+06
+Execution time (sec): 1.33503
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.79546e+06
+Total Reward Collected: 2.79587e+06
+Execution time (sec): 587.117
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 27.5693
+Total Reward Collected: 3.43885e+06
+Execution time (sec): 1.97741
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.19546e+06
+Total Reward Collected: 4.19419e+06
+Execution time (sec): 879.81
+Peak memory used (MB): 0.168588
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 27.5693
+Total Reward Collected: 4.53254e+06
+Execution time (sec): 2.60951
+Peak memory used (MB): 0.168588
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.59546e+06
+Total Reward Collected: 5.59592e+06
+Execution time (sec): 1175.34
+Peak memory used (MB): 0.168788
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 29.7877
+Total Reward Collected: 3419.08
+Execution time (sec): 0.036496
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 4993.85
+Total Reward Collected: 5025.11
+Execution time (sec): 1.17453
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 29.7877
+Total Reward Collected: 8612.11
+Execution time (sec): 0.039968
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13097.4
+Total Reward Collected: 12487.9
+Execution time (sec): 2.93876
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 29.7877
+Total Reward Collected: 14969.8
+Execution time (sec): 0.046234
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 26603.3
+Total Reward Collected: 25942.2
+Execution time (sec): 5.88497
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 29.7877
+Total Reward Collected: 21608.7
+Execution time (sec): 0.051787
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 40109.3
+Total Reward Collected: 40657.2
+Execution time (sec): 8.76906
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 29.7877
+Total Reward Collected: 37333.1
+Execution time (sec): 0.058814
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 53615.3
+Total Reward Collected: 54558.8
+Execution time (sec): 11.7135
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 29.7877
+Total Reward Collected: 88554.5
+Execution time (sec): 0.095562
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 134653
+Total Reward Collected: 137902
+Execution time (sec): 29.2188
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 29.7877
+Total Reward Collected: 168489
+Execution time (sec): 0.156636
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 269715
+Total Reward Collected: 269674
+Execution time (sec): 58.4722
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 29.7877
+Total Reward Collected: 256104
+Execution time (sec): 0.218685
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 404750
+Total Reward Collected: 399698
+Execution time (sec): 87.703
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 29.7877
+Total Reward Collected: 345505
+Execution time (sec): 0.281252
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 539788
+Total Reward Collected: 542004
+Execution time (sec): 117.115
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 29.7877
+Total Reward Collected: 877679
+Execution time (sec): 0.654775
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.35016e+06
+Total Reward Collected: 1.3478e+06
+Execution time (sec): 293.277
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 29.7877
+Total Reward Collected: 1.74126e+06
+Execution time (sec): 1.26889
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.70071e+06
+Total Reward Collected: 2.69897e+06
+Execution time (sec): 587.751
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 29.7877
+Total Reward Collected: 2.63604e+06
+Execution time (sec): 1.89867
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.05112e+06
+Total Reward Collected: 4.03781e+06
+Execution time (sec): 879.714
+Peak memory used (MB): 0.16854
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 29.7877
+Total Reward Collected: 3.44266e+06
+Execution time (sec): 2.55801
+Peak memory used (MB): 0.16854
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.39968e+06
+Total Reward Collected: 5.39548e+06
+Execution time (sec): 1175.11
+Peak memory used (MB): 0.168912
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 18.8032
+Total Reward Collected: 5035.2
+Execution time (sec): 0.036786
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5007.61
+Total Reward Collected: 4895.97
+Execution time (sec): 1.1693
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 18.8032
+Total Reward Collected: 9321.66
+Execution time (sec): 0.040165
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13573.2
+Total Reward Collected: 13514.9
+Execution time (sec): 2.9316
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 18.8032
+Total Reward Collected: 19802.9
+Execution time (sec): 0.04692
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 27855.6
+Total Reward Collected: 27217.3
+Execution time (sec): 5.85285
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 18.8032
+Total Reward Collected: 28407.1
+Execution time (sec): 0.052066
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 42138.3
+Total Reward Collected: 42463.5
+Execution time (sec): 8.78622
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 18.8032
+Total Reward Collected: 28418.2
+Execution time (sec): 0.05816
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 56421
+Total Reward Collected: 56402
+Execution time (sec): 11.7019
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 18.8032
+Total Reward Collected: 86597.4
+Execution time (sec): 0.095963
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 142115
+Total Reward Collected: 142194
+Execution time (sec): 29.2113
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 18.8032
+Total Reward Collected: 151542
+Execution time (sec): 0.155509
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 284944
+Total Reward Collected: 284734
+Execution time (sec): 58.4829
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 18.8032
+Total Reward Collected: 231301
+Execution time (sec): 0.216563
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 427757
+Total Reward Collected: 427646
+Execution time (sec): 87.7306
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 18.8032
+Total Reward Collected: 313436
+Execution time (sec): 0.278376
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 570570
+Total Reward Collected: 570657
+Execution time (sec): 117.224
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 18.8032
+Total Reward Collected: 753907
+Execution time (sec): 0.642775
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.42745e+06
+Total Reward Collected: 1.42749e+06
+Execution time (sec): 292.987
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 18.8032
+Total Reward Collected: 1.54297e+06
+Execution time (sec): 1.25774
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.85557e+06
+Total Reward Collected: 2.85567e+06
+Execution time (sec): 588.665
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 18.8032
+Total Reward Collected: 2.3619e+06
+Execution time (sec): 1.86868
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.28389e+06
+Total Reward Collected: 4.28365e+06
+Execution time (sec): 881.417
+Peak memory used (MB): 0.168648
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 18.8032
+Total Reward Collected: 3.13298e+06
+Execution time (sec): 2.49254
+Peak memory used (MB): 0.168648
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.71514e+06
+Total Reward Collected: 5.71539e+06
+Execution time (sec): 1176.96
+Peak memory used (MB): 0.168864
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 20.675
+Total Reward Collected: 4467.61
+Execution time (sec): 0.036598
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5157.16
+Total Reward Collected: 4710
+Execution time (sec): 1.17452
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 20.675
+Total Reward Collected: 9832.06
+Execution time (sec): 0.04051
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13845.2
+Total Reward Collected: 13959.5
+Execution time (sec): 2.93112
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 20.675
+Total Reward Collected: 18119.4
+Execution time (sec): 0.046622
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 28325.7
+Total Reward Collected: 28493
+Execution time (sec): 5.84329
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 20.675
+Total Reward Collected: 30816.9
+Execution time (sec): 0.052871
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 42806.1
+Total Reward Collected: 42383.8
+Execution time (sec): 8.7865
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 20.675
+Total Reward Collected: 35698.2
+Execution time (sec): 0.058799
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 57286.6
+Total Reward Collected: 57168.5
+Execution time (sec): 11.7113
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 20.675
+Total Reward Collected: 93094.4
+Execution time (sec): 0.096753
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 144169
+Total Reward Collected: 144244
+Execution time (sec): 29.3189
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 20.675
+Total Reward Collected: 192187
+Execution time (sec): 0.155508
+Peak memory used (MB): 0.16848
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 288967
+Total Reward Collected: 288890
+Execution time (sec): 58.4782
+Peak memory used (MB): 0.16848
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 20.675
+Total Reward Collected: 283002
+Execution time (sec): 0.222404
+Peak memory used (MB): 0.16844
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 433733
+Total Reward Collected: 433632
+Execution time (sec): 88.1917
+Peak memory used (MB): 0.16844
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 20.675
+Total Reward Collected: 371034
+Execution time (sec): 0.284274
+Peak memory used (MB): 0.168216
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 578527
+Total Reward Collected: 578206
+Execution time (sec): 117.25
+Peak memory used (MB): 0.168216
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 20.675
+Total Reward Collected: 962098
+Execution time (sec): 0.663949
+Peak memory used (MB): 0.168216
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.44716e+06
+Total Reward Collected: 1.44732e+06
+Execution time (sec): 293.311
+Peak memory used (MB): 0.168216
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 20.675
+Total Reward Collected: 1.88587e+06
+Execution time (sec): 1.28309
+Peak memory used (MB): 0.168216
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.89575e+06
+Total Reward Collected: 2.89605e+06
+Execution time (sec): 586.382
+Peak memory used (MB): 0.168216
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 20.675
+Total Reward Collected: 2.83223e+06
+Execution time (sec): 1.91846
+Peak memory used (MB): 0.168216
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.34575e+06
+Total Reward Collected: 4.34593e+06
+Execution time (sec): 881.372
+Peak memory used (MB): 0.168216
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 20.675
+Total Reward Collected: 3.82652e+06
+Execution time (sec): 2.5631
+Peak memory used (MB): 0.168216
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.79575e+06
+Total Reward Collected: 5.79571e+06
+Execution time (sec): 1178.11
+Peak memory used (MB): 0.168924
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 31.9471
+Total Reward Collected: 4063.6
+Execution time (sec): 0.036557
+Peak memory used (MB): 0.168752
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5146.13
+Total Reward Collected: 4836.03
+Execution time (sec): 1.17496
+Peak memory used (MB): 0.168752
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 31.9471
+Total Reward Collected: 10206.8
+Execution time (sec): 0.040293
+Peak memory used (MB): 0.168752
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 14033.9
+Total Reward Collected: 13231.5
+Execution time (sec): 2.93011
+Peak memory used (MB): 0.168752
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 31.9471
+Total Reward Collected: 21191.7
+Execution time (sec): 0.047003
+Peak memory used (MB): 0.168752
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 28902.3
+Total Reward Collected: 29195
+Execution time (sec): 5.85189
+Peak memory used (MB): 0.168752
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 31.9471
+Total Reward Collected: 29880.5
+Execution time (sec): 0.053104
+Peak memory used (MB): 0.16862
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 43770.6
+Total Reward Collected: 44272.6
+Execution time (sec): 8.78706
+Peak memory used (MB): 0.16862
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 31.9471
+Total Reward Collected: 36016.6
+Execution time (sec): 0.058904
+Peak memory used (MB): 0.167596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 58638.8
+Total Reward Collected: 57518.4
+Execution time (sec): 11.7039
+Peak memory used (MB): 0.167596
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 31.9471
+Total Reward Collected: 99066
+Execution time (sec): 0.097357
+Peak memory used (MB): 0.167596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 147851
+Total Reward Collected: 148069
+Execution time (sec): 29.2433
+Peak memory used (MB): 0.167596
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 31.9471
+Total Reward Collected: 207741
+Execution time (sec): 0.160667
+Peak memory used (MB): 0.167596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 296523
+Total Reward Collected: 294578
+Execution time (sec): 58.5804
+Peak memory used (MB): 0.167596
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 31.9471
+Total Reward Collected: 308144
+Execution time (sec): 0.225649
+Peak memory used (MB): 0.167596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 445195
+Total Reward Collected: 445346
+Execution time (sec): 87.8939
+Peak memory used (MB): 0.167596
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 31.9471
+Total Reward Collected: 401228
+Execution time (sec): 0.28996
+Peak memory used (MB): 0.167596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 593902
+Total Reward Collected: 594245
+Execution time (sec): 117.112
+Peak memory used (MB): 0.167596
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 31.9471
+Total Reward Collected: 1.01891e+06
+Execution time (sec): 0.668851
+Peak memory used (MB): 0.167596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.4864e+06
+Total Reward Collected: 1.48697e+06
+Execution time (sec): 292.821
+Peak memory used (MB): 0.167596
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 31.9471
+Total Reward Collected: 2.04465e+06
+Execution time (sec): 1.32393
+Peak memory used (MB): 0.167596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.9739e+06
+Total Reward Collected: 2.97381e+06
+Execution time (sec): 588.825
+Peak memory used (MB): 0.167596
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 31.9471
+Total Reward Collected: 3.05401e+06
+Execution time (sec): 1.94601
+Peak memory used (MB): 0.167596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.4614e+06
+Total Reward Collected: 4.4611e+06
+Execution time (sec): 880.773
+Peak memory used (MB): 0.167596
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 31.9471
+Total Reward Collected: 4.08072e+06
+Execution time (sec): 2.57946
+Peak memory used (MB): 0.167596
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.9489e+06
+Total Reward Collected: 5.94924e+06
+Execution time (sec): 1175.79
+Peak memory used (MB): 0.16886
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 27.2794
+Total Reward Collected: 4990.67
+Execution time (sec): 0.036632
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 5361.35
+Total Reward Collected: 5575.82
+Execution time (sec): 1.17505
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 27.2794
+Total Reward Collected: 12771.2
+Execution time (sec): 0.040566
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 14387.5
+Total Reward Collected: 14615.3
+Execution time (sec): 2.92921
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 27.2794
+Total Reward Collected: 29239.6
+Execution time (sec): 0.047395
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 29432.9
+Total Reward Collected: 29609.7
+Execution time (sec): 5.8401
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 27.2794
+Total Reward Collected: 42592
+Execution time (sec): 0.054071
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 44478.7
+Total Reward Collected: 44299.7
+Execution time (sec): 8.78341
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 27.2794
+Total Reward Collected: 59438
+Execution time (sec): 0.060787
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 59524.6
+Total Reward Collected: 59670.8
+Execution time (sec): 11.7079
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 27.2794
+Total Reward Collected: 149631
+Execution time (sec): 0.101312
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 149797
+Total Reward Collected: 149736
+Execution time (sec): 29.2726
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 27.2794
+Total Reward Collected: 300410
+Execution time (sec): 0.168131
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 300266
+Total Reward Collected: 300087
+Execution time (sec): 58.6594
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 27.2794
+Total Reward Collected: 450462
+Execution time (sec): 0.235397
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 450735
+Total Reward Collected: 450770
+Execution time (sec): 87.9723
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 27.2794
+Total Reward Collected: 595320
+Execution time (sec): 0.302858
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 601203
+Total Reward Collected: 601413
+Execution time (sec): 117.126
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 27.2794
+Total Reward Collected: 1.50358e+06
+Execution time (sec): 0.706327
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.50354e+06
+Total Reward Collected: 1.50372e+06
+Execution time (sec): 292.983
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 27.2794
+Total Reward Collected: 3.00667e+06
+Execution time (sec): 1.34984
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 3.00856e+06
+Total Reward Collected: 3.00782e+06
+Execution time (sec): 587.57
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 27.2794
+Total Reward Collected: 4.50236e+06
+Execution time (sec): 2.04891
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.51348e+06
+Total Reward Collected: 4.51283e+06
+Execution time (sec): 881.114
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 27.2794
+Total Reward Collected: 6.01301e+06
+Execution time (sec): 2.72589
+Peak memory used (MB): 0.168952
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 6.01348e+06
+Total Reward Collected: 6.01352e+06
+Execution time (sec): 1178.61
+Peak memory used (MB): 0.168952
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 30.9437
+Total Reward Collected: 4286.42
+Execution time (sec): 0.036789
+Peak memory used (MB): 0.168724
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 4868.82
+Total Reward Collected: 4625.59
+Execution time (sec): 1.17053
+Peak memory used (MB): 0.168724
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 30.9437
+Total Reward Collected: 11698.6
+Execution time (sec): 0.040371
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 13130.7
+Total Reward Collected: 13014.7
+Execution time (sec): 2.92862
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 30.9437
+Total Reward Collected: 19737.4
+Execution time (sec): 0.046285
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 26902.3
+Total Reward Collected: 26875.6
+Execution time (sec): 5.88997
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 30.9437
+Total Reward Collected: 32354.5
+Execution time (sec): 0.052781
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 40674
+Total Reward Collected: 40459.6
+Execution time (sec): 8.79631
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 30.9437
+Total Reward Collected: 43756.4
+Execution time (sec): 0.059319
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 54445.7
+Total Reward Collected: 53802.8
+Execution time (sec): 11.732
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 30.9437
+Total Reward Collected: 108739
+Execution time (sec): 0.096686
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 137079
+Total Reward Collected: 139880
+Execution time (sec): 29.2944
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 30.9437
+Total Reward Collected: 222157
+Execution time (sec): 0.159609
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 274794
+Total Reward Collected: 275547
+Execution time (sec): 58.5387
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 30.9437
+Total Reward Collected: 312697
+Execution time (sec): 0.218934
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 412509
+Total Reward Collected: 406362
+Execution time (sec): 88.0109
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 30.9437
+Total Reward Collected: 428564
+Execution time (sec): 0.290202
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 550240
+Total Reward Collected: 554004
+Execution time (sec): 117.356
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 30.9437
+Total Reward Collected: 1.0914e+06
+Execution time (sec): 0.654959
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.37668e+06
+Total Reward Collected: 1.37805e+06
+Execution time (sec): 293.517
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 30.9437
+Total Reward Collected: 2.18927e+06
+Execution time (sec): 1.28682
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.75363e+06
+Total Reward Collected: 2.75934e+06
+Execution time (sec): 587.536
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 30.9437
+Total Reward Collected: 3.24702e+06
+Execution time (sec): 1.90907
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 4.13102e+06
+Total Reward Collected: 4.14259e+06
+Execution time (sec): 880.899
+Peak memory used (MB): 0.16872
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 30.9437
+Total Reward Collected: 4.34089e+06
+Execution time (sec): 2.53319
+Peak memory used (MB): 0.16872
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.50857e+06
+Total Reward Collected: 5.51603e+06
+Execution time (sec): 1178.5
+Peak memory used (MB): 0.16894
+
+INFINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 19.3162
+Total Reward Collected: 5052.23
+Execution time (sec): 0.03654
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100
+Total Reward Expected: 4775.43
+Total Reward Collected: 4929.19
+Execution time (sec): 1.17248
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 19.3162
+Total Reward Collected: 12763.9
+Execution time (sec): 0.040602
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 250
+Total Reward Expected: 12505.6
+Total Reward Collected: 12489.9
+Execution time (sec): 2.92748
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 19.3162
+Total Reward Collected: 10287.1
+Execution time (sec): 0.045651
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 500
+Total Reward Expected: 25497.2
+Total Reward Collected: 25731.3
+Execution time (sec): 5.86028
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 19.3162
+Total Reward Collected: 26780
+Execution time (sec): 0.052468
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 750
+Total Reward Expected: 38490.3
+Total Reward Collected: 38663.2
+Execution time (sec): 8.78705
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 19.3162
+Total Reward Collected: 26370
+Execution time (sec): 0.057619
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 1000
+Total Reward Expected: 51483.5
+Total Reward Collected: 51614.4
+Execution time (sec): 11.7108
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 19.3162
+Total Reward Collected: 57862
+Execution time (sec): 0.092631
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 2500
+Total Reward Expected: 129438
+Total Reward Collected: 129623
+Execution time (sec): 29.3391
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 19.3162
+Total Reward Collected: 102038
+Execution time (sec): 0.149589
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 5000
+Total Reward Expected: 259360
+Total Reward Collected: 259607
+Execution time (sec): 58.6202
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 19.3162
+Total Reward Collected: 153686
+Execution time (sec): 0.207858
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 7500
+Total Reward Expected: 389282
+Total Reward Collected: 389429
+Execution time (sec): 87.7429
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 19.3162
+Total Reward Collected: 199448
+Execution time (sec): 0.266467
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 10000
+Total Reward Expected: 519204
+Total Reward Collected: 519011
+Execution time (sec): 117.172
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 19.3162
+Total Reward Collected: 500898
+Execution time (sec): 0.611621
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 25000
+Total Reward Expected: 1.2992e+06
+Total Reward Collected: 1.29787e+06
+Execution time (sec): 292.927
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 19.3162
+Total Reward Collected: 987616
+Execution time (sec): 1.18885
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 50000
+Total Reward Expected: 2.5992e+06
+Total Reward Collected: 2.59915e+06
+Execution time (sec): 586.281
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 19.3162
+Total Reward Collected: 1.48414e+06
+Execution time (sec): 1.77188
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 75000
+Total Reward Expected: 3.8992e+06
+Total Reward Collected: 3.89933e+06
+Execution time (sec): 882.556
+Peak memory used (MB): 0.16882
+
+INFINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 19.3162
+Total Reward Collected: 1.97822e+06
+Execution time (sec): 2.3629
+Peak memory used (MB): 0.16882
+
+NAIVE FINITE MDP MODEL: 
+Horizon size: 100000
+Total Reward Expected: 5.1992e+06
+Total Reward Collected: 5.19866e+06
+Execution time (sec): 1178.92
+Peak memory used (MB): 0.168932
+
+(100,4411.33)(250,9676.73)(500,18975.3)(750,29990.5)(1000,38458.8)(2500,91780.1)(5000,184645)(7500,273254)(10000,360179)(25000,896668)(50000,1.79025e+06)(75000,2.68848e+06)(100000,3.60725e+06)
+(100,4942.15)(250,13505)(500,27654.4)(750,41821.1)(1000,55851.1)(2500,141072)(5000,282124)(7500,422868)(10000,564929)(25000,1.41256e+06)(50000,2.82651e+06)(75000,4.24147e+06)(100000,5.65512e+06)
