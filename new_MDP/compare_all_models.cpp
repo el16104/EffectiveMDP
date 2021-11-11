@@ -4,7 +4,7 @@
 #include <vector>
 #include "Complex.h"
 #include <chrono>
-
+#include <fstream>
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
@@ -63,15 +63,15 @@ int main(int argc, char *argv[])
 {
     int num_tests = 1;
     int training_steps = 10000;
-    vector<int> horizon {10001000};
-    int seed = 21;
+    vector<int> horizon {200};
+    int seed = 10;
     int max_memory_used = 0;
     int load_period = 250;
     int MIN_VMS = 1;
     int MAX_VMS = 20;
     float epsilon = 0.7;
-    //string CONF_FILE = "mdp_small_1.json";
-    string CONF_FILE = argv[1];
+    string CONF_FILE = "model_parameters/mdp_small_3.json"; //sorry for that but keep it in comments
+    //string CONF_FILE = argv[1];
     ModelConf conf(CONF_FILE);
     float total_rewards_results[5][13];
     for (int i=0; i<5; i++){
@@ -107,24 +107,25 @@ int main(int argc, char *argv[])
         }
     }
     model.initial_state_num = model.current_state_num;
-
+    //model.discount=1; //for the infiniteM to test the discount=1
+        for (int j = 0; j < 3; j++){//just to test the same model results
         for (int i = 0; i < horizon.size(); i++){
-            /*
+
             model.runAlgorithm(infinite, horizon[i]);
             total_rewards_results[0][i] += model.total_reward;
             model.resetModel();
-            */
-
+            
             model.runAlgorithm(naive, horizon[i]);
             total_rewards_results[1][i] += model.total_reward;
-
+            model.resetModel();
+            /*
             cout << "Horizon size: " << horizon[i] << endl;
             cout << "Total Reward Expected: " << model.expected_reward << endl;
             cout << "Total Reward Collected: " << model.total_reward << endl;
             cout << "Peak memory used (MB): " << model.max_memory_used / 1000000.0 << endl;
-
-            model.resetModel();
-            /*
+            */
+            
+            
             model.runAlgorithm(root, horizon[i]);
             total_rewards_results[2][i] += model.total_reward;
             model.resetModel();
@@ -132,18 +133,36 @@ int main(int argc, char *argv[])
             model.runAlgorithm(tree, horizon[i]);
             total_rewards_results[3][i] += model.total_reward;
             model.resetModel();
-        
-            model.runAlgorithm(inplace, horizon[i]);
+            /*
+            model.runAlgorithm(infiniteM, horizon[i]);
             total_rewards_results[4][i] += model.total_reward;
             model.resetModel();
-            */     
+            
+            model.runAlgorithm(inplace, horizon[i]);
+            total_rewards_results[5][i] += model.total_reward;
+            model.resetModel();
+            */
         }
-    }
+        }//just to test the same model results
+    
+     // Create a file stream object and check that it opened correctly
+    std::ofstream outFile( "temp.tsv" );
 
-    for (int i=0; i < 2; i++){
+    // Write some stuff to the file
+    
+
+
+    // close the file
+    
+
+    return 0;
+    for (int i=0; i < 5; i++){
         for (int j =0; j < horizon.size(); j++){
             cout << "(" << horizon[j] << "," << total_rewards_results[i][j]  << ")";
+         
         }
         cout << endl;
+    }
+    
     }
 }
