@@ -629,5 +629,16 @@ class MDPModel{
             states[i].value = V[i].second;
         }
     }
+
+    /*
+    Auxiliary function, loads best QState indexes from external vector to model states.
+    Takes as input a vector of indices of best QStates for every state.
+    No output.
+    */
+    void loadBestQStates(vector<int> V){
+        for (int i=0; i < V.size(); i++){
+            states[i].best_qstate = V[i];
+        }
+    }
         
 };
