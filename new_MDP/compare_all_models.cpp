@@ -62,8 +62,8 @@ pair<string, int> randomchoice(vector<pair<string, int>> v, FiniteMDPModel &mode
 int main(int argc, char *argv[])
 {
     int num_tests = 1;
-    int training_steps = 10000;
-    vector<int> horizon {200};
+    int training_steps = 5000;
+    vector<int> horizon {210};
     int seed = 10;
     int max_memory_used = 0;
     int load_period = 250;
@@ -110,7 +110,7 @@ int main(int argc, char *argv[])
     //model.discount=1; //for the infiniteM to test the discount=1
         for (int j = 0; j < 3; j++){//just to test the same model results
         for (int i = 0; i < horizon.size(); i++){
-
+            /*
             model.runAlgorithm(infinite, horizon[i]);
             total_rewards_results[0][i] += model.total_reward;
             model.resetModel();
@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
             model.runAlgorithm(root, horizon[i]);
             total_rewards_results[2][i] += model.total_reward;
             model.resetModel();
-
+            /*
             model.runAlgorithm(tree, horizon[i]);
             total_rewards_results[3][i] += model.total_reward;
             model.resetModel();
@@ -146,7 +146,6 @@ int main(int argc, char *argv[])
         }//just to test the same model results
     
      // Create a file stream object and check that it opened correctly
-    std::ofstream outFile( "temp.tsv" );
 
     // Write some stuff to the file
     

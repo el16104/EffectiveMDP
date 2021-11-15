@@ -403,43 +403,46 @@ class FiniteMDPModel: public MDPModel{
         int steps_remaining = horizon;
         resetValueFunction();
         int floor_of_square_root = floor(sqrt(horizon));
-
-        for (int i = 0; i <= horizon; i=i+floor_of_square_root){
+        int i=0;
+        for ( ;i+floor_of_square_root <= horizon; i=i+floor_of_square_root){
             V = calculateValues(i+floor_of_square_root,i,  V, true);
-                finite_stack.push(V);
-                index_stack.push(i);
+                index_stack.push(i+floor_of_square_root);
             stack_memory++;
             checkStackSize();
         }
-        if (index_stack.top()!=horizon)
-            V=calculateValues(horizon, index_stack.top(), getStateValues(states));
 
+        if (i!=horizon)
+            V=calculateValues(horizon, i, getStateValues(states));
         expected_reward = V[initial_state_num].second;
 
+        for ( ;i < horizon; i=i+1){ 
+           
+            loadValueFunction(V);
+            takeAction(false);
+            checkMemoryUsage();
+            finite_stack.pop();
+            stack_memory--;
+            steps_made++;
+            steps_remaining--;
+            V = finite_stack.top();  
+        }
         while(steps_remaining > 0){
             if (finite_stack.empty()){
                 resetValueFunction();
                 V = calculateValues(steps_remaining, 0, getStateValues(states));
             }
             else{
-                if(index_stack.top() == steps_remaining){
-                    V = finite_stack.top();
-                }
-                else{
-                    V = calculateValues(steps_remaining, index_stack.top(), finite_stack.top());
-                    
-                }
+
+                if( (steps_remaining+1)%floor_of_square_root==0)
+                    V = calculateValues(steps_remaining, steps_remaining-floor_of_square_root+1, finite_stack.top());
+                else
+                    V = finite_stack.top();            
             }
             loadValueFunction(V);
             takeAction(false);
-
             checkMemoryUsage();
-
             finite_stack.pop();
-            index_stack.pop();
-
             stack_memory--;
-
             steps_made++;
             steps_remaining--;
         }
@@ -655,7 +658,7 @@ class FiniteMDPModel: public MDPModel{
             case root:
                 cout << "ROOT FINITE MDP MODEL: " << endl;
 
-                rootEvaluation(horizon);
+                rootEvaluation2(horizon);
 
                 break;
             case tree:
