@@ -408,13 +408,12 @@ class FiniteMDPModel: public MDPModel{
             V = calculateValues(i+floor_of_square_root,i,  V, true);
                 index_stack.push(i+floor_of_square_root);
             stack_memory++;
-            checkStackSize();
         }
 
         if (i!=horizon)
             V=calculateValues(horizon, i, getStateValues(states));
         expected_reward = V[initial_state_num].second;
-
+        checkStackSize();
         for ( ;i < horizon; i=i+1){ 
            
             loadValueFunction(V);
