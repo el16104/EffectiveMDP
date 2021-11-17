@@ -57,7 +57,7 @@ public:
         return curr_meas;
     }
 
-    double execute_action(pair<string,int> action){
+    double execute_action(pair<string,int> &action){
         time++;
         int num_vms = measurements["number_of_VMs"];
         string action_type = action.first;

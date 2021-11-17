@@ -300,7 +300,7 @@ public:
     }
 
 
-    QState* get_qstate(pair<string, int> action){
+    QState* get_qstate(pair<string, int> &action){
 
         for (int i=0; i < qstates.size(); i++){
             if (qstates[i].get_action() == action)
@@ -493,7 +493,7 @@ class MDPModel{
         return states[current_state_num].get_legal_actions();
     }
     
-    void update(pair<string,int> action, json measurements, float reward){
+    void update(pair<string,int> &action, json measurements, float reward){
         states[current_state_num].visit(); //increase number of times visited by 1 for the current state
 
         QState* qstate = states[current_state_num].get_qstate(action); //find qstate corresponding to the chosen action
@@ -547,16 +547,18 @@ class MDPModel{
     }
 
 
-    void value_iteration(float error = -1.0, bool verbose = false, bool useBounds = false ){
+    int value_iteration(float error = -1.0, bool verbose = false, bool useBounds = false ){
         if (error < 0){
             error = update_error;
         }
         bool repeat = true;
         float old_value;
         float new_value;
+        int max=0;
         vector<float> V_tmp;
         V_tmp.reserve(states.size());
-
+        vector<float> V;
+        V.reserve(states.size());
         if (useBounds)
             update_bounds();
 
@@ -581,8 +583,10 @@ class MDPModel{
                 if (abs(old_value - new_value) > error)
                     repeat = true;
             }
+            max=getValue1();
             V_tmp.clear();
         }
+        return max;
     }
     void value_iterationM(int horizon){
         vector<State> V_tmp;

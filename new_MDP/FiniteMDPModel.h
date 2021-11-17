@@ -78,6 +78,7 @@ class FiniteMDPModel: public MDPModel{
         stack<vector<int>> action_stack; //STACK TO CONTAIN VECTOR OF BEST QSTATE FOR EACH INDEX
         float total_reward = 0.0;
         int max_memory_used = 0;
+        int init_memory_used=0;
         int max_stack_memory = 0;
         int steps_made = 0;
         float expected_reward = 0.0;
@@ -822,8 +823,7 @@ class FiniteMDPModel: public MDPModel{
 
     void infiniteEvaluation(int horizon){
         resetValueFunction();
-         max_memory_used = getValue();
-        value_iteration(0.1, false);
+        max_memory_used=value_iteration(0.1, false);
         max_memory_used = getValue();
         expected_reward = states[initial_state_num].value;
         for (int time = 0; time < horizon; time++){
@@ -846,41 +846,40 @@ class FiniteMDPModel: public MDPModel{
     void runAlgorithm(model_type alg, int horizon=100){
 
         auto start = high_resolution_clock::now();
-
-        switch(alg) {
+        switch(alg) {   
             case infinite:
                 cout << "INFINITE MDP MODEL: " << endl;
-
+                init_memory_used = getValue();
                 infiniteEvaluation(horizon);
 
                 break;
             case infiniteM:
                 cout << "INFINITEM MDP MODEL: " << endl;
-
+                init_memory_used = getValue();
                 infiniteEvaluationM(horizon);
 
                 break;
             case naive:
                 cout << "NAIVE FINITE MDP MODEL: " << endl;
-
+                init_memory_used = getValue();
                 naiveEvaluation2(horizon);
 
                 break;
             case root:
                 cout << "ROOT FINITE MDP MODEL: " << endl;
-
+                init_memory_used = getValue();
                 rootEvaluation2(horizon);
 
                 break;
             case tree:
                 cout << "TREE FINITE MDP MODEL: " << endl;
-
+                init_memory_used = getValue();
                 treeEvaluation2(horizon);
 
                 break;
             case inplace:
                 cout << "IN-PLACE FINITE MDP MODEL: " << endl;
-
+                init_memory_used = getValue();
                 inPlaceEvaluation3(horizon);
 
                 break;
@@ -895,7 +894,7 @@ class FiniteMDPModel: public MDPModel{
         cout << "Total Reward Expected: " << expected_reward << endl;
         cout << "Total Reward Collected: " << total_reward << endl;
         cout << "Execution time (sec): " << duration.count() * 0.000001 << endl;
-        cout << "Peak memory used (MB): " << max_memory_used / 1000000.0 << endl;
+        cout << "Peak memory used (MB): " << (max_memory_used-init_memory_used) / 1000000.0 << endl;
         //cout << "(" << horizon << "," << duration.count() * 0.000001 << ")";
         cout << endl;
     }
