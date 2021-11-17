@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 {
     int num_tests = 1;
     int training_steps = 5000;
-    vector<int> horizon {210};
+    vector<int> horizon {100};
     int seed = 10;
     int max_memory_used = 0;
     int load_period = 250;
@@ -108,13 +108,15 @@ int main(int argc, char *argv[])
     }
     model.initial_state_num = model.current_state_num;
     //model.discount=1; //for the infiniteM to test the discount=1
-        for (int j = 0; j < 3; j++){//just to test the same model results
+        for (int j = 0; j < 1; j++){//just to test the same model results
         for (int i = 0; i < horizon.size(); i++){
-            /*
+            model.resetModel();
+            
             model.runAlgorithm(infinite, horizon[i]);
             total_rewards_results[0][i] += model.total_reward;
             model.resetModel();
-            
+            /*
+
             model.runAlgorithm(naive, horizon[i]);
             total_rewards_results[1][i] += model.total_reward;
             model.resetModel();
@@ -125,11 +127,11 @@ int main(int argc, char *argv[])
             cout << "Peak memory used (MB): " << model.max_memory_used / 1000000.0 << endl;
             */
             
-            
+            /*
             model.runAlgorithm(root, horizon[i]);
             total_rewards_results[2][i] += model.total_reward;
             model.resetModel();
-            /*
+            
             model.runAlgorithm(tree, horizon[i]);
             total_rewards_results[3][i] += model.total_reward;
             model.resetModel();

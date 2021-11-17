@@ -4,6 +4,24 @@
 #include <stdexcept>
 #include <string>
 #include <stack>
+#include <sstream>
+#include "stdlib.h"
+#include "stdio.h"
+#include "string.h"
+#include <random>
+#include <math.h>
+#include <array>
+#include <chrono>
+#ifdef _WIN32
+#include <windows.h>
+#include <psapi.h>
+#include <nlohmann\json.hpp>
+#endif
+
+#ifdef linux
+#include <nlohmann/json.hpp>
+#define SIZE_T int
+#endif
 
 #ifdef _WIN32
 #include <nlohmann\json.hpp>
@@ -26,6 +44,30 @@ string printableParameters(map<string,pair<float,float>> params){
     }
     s = s + "]";
     return s;
+}
+SIZE_T getValue1(){
+#ifdef _WIN32
+    PROCESS_MEMORY_COUNTERS pmc;
+    if (GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc)))
+        return(pmc.WorkingSetSize); //Value in Bytes!
+    else
+        return 0;
+#endif
+#ifdef linux
+    FILE* file = fopen("/proc/self/status", "r");
+    int result = -1;
+    char line[128];
+
+    while (fgets(line, 128, file) != NULL){
+        if (strncmp(line, "VmRSS:", 6) == 0){
+            result = parseLine(line);
+            break;
+        }
+    }
+    fclose(file);
+    return result;
+#endif
+
 }
 
 //class State;
@@ -492,27 +534,46 @@ class MDPModel{
         qstate.set_qvalue(new_qvalue);
     }
 
+ void _q_update2(QState &qstate, vector<float> &V){
+        float new_qvalue = 0.0;
+        float r;
+        float t;
+        for (int i=0; i < V.size(); i++){
+            t = qstate.get_transition(i);
+            r = qstate.get_reward(i);
+            new_qvalue += t * (r + discount * V[i]);
+        }
+        qstate.set_qvalue(new_qvalue);
+    }
 
-    void value_iteration(float error = -1.0, bool flag = false ){
+
+    void value_iteration(float error = -1.0, bool verbose = false, bool useBounds = false ){
         if (error < 0){
             error = update_error;
         }
         bool repeat = true;
         float old_value;
         float new_value;
-        vector<State> V_tmp;
+        vector<float> V_tmp;
         V_tmp.reserve(states.size());
+
+        if (useBounds)
+            update_bounds();
+
         while(repeat){
             repeat = false;
-            V_tmp = states;
-            if (flag) {
-                for (int i = 0; i < states.size(); i++){
-                    cout << "State " << states[i].get_state_num()<< ": " << states[i].value << endl;
-            } 
+
+            for (int i=0; i < states.size(); i++){
+                V_tmp.push_back(states[i].get_value());
             }
+
+            if (verbose) {
+                printDetails(); //Just to print details for every state
+            }
+
             for (int j = 0 ; j < states.size(); j++ ){
                 for (int m = 0; m < states[j].get_qstates().size(); m++){
-                    _q_update(states[j].qstates[m], V_tmp);
+                   _q_update2(states[j].qstates[m], V_tmp);
                 }
                 old_value = states[j].get_value();
                 states[j].update_value();
@@ -520,6 +581,7 @@ class MDPModel{
                 if (abs(old_value - new_value) > error)
                     repeat = true;
             }
+            V_tmp.clear();
         }
     }
     void value_iterationM(int horizon){
@@ -623,19 +685,44 @@ class MDPModel{
         return values;
     }
 
+
+        vector<pair<int,float>> getStateValues1(vector<State> V,vector<pair<int,float>> values){
+
+        for (int i=0; i < V.size(); i++){
+            values.push_back(make_pair( V[i].get_best_qstate(), V[i].get_value()));
+        }
+        
+        return values;
+    }
+
+    vector<pair<int,float>> getStateValuestest(vector<State>& V){
+        vector<pair<int,float>> values;
+        values.reserve(V.size());    
+        for (int i=0; i < V.size(); i++){
+            values.push_back(make_pair( V[i].get_best_qstate(), V[i].get_value()));
+        }
+        
+        return values;
+    }
+
     void loadValueFunction(vector<pair<int, float>> V){
         for (int i=0; i < V.size(); i++){
             states[i].best_qstate = V[i].first;
             states[i].value = V[i].second;
         }
     }
-
+    void loadValueFunctiontest(vector<pair<int, float>>& V){
+        for (int i=0; i < V.size(); i++){
+            states[i].best_qstate = V[i].first;
+            states[i].value = V[i].second;
+        }
+    }
     /*
     Auxiliary function, loads best QState indexes from external vector to model states.
     Takes as input a vector of indices of best QStates for every state.
     No output.
     */
-    void loadBestQStates(vector<int> V){
+    void loadBestQStates(vector<int> &V){
         for (int i=0; i < V.size(); i++){
             states[i].best_qstate = V[i];
         }
