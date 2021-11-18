@@ -556,9 +556,9 @@ class MDPModel{
         float new_value;
         int max=0;
         vector<float> V_tmp;
-        V_tmp.reserve(states.size());
+        //V_tmp.reserve(states.size());
         vector<float> V;
-        V.reserve(states.size());
+        //V.reserve(states.size());
         if (useBounds)
             update_bounds();
 
@@ -680,7 +680,7 @@ class MDPModel{
 
     vector<pair<int,float>> getStateValues(vector<State> V){
         vector<pair<int,float>> values;
-        values.reserve(V.size());    
+        //values.reserve(V.size());    
 
         for (int i=0; i < V.size(); i++){
             values.push_back(make_pair( V[i].get_best_qstate(), V[i].get_value()));
@@ -701,7 +701,7 @@ class MDPModel{
 
     vector<pair<int,float>> getStateValuestest(vector<State>& V){
         vector<pair<int,float>> values;
-        values.reserve(V.size());    
+        //values.reserve(V.size());    
         for (int i=0; i < V.size(); i++){
             values.push_back(make_pair( V[i].get_best_qstate(), V[i].get_value()));
         }

@@ -9,3 +9,6 @@ new_MDP/.vs
 new_MDP/.vscode
 new_MDP/.vscode/launch.json
 new_MDP/.vscode/launch.json
+*.out
+*.exe
+*.exe

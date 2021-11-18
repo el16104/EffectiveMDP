@@ -162,7 +162,7 @@ class FiniteMDPModel: public MDPModel{
 
     vector<pair<int, float>> calculateValues(int k, int starting_index, vector<pair<int, float>> V, bool tree = false){
         vector<pair<int,float>> V_tmp;
-        V_tmp.reserve(states.size());      
+        //V_tmp.reserve(states.size());      
         V_tmp = V;
         for (int i = starting_index+1 ; i < k+1; i++){
             for (int j = 0 ; j < states.size(); j++ ){
@@ -296,7 +296,7 @@ class FiniteMDPModel: public MDPModel{
             //vector<State> V;
 
             vector<pair<int,float>> V;
-            V.reserve(states.size());
+            //V.reserve(states.size());
             resetValueFunction();
             //V = calculateValues(horizon, 0, states);
             V = calculateValues(horizon, 0, getStateValues(states));
@@ -321,7 +321,7 @@ class FiniteMDPModel: public MDPModel{
     */
     vector<float> getStateValueFunction(){
         vector<float> values;
-        values.reserve(states.size());    
+        //values.reserve(states.size());    
 
         for (int i=0; i < states.size(); i++){
             values.push_back(states[i].get_value());
@@ -337,7 +337,7 @@ class FiniteMDPModel: public MDPModel{
     */
     vector<int> getStateActions(){
         vector<int> values;
-        values.reserve(states.size());    
+        //values.reserve(states.size());    
 
         for (int i=0; i < states.size(); i++){
             values.push_back(states[i].get_best_qstate());
@@ -353,7 +353,7 @@ class FiniteMDPModel: public MDPModel{
     */
     float calculatePolicy(int k){
         vector<float> V_tmp;
-        V_tmp.reserve(states.size());      
+        //V_tmp.reserve(states.size());      
         V_tmp = getStateValueFunction();
         for (int i = 1 ; i < k+1; i++){ //FOR EVERY INDEX UP TO THE HORIZON
             for (int j = 0 ; j < states.size(); j++ ){ //FOR EVERY STATE
@@ -405,7 +405,7 @@ class FiniteMDPModel: public MDPModel{
         int steps_remaining = horizon;
         resetValueFunction();
         vector<pair<int,float>> values;
-        values.reserve(states.size());
+        //values.reserve(states.size());
         V = calculateValues(steps_remaining, 0, getStateValues(states),true);
         expected_reward = V[initial_state_num].second;
         loadValueFunction(V);
@@ -426,8 +426,8 @@ class FiniteMDPModel: public MDPModel{
        void inPlaceEvaluation3(int horizon){
         vector<pair<int,float>> V;
         vector<pair<int,float>> V_temp;
-        V_temp.reserve(states.size()); 
-        V.reserve(states.size()); 
+        //V_temp.reserve(states.size()); 
+        //V.reserve(states.size()); 
         V_temp =getStateValuestest(states);
         int steps_remaining = horizon;
         resetValueFunction();
@@ -457,7 +457,7 @@ class FiniteMDPModel: public MDPModel{
         int steps_remaining = horizon;
         resetValueFunction();
         vector<pair<int,float>> values;
-        values.reserve(states.size());
+        //values.reserve(states.size());
         vector<pair<int,float>> V_tmp;
         V=getStateValues1(states,values);
         //calculateValues now
@@ -519,9 +519,9 @@ class FiniteMDPModel: public MDPModel{
     void rootEvaluation2(int horizon){
 
         vector<pair<int,float>> V;
-        V.reserve(states.size());
+        //V.reserve(states.size());
         vector<pair<int,float>> V_tmp;
-        V.reserve(states.size());
+        //V.reserve(states.size());
         int steps_remaining = horizon;
         resetValueFunction();
         int floor_of_square_root = floor(sqrt(horizon));
@@ -580,7 +580,7 @@ class FiniteMDPModel: public MDPModel{
     void rootEvaluation(int horizon){
 
         vector<pair<int,float>> V;
-        V.reserve(states.size());
+        //V.reserve(states.size());
         int steps_remaining = horizon;
         resetValueFunction();
 
@@ -671,8 +671,8 @@ class FiniteMDPModel: public MDPModel{
         int r = horizon;
         vector<pair<int,float>> V;
         vector<pair<int,float>> V_tmp;
-        V.reserve(states.size());
-        V_tmp.reserve(states.size());
+        //V.reserve(states.size());
+       // V_tmp.reserve(states.size());
         int k = (l + r)/2;
         if (!index_stack.empty()){
             if (index_stack.top() == target){
@@ -737,7 +737,7 @@ class FiniteMDPModel: public MDPModel{
     void treeEvaluation(int horizon){
         int steps_remaining = horizon;
         vector<pair<int,float>> V;
-        V.reserve(states.size());
+        //V.reserve(states.size());
         while(steps_remaining > 0){
             V = treeTraversal(steps_remaining, horizon);
             if (steps_remaining == horizon)
@@ -750,7 +750,7 @@ class FiniteMDPModel: public MDPModel{
         void treeEvaluation2(int horizon){
         int steps_remaining = horizon;
         vector<pair<int,float>> V;
-        V.reserve(states.size());
+        //V.reserve(states.size());
         while(steps_remaining > 0){
             V = treeTraversal1(steps_remaining, horizon);
             if (steps_remaining == horizon)
@@ -765,7 +765,7 @@ class FiniteMDPModel: public MDPModel{
         int l = 0;
         int r = horizon;
         vector<pair<int,float>> V;
-        V.reserve(states.size());
+        //V.reserve(states.size());
         int k = (l + r)/2;
         if (!index_stack.empty()){
             if (index_stack.top() == target){
