@@ -661,7 +661,7 @@ class FiniteMDPModel: public MDPModel{
 
 
     //calculates Value Function for target index while saving every intermediate index needed
-    void treeTraversal1(int target, int horizon, vector<pair<int,float>> V){
+    void treeTraversal1(int target, int horizon, vector<pair<int,float>> &V){
         int l = 0;
         int r = horizon;
 
