@@ -522,12 +522,12 @@ class FiniteMDPModel: public MDPModel{
         resetValueFunction();
         int floor_of_square_root = floor(sqrt(horizon));
         int i=0;
+        V=getStateValuestest(states);
         for ( ;i+floor_of_square_root <= horizon; i=i+floor_of_square_root){
             calculateValuestest(i+floor_of_square_root,i,  V, true);
             finite_stack.push(V);
             stack_memory++;
         }
-
         if (i!=horizon){
             V=getStateValuestest(states);
             calculateValuestest(horizon, i, V);

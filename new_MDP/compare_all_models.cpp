@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 {
     int num_tests = 1;
     int training_steps = 5000;
-    vector<int> horizon {214};
+    vector<int> horizon {100};
     int seed = 10;
     int max_memory_used = 0;
     
@@ -128,13 +128,13 @@ int main(int argc, char *argv[])
             cout << "Total Reward Expected: " << model.expected_reward << endl;
             cout << "Total Reward Collected: " << model.total_reward << endl;
             cout << "Peak memory used (MB): " << model.max_memory_used / 1000000.0 << endl;
-            */
+            
             
             
             model.runAlgorithm(root, horizon[i]);
             total_rewards_results[2][i] += model.total_reward;
             model.resetModel();
-            
+            */
             model.runAlgorithm(tree, horizon[i]);
             total_rewards_results[3][i] += model.total_reward;
             model.resetModel();
@@ -142,11 +142,11 @@ int main(int argc, char *argv[])
             model.runAlgorithm(infiniteM, horizon[i]);
             total_rewards_results[4][i] += model.total_reward;
             model.resetModel();
-            */
+            
             model.runAlgorithm(inplace, horizon[i]);
             total_rewards_results[5][i] += model.total_reward;
             model.resetModel();
-            
+            */
         }
         }//just to test the same model results
 
