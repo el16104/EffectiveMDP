@@ -185,7 +185,7 @@ class FiniteMDPModel: public MDPModel{
         return V_tmp;
 
     }
-    vector<pair<int, float>> calculateValuestest(int k, int starting_index, vector<pair<int, float>> &V, bool tree = false){
+    void calculateValuestest(int k, int starting_index, vector<pair<int, float>> &V, bool tree = false){
 
         for (int i = starting_index+1 ; i < k+1; i++){
             for (int j = 0 ; j < states.size(); j++ ){
@@ -204,8 +204,6 @@ class FiniteMDPModel: public MDPModel{
             }
 
         checkMemoryUsage();
-
-        return V;
 
     }
 
@@ -425,13 +423,12 @@ class FiniteMDPModel: public MDPModel{
     }
        void inPlaceEvaluation3(int horizon){
         vector<pair<int,float>> V;
-        vector<pair<int,float>> V_temp;
         //V_temp.reserve(states.size()); 
         //V.reserve(states.size()); 
-        V_temp =getStateValuestest(states);
+        V =getStateValuestest(states);
         int steps_remaining = horizon;
         resetValueFunction();
-        V = calculateValuestest(steps_remaining, 0, V_temp,true);
+        calculateValuestest(steps_remaining, 0, V,true);
         expected_reward = V[initial_state_num].second;
         loadValueFunctiontest(V);
         takeAction(false);
@@ -441,8 +438,8 @@ class FiniteMDPModel: public MDPModel{
             max_memory_used = getValue();
         }
         while(steps_remaining > 0){
-            V_temp=getStateValuestest(states);
-            V = calculateValuestest(steps_remaining, 0, V_temp,true);
+            V=getStateValuestest(states);
+            calculateValuestest(steps_remaining, 0, V,true);
             loadValueFunctiontest(V);
             takeAction(false);
             steps_made++;
@@ -520,22 +517,20 @@ class FiniteMDPModel: public MDPModel{
 
         vector<pair<int,float>> V;
         //V.reserve(states.size());
-        vector<pair<int,float>> V_tmp;
         //V.reserve(states.size());
         int steps_remaining = horizon;
         resetValueFunction();
         int floor_of_square_root = floor(sqrt(horizon));
         int i=0;
         for ( ;i+floor_of_square_root <= horizon; i=i+floor_of_square_root){
-            V = calculateValuestest(i+floor_of_square_root,i,  V_tmp, true);
+            calculateValuestest(i+floor_of_square_root,i,  V, true);
             finite_stack.push(V);
             stack_memory++;
-            V_tmp=V;
         }
 
         if (i!=horizon){
-            V_tmp=getStateValuestest(states);
-            V=calculateValuestest(horizon, i, V_tmp);
+            V=getStateValuestest(states);
+            calculateValuestest(horizon, i, V);
         }
         expected_reward = V[initial_state_num].second;
         checkStackSize();
@@ -553,14 +548,14 @@ class FiniteMDPModel: public MDPModel{
         while(steps_remaining > 0){
             if (finite_stack.empty()){
                 resetValueFunction();
-                V_tmp=getStateValuestest(states);
-                V = calculateValuestest(steps_remaining, 0, V_tmp);
+                V=getStateValuestest(states);
+                calculateValuestest(steps_remaining, 0, V);
             }
             else{
 
                 if( (steps_remaining+1)%floor_of_square_root==0){
-                    V_tmp=finite_stack.top();
-                    V = calculateValuestest(steps_remaining, steps_remaining-floor_of_square_root+1,V_tmp );
+                    V=finite_stack.top();
+                    calculateValuestest(steps_remaining, steps_remaining-floor_of_square_root+1,V );
                     checkMemoryUsage();
                 }
                 else
@@ -666,11 +661,10 @@ class FiniteMDPModel: public MDPModel{
 
 
     //calculates Value Function for target index while saving every intermediate index needed
-    vector<pair<int,float>> treeTraversal1(int target, int horizon){
+    void treeTraversal1(int target, int horizon, vector<pair<int,float>> V){
         int l = 0;
         int r = horizon;
-        vector<pair<int,float>> V;
-        vector<pair<int,float>> V_tmp;
+
         //V.reserve(states.size());
        // V_tmp.reserve(states.size());
         int k = (l + r)/2;
@@ -680,7 +674,7 @@ class FiniteMDPModel: public MDPModel{
                 finite_stack.pop();
                 index_stack.pop();
                 //stack_memory--;
-                return V;
+                return ;
             }
             else{
                 k = index_stack.top();
@@ -692,13 +686,13 @@ class FiniteMDPModel: public MDPModel{
             if (k == target){
                 if (finite_stack.empty()){
                     resetValueFunction();//if no vector is saved in memory, calculate objective from the beginning
-                    V_tmp=getStateValuestest(states);
-                    V = calculateValuestest(k, 0, V_tmp, true);
+                    V=getStateValuestest(states);
+                    calculateValuestest(k, 0, V, true);
 
                 }
                 else{
-                    V_tmp=finite_stack.top();
-                    V = calculateValuestest(k, index_stack.top(),V_tmp , true);//use last saved vector in memory to calculate objective
+                    V=finite_stack.top();
+                    calculateValuestest(k, index_stack.top(),V , true);//use last saved vector in memory to calculate objective
                     
                 }
                 break;
@@ -706,16 +700,18 @@ class FiniteMDPModel: public MDPModel{
             else if ( k < target){
                 if (finite_stack.empty()){
                     resetValueFunction();//if no vector is saved in memory, calculate objective from the beginning
-                    V_tmp=getStateValuestest(states);
-                    finite_stack.push(calculateValuestest(k, 0, V_tmp, true));
+                    V=getStateValuestest(states);
+                    calculateValuestest(k, 0, V, true);
+                    finite_stack.push(V);
                     index_stack.push(k);
                     //stack_memory++;
                     //checkStackSize();
                 }
                 else{
                     if (index_stack.top() != k){
-                        V_tmp=finite_stack.top();
-                        finite_stack.push(calculateValuestest(k, index_stack.top(), V_tmp, true));//use last saved vector in memory to calculate objective
+                        V=finite_stack.top();
+                        calculateValuestest(k, index_stack.top(), V, true);
+                        finite_stack.push(V);//use last saved vector in memory to calculate objective
                         index_stack.push(k);
                         //stack_memory++;
                         //checkStackSize();
@@ -731,7 +727,6 @@ class FiniteMDPModel: public MDPModel{
         }
         checkMemoryUsage();
         
-        return V;
     }
 
     void treeEvaluation(int horizon){
@@ -752,7 +747,7 @@ class FiniteMDPModel: public MDPModel{
         vector<pair<int,float>> V;
         //V.reserve(states.size());
         while(steps_remaining > 0){
-            V = treeTraversal1(steps_remaining, horizon);
+            treeTraversal1(steps_remaining, horizon,V);
             if (steps_remaining == horizon)
                 expected_reward = V[initial_state_num].second;
             loadValueFunctiontest(V);
@@ -894,7 +889,9 @@ class FiniteMDPModel: public MDPModel{
         cout << "Total Reward Expected: " << expected_reward << endl;
         cout << "Total Reward Collected: " << total_reward << endl;
         cout << "Execution time (sec): " << duration.count() * 0.000001 << endl;
-        cout << "Peak memory used (MB): " << (max_memory_used-init_memory_used) / 1000000.0 << endl;
+        cout << "Peak memory used (MB): " << (max_memory_used) / 1000000.0 << endl;
+        cout << "Peak memory used (MB): " << (init_memory_used) / 1000000.0 << endl;
+         cout << "Peak memory used (MB): " << (max_memory_used-init_memory_used) << endl;
         //cout << "(" << horizon << "," << duration.count() * 0.000001 << ")";
         cout << endl;
     }
