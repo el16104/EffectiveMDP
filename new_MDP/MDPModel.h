@@ -80,7 +80,8 @@ public:
     vector<int> transitions={};
     vector<float> rewards = {};
     int num_states;
-
+    vector<int> transtate={};
+    vector<float> trans={};
     float upper_bound;//Maximum value of QStates for a given state
     float lower_bound;//Minimum value of QStates for a given state
 

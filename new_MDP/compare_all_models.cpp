@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
     int MIN_VMS = 1;
     int MAX_VMS = 20;
     float epsilon = 0.7;
-    string CONF_FILE = "model_parameters/mdp_small_3.json"; //sorry for that but keep it in comments
+    string CONF_FILE = "model_parameters/mdp_huge.json"; //sorry for that but keep it in comments
     //string CONF_FILE = argv[1];
     ModelConf conf(CONF_FILE);
     float total_rewards_results[5][13];
@@ -107,8 +107,23 @@ int main(int argc, char *argv[])
             model.value_iteration(0.1);
         }
     }
+    int count0=0;
+    int count1=0;
     //max_memory_used = getValue();
-
+    for (int i=0;i< model.states.size();i++){
+        for (int j=0;j< model.states[i].qstates.size();j++){
+            for (int k=0;k< model.states[i].qstates[j].transitions.size();k++){
+                if (model.states[i].qstates[j].get_transition(k)>0){
+                    model.states[i].qstates[j].trans.push_back(model.states[i].qstates[j].get_transition(k));
+                    model.states[i].qstates[j].transtate.push_back(k);
+                    count1++;
+                }
+                else {
+                    count0++;
+                }
+            }
+        }
+    }
     model.initial_state_num = model.current_state_num;
     //model.discount=1; //for the infiniteM to test the discount=1
         for (int j = 0; j < 1; j++){//just to test the same model results

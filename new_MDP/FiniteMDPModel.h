@@ -189,6 +189,7 @@ class FiniteMDPModel: public MDPModel{
 
         for (int i = starting_index+1 ; i < k+1; i++){
             for (int j = 0 ; j < states.size(); j++ ){
+                
                 for (int m = 0; m < states[j].get_qstates().size(); m++){
                     _q_update_finite(states[j].qstates[m], V);
                 }
@@ -198,8 +199,81 @@ class FiniteMDPModel: public MDPModel{
             if (!tree){
                 index_stack.push(i);
                 finite_stack.push(V);
-                stack_memory++;
-                checkStackSize();
+                //stack_memory++;
+               // checkStackSize();
+                }
+            }
+
+        checkMemoryUsage();
+
+    }
+
+        void calculateValuestestcorrR(int k, int starting_index, vector<pair<int, float>> &V, bool tree = false){
+            float num0rew=-1;
+            int statenum=-1;
+            for (int i = starting_index+1 ; i < k+1; i++){
+            for (int j = 0 ; j < states.size(); j++ ){
+                num0rew=calcrewa(V);
+            for (int n = 0; n < states[j].get_qstates().size(); n++){
+                    float new_qvalue = 0.0;
+                    float r;
+                    float t;
+                    if (states[j].num_visited==0)
+                        states[j].qstates[n].set_qvalue(num0rew);
+                    else{
+                    for (int m=0; m < states[j].qstates[n].trans.size(); m++){ //FOR EVERY ACCESIBLE STATE FROM CURRENT QSTATE
+                        t = states[j].qstates[n].trans[m];
+                        statenum=states[j].qstates[n].transtate[m];
+                        r = states[j].qstates[n].get_reward(statenum);
+                        new_qvalue += t * (r +V[statenum].second);
+                    }
+                    states[j].qstates[n].set_qvalue(new_qvalue);
+                }
+                }
+                states[j].update_value();
+            }
+            V = getStateValuestest(states);
+            if (!tree){
+                //index_stack.push(i);
+                finite_stack.push(V);
+                //stack_memory++;
+               // checkStackSize();
+                }
+            }
+
+        checkMemoryUsage();
+
+    }
+    void calculateValuestestcorr(int k, int starting_index, vector<pair<int, float>> &V, bool tree = false){
+            float num0rew=-1;
+            int statenum=-1;
+            for (int i = starting_index+1 ; i < k+1; i++){
+            for (int j = 0 ; j < states.size(); j++ ){
+                num0rew=calcrewa(V);
+            for (int n = 0; n < states[j].get_qstates().size(); n++){
+                    float new_qvalue = 0.0;
+                    float r;
+                    float t;
+                    if (states[j].num_visited==0)
+                        states[j].qstates[n].set_qvalue(num0rew);
+                    else{
+                    for (int m=0; m < states[j].qstates[n].trans.size(); m++){ //FOR EVERY ACCESIBLE STATE FROM CURRENT QSTATE
+                        t = states[j].qstates[n].trans[m];
+                        statenum=states[j].qstates[n].transtate[m];
+                        r = states[j].qstates[n].get_reward(statenum);
+                        new_qvalue += t * (r +V[statenum].second);
+                    }
+                    states[j].qstates[n].set_qvalue(new_qvalue);
+                }
+                }
+                states[j].update_value();
+            }
+            V = getStateValuestest(states);
+            if (!tree){
+                //index_stack.push(i);
+                finite_stack.push(V);
+                //stack_memory++;
+               // checkStackSize();
                 }
             }
 
@@ -246,6 +320,22 @@ class FiniteMDPModel: public MDPModel{
             }
             cout << action.first << " ,Reward: " << reward << "   Next state: " << endl << states[current_state_num] << endl;
         }
+    }
+
+    void takeAction2(int corraction){
+        float reward;
+        int prev_state_num = current_state_num;
+        float x = unif(eng);
+        float acc = 0.0;
+            for (int j=0; j<states[prev_state_num].qstates[corraction].trans.size();j++){
+                    acc += states[prev_state_num].qstates[corraction].trans[j];
+                    if (x < acc){
+                        current_state_num = states[prev_state_num].qstates[corraction].transtate[j];
+                        reward = states[prev_state_num].qstates[corraction].get_reward(current_state_num);
+                        break;
+                    }
+                }
+        total_reward += reward;
     }
 
     void traverseTree(int l, int r){
@@ -364,6 +454,7 @@ class FiniteMDPModel: public MDPModel{
                         r = states[j].qstates[n].get_reward(m);
                         new_qvalue += t * (r +V_tmp[m]);
                     }
+
                     states[j].qstates[n].set_qvalue(new_qvalue);
                 }
                 states[j].update_value();
@@ -377,18 +468,91 @@ class FiniteMDPModel: public MDPModel{
         }
         return V_tmp[initial_state_num];
     }
+    float calcrewa(vector<float> &V_tmp){
+        float new_qvalue=0;
+        for (int m=0; m < V_tmp.size(); m++){ //FOR EVERY ACCESIBLE STATE FROM CURRENT QSTATE
+                        new_qvalue += (V_tmp[m]);
+                    }
+        return new_qvalue/states.size();
+    }
+    float calcrewa(vector<pair<int,float>> V_tmp){
+        float new_qvalue=0;
+        for (int m=0; m < V_tmp.size(); m++){ //FOR EVERY ACCESIBLE STATE FROM CURRENT QSTATE
+                        new_qvalue += (V_tmp[m].second);
+                    }
+        return new_qvalue/states.size();
+    }
+    float calculatePolicycorr(int k){
+        vector<float> V_tmp;
+        //V_tmp.reserve(states.size());      
+        V_tmp = getStateValueFunction();
+        int statenum;
+        float num0rew=0;
+        for (int i = 1 ; i < k+1; i++){ //FOR EVERY INDEX UP TO THE HORIZON
+            for (int j = 0 ; j < states.size(); j++ ){ //FOR EVERY STATE
+                num0rew=calcrewa(V_tmp);
+                for (int n = 0; n < states[j].get_qstates().size(); n++){ //FOR EVERY QSTATE OF EACH STATE
+                    float new_qvalue = 0.0;
+                    float r;
+                    float t;
+                    if (states[j].num_visited==0)
+                        states[j].qstates[n].set_qvalue(num0rew);
+                    else{
+                    for (int m=0; m < states[j].qstates[n].trans.size(); m++){ //FOR EVERY ACCESIBLE STATE FROM CURRENT QSTATE
+                        t = states[j].qstates[n].trans[m];
+                        statenum=states[j].qstates[n].transtate[m];
+                        r = states[j].qstates[n].get_reward(statenum);
+                        new_qvalue += t * (r +V_tmp[statenum]);
+                    }
+                    states[j].qstates[n].set_qvalue(new_qvalue);
+                }
+                }
+                states[j].update_value();
+            }
+            V_tmp = getStateValueFunction();
 
+            action_stack.push(getStateActions());
+            stack_memory++;
+            checkStackSize();
+            checkMemoryUsage();
+        }
+        return V_tmp[initial_state_num];
+    }
     /*
     Runs the Naive Finite-Horizon MDP method using calculatePolicy.
     Takes as argument the Finite-Horizon MDP's horizon;
     */
     void naiveEvaluation2(int horizon){
         resetValueFunction();
+        auto start22 = std::chrono::high_resolution_clock::now();
         expected_reward = calculatePolicy(horizon);
+        auto end22 = std::chrono::high_resolution_clock::now();     // the new current "timepoint"
+        auto elapsed = end22 - start22;                 // difference is a "duration"
+        std::cout << "hoho" << ": " << elapsed.count()* 0.000001 << '\n';  // clock ticks (seconds)
+    
         while (!action_stack.empty()){
             steps_made++;
             loadBestQStates(action_stack.top());
             takeAction(false);
+            action_stack.pop();
+            stack_memory--;
+        }
+    }
+    void naiveEvaluationcorr(int horizon){
+        resetValueFunction();
+        auto start22 = std::chrono::high_resolution_clock::now();
+        expected_reward = calculatePolicycorr(horizon);
+        auto end22 = std::chrono::high_resolution_clock::now();     // the new current "timepoint"
+        auto elapsed = end22 - start22;                 // difference is a "duration"
+        std::cout << "hoho" << ": " << elapsed.count()* 0.000001 << '\n';  // clock ticks (seconds)
+    
+        int actiont=-1;
+        vector<int> V;
+        while (!action_stack.empty()){
+            steps_made++;
+            V=action_stack.top();
+            actiont=V[current_state_num];
+            takeAction2(actiont);
             action_stack.pop();
             stack_memory--;
         }
@@ -513,35 +677,36 @@ class FiniteMDPModel: public MDPModel{
     }
 
 
-    void rootEvaluation2(int horizon){
+
+void rootEvaluation2(int horizon){
 
         vector<pair<int,float>> V;
         //V.reserve(states.size());
         //V.reserve(states.size());
         int steps_remaining = horizon;
-        resetValueFunction();
+        //resetValueFunction();
         int floor_of_square_root = floor(sqrt(horizon));
         int i=0;
         V=getStateValuestest(states);
         for ( ;i+floor_of_square_root <= horizon; i=i+floor_of_square_root){
             calculateValuestest(i+floor_of_square_root,i,  V, true);
             finite_stack.push(V);
-            stack_memory++;
+            //stack_memory++;
         }
         if (i!=horizon){
             V=getStateValuestest(states);
             calculateValuestest(horizon, i, V);
         }
         expected_reward = V[initial_state_num].second;
-        checkStackSize();
+        //checkStackSize();
         checkMemoryUsage();
         for ( ;i < horizon; i=i+1){ 
            
             loadValueFunction(V);
             takeAction(false);
             finite_stack.pop();
-            stack_memory--;
-            steps_made++;
+            //stack_memory--;
+            //steps_made++;
             steps_remaining--;
             V = finite_stack.top();  
         }
@@ -556,18 +721,79 @@ class FiniteMDPModel: public MDPModel{
                 if( (steps_remaining+1)%floor_of_square_root==0){
                     V=finite_stack.top();
                     calculateValuestest(steps_remaining, steps_remaining-floor_of_square_root+1,V );
-                    checkMemoryUsage();
+                    //checkMemoryUsage();
                 }
                 else
                     V = finite_stack.top();            
             }
             loadValueFunction(V);
             takeAction(false);
-            checkStackSize();
+            //checkStackSize();
             checkMemoryUsage();
             finite_stack.pop();
-            stack_memory--;
-            steps_made++;
+            //stack_memory--;
+            //steps_made++;
+            steps_remaining--;
+        }
+    }
+
+void rootEvaluationcorr(int horizon){
+
+        vector<pair<int,float>> V;
+        //V.reserve(states.size());
+        //V.reserve(states.size());
+        int steps_remaining = horizon;
+        int actiont=-1;
+        resetValueFunction();
+        int floor_of_square_root = floor(sqrt(horizon));
+        int i=0;
+        V=getStateValuestest(states);
+        for ( ;i+floor_of_square_root <= horizon; i=i+floor_of_square_root){
+            calculateValuestestcorrR(i+floor_of_square_root,i,  V, true);
+            finite_stack.push(V);
+            //stack_memory++;
+        }
+        if (i!=horizon){
+            V=getStateValuestest(states);
+            calculateValuestestcorrR(horizon, i, V);
+        }
+        expected_reward = V[initial_state_num].second;
+        //checkStackSize();
+        checkMemoryUsage();
+        for ( ;i < horizon; i=i+1){ 
+           
+            loadValueFunction(V);
+            takeAction2(V[current_state_num].first);
+            //takeAction(false);
+            finite_stack.pop();
+            //stack_memory--;
+            //steps_made++;
+            steps_remaining--;
+            V = finite_stack.top();  
+        }
+        while(steps_remaining > 0){
+            if (finite_stack.empty()){
+                resetValueFunction();
+                V=getStateValuestest(states);
+                calculateValuestestcorrR(steps_remaining, 0, V);
+            }
+            else{
+
+                if( (steps_remaining+1)%floor_of_square_root==0){
+                    V=finite_stack.top();
+                    calculateValuestestcorrR(steps_remaining, steps_remaining-floor_of_square_root+1,V );
+                    //checkMemoryUsage();
+                }
+                else
+                    V = finite_stack.top();            
+            }
+            loadValueFunctiontest(V);
+            takeAction2(V[current_state_num].first);
+            //checkStackSize();
+            checkMemoryUsage();
+            finite_stack.pop();
+            //stack_memory--;
+            //steps_made++;
             steps_remaining--;
         }
     }
@@ -728,6 +954,73 @@ class FiniteMDPModel: public MDPModel{
         checkMemoryUsage();
         
     }
+    void treeTraversalcorr(int target, int horizon, vector<pair<int,float>> &V){
+        int l = 0;
+        int r = horizon;
+
+        //V.reserve(states.size());
+       // V_tmp.reserve(states.size());
+        int k = (l + r)/2;
+        if (!index_stack.empty()){
+            if (index_stack.top() == target){
+                V = finite_stack.top();
+                finite_stack.pop();
+                index_stack.pop();
+                //stack_memory--;
+                return ;
+            }
+            else{
+                k = index_stack.top();
+            }
+        }
+
+
+        while ( l <= r){
+            if (k == target){
+                if (finite_stack.empty()){
+                    resetValueFunction();//if no vector is saved in memory, calculate objective from the beginning
+                    V=getStateValuestest(states);
+                    calculateValuestestcorr(k, 0, V, true);
+
+                }
+                else{
+                    V=finite_stack.top();
+                    calculateValuestestcorr(k, index_stack.top(),V , true);//use last saved vector in memory to calculate objective
+                    
+                }
+                break;
+            }
+            else if ( k < target){
+                if (finite_stack.empty()){
+                    resetValueFunction();//if no vector is saved in memory, calculate objective from the beginning
+                    V=getStateValuestest(states);
+                    calculateValuestestcorr(k, 0, V, true);
+                    finite_stack.push(V);
+                    index_stack.push(k);
+                    //stack_memory++;
+                    //checkStackSize();
+                }
+                else{
+                    if (index_stack.top() != k){
+                        V=finite_stack.top();
+                        calculateValuestestcorr(k, index_stack.top(), V, true);
+                        finite_stack.push(V);//use last saved vector in memory to calculate objective
+                        index_stack.push(k);
+                        //stack_memory++;
+                        //checkStackSize();
+                    }
+                }
+                l = k + 1;
+                k = (l + r)/2;
+            }
+            else if ( k > target){
+                r = k - 1;
+                k = (l + r)/2;
+            }
+        }
+        checkMemoryUsage();
+        
+    }
 
     void treeEvaluation(int horizon){
         int steps_remaining = horizon;
@@ -756,6 +1049,22 @@ class FiniteMDPModel: public MDPModel{
             steps_remaining--;
         }
     }
+ void treeEvaluationcorr(int horizon){
+        int steps_remaining = horizon;
+        int actiont=-1;
+        vector<pair<int,float>> V;
+        //V.reserve(states.size());
+        while(steps_remaining > 0){
+            treeTraversalcorr(steps_remaining, horizon,V);
+            if (steps_remaining == horizon)
+                expected_reward = V[initial_state_num].second;
+            loadValueFunctiontest(V);
+            takeAction2(V[current_state_num].first);
+            checkMemoryUsage();
+            steps_remaining--;
+        }
+    }
+
     vector<pair<int,float>> treeTraversal(int target, int horizon){
         int l = 0;
         int r = horizon;
@@ -857,19 +1166,22 @@ class FiniteMDPModel: public MDPModel{
             case naive:
                 cout << "NAIVE FINITE MDP MODEL: " << endl;
                 init_memory_used = getValue();
-                naiveEvaluation2(horizon);
+                naiveEvaluationcorr(horizon);
+                //naiveEvaluation2(horizon);
 
                 break;
             case root:
                 cout << "ROOT FINITE MDP MODEL: " << endl;
                 init_memory_used = getValue();
-                rootEvaluation2(horizon);
+                rootEvaluationcorr(horizon);
+                //rootEvaluation2(horizon);
 
                 break;
             case tree:
                 cout << "TREE FINITE MDP MODEL: " << endl;
                 init_memory_used = getValue();
                 treeEvaluation2(horizon);
+                //treeEvaluationcorr(horizon);
 
                 break;
             case inplace:
