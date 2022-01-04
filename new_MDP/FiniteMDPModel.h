@@ -212,8 +212,9 @@ class FiniteMDPModel: public MDPModel{
             float num0rew=-1;
             int statenum=-1;
             for (int i = starting_index+1 ; i < k+1; i++){
-            for (int j = 0 ; j < states.size(); j++ ){
                 num0rew=calcrewa(V);
+            for (int j = 0 ; j < states.size(); j++ ){
+                
             for (int n = 0; n < states[j].get_qstates().size(); n++){
                     float new_qvalue = 0.0;
                     float r;
@@ -489,8 +490,9 @@ class FiniteMDPModel: public MDPModel{
         int statenum;
         float num0rew=0;
         for (int i = 1 ; i < k+1; i++){ //FOR EVERY INDEX UP TO THE HORIZON
-            for (int j = 0 ; j < states.size(); j++ ){ //FOR EVERY STATE
-                num0rew=calcrewa(V_tmp);
+                 num0rew=calcrewa(V_tmp);  
+            for (int j = 0 ; j < states.size(); j++ ){ //FOR EVERY STATE   
+                     
                 for (int n = 0; n < states[j].get_qstates().size(); n++){ //FOR EVERY QSTATE OF EACH STATE
                     float new_qvalue = 0.0;
                     float r;
