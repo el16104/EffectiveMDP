@@ -31,16 +31,6 @@
 using namespace std::chrono;
 enum model_type {infinite, naive, root, tree, inplace,infiniteM};
 
-int parseLine(char* line){
-    // This assumes that a digit will be found and the line ends in " Kb".
-    int i = strlen(line);
-    const char* p = line;
-    while (*p <'0' || *p > '9') p++;
-    line[i-3] = '\0';
-    i = atoi(p);
-    return i;
-}
-
 SIZE_T getValue(){
 #ifdef _WIN32
     PROCESS_MEMORY_COUNTERS pmc;

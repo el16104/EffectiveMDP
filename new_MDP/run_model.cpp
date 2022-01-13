@@ -9,7 +9,7 @@
 
 #include "stdlib.h"
 #include "stdio.h"
-#include "string.h"
+#include <string>
 
 /*
 
@@ -119,6 +119,30 @@ int main(int argc, char *argv[])
         }
     }
     model.initial_state_num = model.current_state_num;
-    
+    int count0=0;
+    int count1=0;
+    for (int i=0;i< model.states.size();i++){
+        for (int j=0;j< model.states[i].qstates.size();j++){
+            for (int k=0;k< model.states[i].qstates[j].transitions.size();k++){
+                if (model.states[i].qstates[j].get_transition(k)>0){
+                    model.states[i].qstates[j].trans.push_back(model.states[i].qstates[j].get_transition(k));
+                    model.states[i].qstates[j].transtate.push_back(k);
+                    count1++;
+                }
+                else {
+                    count0++;
+                }
+            }
+        }
+    }
+
+    /*for (int i=0;i< model.states.size();i++){
+        for (int j=0;j< model.states[i].qstates.size();j++){
+            for (int k=0; k < model.states[i].qstates[j].transtate.size(); k++){
+                cout << "State " << i << " Qstate " << j << " probability = " << model.states[i].qstates[j].trans[k] << " to " << model.states[i].qstates[j].transtate[k] << endl;
+            }
+        }
+    }*/
+
     model.runAlgorithm(algo, horizon);
 }
