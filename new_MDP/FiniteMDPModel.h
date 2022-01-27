@@ -1144,17 +1144,41 @@ void rootEvaluationcorr(int horizon){
             }
     }
     
-
+    void infiniteMEvaluation(int horizon){
+        vector<pair<int,float>> V;
+        int steps_remaining = horizon;
+        resetValueFunction();
+        V =getStateValuestest(states);
+        calculateValuestestcorrR(steps_remaining, 0, V,true);
+        expected_reward = V[initial_state_num].second;
+        loadValueFunctiontest(V);
+        takeAction2(V[current_state_num].first, steps_remaining);
+        steps_made++;
+        steps_remaining--;
+        if (getValue() > max_memory_used){
+            max_memory_used = getValue();
+        }
+        while(steps_remaining > 0){
+            //resetValueFunction();
+            //V=getStateValuestest(states);
+            //calculateValuestestcorrR(steps_remaining, 0, V,true);
+            //loadValueFunctiontest(V);
+            //takeAction(false, steps_remaining);
+            takeAction2(V[current_state_num].first, steps_remaining);
+            steps_made++;
+            steps_remaining--;
+        }
+    }
 
     void infiniteEvaluationM(int horizon){
         resetValueFunction();
         value_iterationM(horizon);
         max_memory_used = getValue();
         expected_reward = states[initial_state_num].value;
-        for (int time = 0; time < horizon; time++){
+        for (int time = horizon; time > 0; time--){
             takeAction(true, time);
-    }
         }
+    }
 
     void runAlgorithm(model_type alg, int horizon=100){
 
@@ -1169,7 +1193,8 @@ void rootEvaluationcorr(int horizon){
             case infiniteM:
                 cout << "INFINITEM MDP MODEL: " << endl;
                 init_memory_used = getValue();
-                infiniteEvaluationM(horizon);
+                //infiniteEvaluationM(horizon);
+                infiniteMEvaluation(horizon);
 
                 break;
             case naive:

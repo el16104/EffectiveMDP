@@ -186,13 +186,22 @@ public:
         else
             static_reward = (rewards[state_num] / (float)transitions[state_num]);
         
-        
-        if (state_num == transtate[time_step % transtate.size()]){
+        if (state_num == transtate[0]){
+            return reward_factor * static_reward;
+        }
+        else if (state_num == transtate[time_step % transtate.size()]){
+            static_reward + ((1 - reward_factor)* get_reward(transtate[0]) * trans[0]) / (get_transition(state_num));
+        }
+        else{
+            return static_reward;
+        }
+
+        /*if (state_num == transtate[time_step % transtate.size()]){
             return reward_factor * static_reward;
         }
         else{
             return static_reward + ((1 - reward_factor)* get_reward(transtate[time_step % transtate.size()]) * trans[time_step % transtate.size()]) / (((transtate.size() - 1)*1.0) * get_transition(state_num));
-        }
+        }*/
     }
 
     void set_qvalue(float qvaluee){
@@ -591,6 +600,18 @@ class MDPModel{
         qstate.set_qvalue(new_qvalue);
     }
 
+void _q_update2(QState &qstate, vector<float> &V, int time_step){
+        float new_qvalue = 0.0;
+        float r;
+        float t;
+        for (int i=0; i < V.size(); i++){
+            t = qstate.get_transition(i);
+            r = qstate.get_reward(i, time_step);
+            new_qvalue += t * (r + V[i]);
+        }
+        qstate.set_qvalue(new_qvalue);
+    }
+
 
     int value_iteration(float error = -1.0, bool verbose = false, bool useBounds = false ){
         if (error < 0){
@@ -634,18 +655,27 @@ class MDPModel{
         return max;
     }
     void value_iterationM(int horizon){
-        vector<State> V_tmp;
+        //vector<State> V_tmp;
+        vector<float> V_tmp;
         for (int i = 1 ; i < horizon+1; i++ ){
-            V_tmp = states;
+            //V_tmp = states;
+            //V_tmp = getStateValues1(states, V_tmp);
+            getStateOnlyValues(V_tmp);
             for (int j = 0 ; j < states.size(); j++ ){
                 for (int m = 0; m < states[j].get_qstates().size(); m++){
-                    _q_update(states[j].qstates[m], V_tmp, i);
+                    _q_update2(states[j].qstates[m], V_tmp, i);
                 }
                 states[j].update_value();
             }
+            V_tmp.clear();
         }
     }
 
+    void getStateOnlyValues(vector<float> &V){
+        for (int i=0; i < states.size(); i++){
+            V.push_back(states[i].get_value());
+        }
+    }
 
     vector<string> get_parameters(){
         return index_params;

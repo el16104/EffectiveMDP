@@ -71,17 +71,23 @@ int main(int argc, char *argv[])
     if (argc >1) {
         algorithm_type = argv[1];
         if (algorithm_type == "infinite") algo = infinite;
+        else if (algorithm_type == "infinitem") algo = infiniteM;
         else if (algorithm_type == "naive") algo = naive;
         else if (algorithm_type == "root") algo = root;
         else if (algorithm_type == "tree") algo = tree;
         else if (algorithm_type == "inplace") algo = inplace;
     }
-
-    if (argc == 4){
+    float gama = 0.5;
+    /*if (argc == 5){
         std::size_t pos;
         horizon = std::stoi(argv[2], &pos);
         seed = std::stoi(argv[3], &pos);
-    }
+        gama = std::stof(argv[4], &pos);
+    }*/
+    std::size_t pos;
+    horizon = std::stoi(argv[2], &pos);
+    seed = std::stoi(argv[3], &pos);
+    gama = std::stof(argv[4], &pos);
 
 
     int training_steps = 10000;
@@ -135,7 +141,8 @@ int main(int argc, char *argv[])
             }
         }
     }
-
+    model.discount = gama;
+    cout << "model discount " << model.discount << endl; 
     /*for (int i=0;i< model.states.size();i++){
         for (int j=0;j< model.states[i].qstates.size();j++){
             for (int k=0; k < model.states[i].qstates[j].transtate.size(); k++){
