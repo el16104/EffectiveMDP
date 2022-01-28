@@ -190,7 +190,7 @@ public:
             return reward_factor * static_reward;
         }
         else if (state_num == transtate[time_step % transtate.size()]){
-            static_reward + ((1 - reward_factor)* get_reward(transtate[0]) * trans[0]) / (get_transition(state_num));
+           return static_reward + ((1 - reward_factor)* get_reward(transtate[0]) * trans[0]) / (get_transition(state_num));
         }
         else{
             return static_reward;
